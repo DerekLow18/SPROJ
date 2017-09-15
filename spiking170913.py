@@ -26,8 +26,29 @@ spikedetector = nest.Create("spike_detector", params={"withgid": True, "withtime
 nest.Connect(multimeter, neuron)
 nest.Connect(neuron,spikedetector)
 
+#simulate for 1000ms
 nest.Simulate(1000.0)
 
+#gets the status dictionary of node multimeter and indexes it (hence the 0)
 dmm = nest.GetStatus(multimeter)[0]
+#print(dmm)
+
+#dmm's dictionary contains entry events, which in turn has a dictionary that contains
+# V_m and times
 Vms = dmm["events"]["V_m"]
-ts = dmm["eventS"]["times"]
+#print(Vms)
+
+ts = dmm["events"]["times"]
+#print(ts)
+
+#create a plot with label 1
+pylab.figure(1)
+
+pylab.plot(ts, Vms)
+
+dSD = nest.GetStatus(spikedetector, keys="events")[0]
+evs = dSD["senders"]
+ts = dSD["times"]
+pylab.figure(2)
+pylab.plot(ts,evs,".")
+pylab.show()

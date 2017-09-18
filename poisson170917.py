@@ -7,8 +7,22 @@ neuron = nest.Create("iaf_psc_alpha")
 nest.GetStatus(neuron) #get all properties of the created neuron
 nest.GetStatus(neuron,"I_e") #get the constant background current of neuron
 
+#add poisson process
+#ex = excitatory / in = inhibitory
+noise_ex = nest.Create("poisson_generator")
+noise_in = nest.Create("poisson_generator")
+nest.SetStatus(noise_ex, {"rate":80000.0}) #rate in Hz
+nest.SetStatus(noise_in,{"rate":15000.0})
+
 #set the background current to a level that will cause a spike periodically
-nest.SetStatus(neuron, {"I_e": 376.0})
+nest.SetStatus(neuron, {"I_e": 0.0})
+
+#set synaptic weight in pA amplitude, connect to neuron
+syn_dict_ex = {"weight":1.2}
+syn_dict_in = {"weight": -2.0}
+nest.Connect(noise_ex, neuron, syn_spec = syn_dict_ex)
+nest.Connect(noise_in, neuron, syn_spec = syn_dict_in)
+
 
 #create the device used to record the membrane voltage of a neuron over time
 multimeter = nest.Create("multimeter")
@@ -37,7 +51,6 @@ dmm = nest.GetStatus(multimeter)[0]
 # V_m and times
 #Vms = dmm["events"]["V_m"]
 #ts = dmm["events"]["times"]
-
 
 #create a plot with label 1
 pylab.figure(1)

@@ -6,7 +6,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy
 
-
+#DEFINE FUNCTIONS
 def genNetwork(pop):
 	"""take a nest network and generate a networkX graph"""
 	pop_connect_dict = nest.GetConnections(pop)
@@ -34,13 +34,13 @@ def readAndConnect(file):
 				nest.Connect([i],[j])'''
 	return matrix
 
-def connectWithWeights(adjmatrix, pop):
+'''def connectWithWeights(adjmatrix, pop):
 	for i in pop:
 		for j in pop:
-			syn_weight = adjmatrix [i][j]
+			syn_weight = adjmatrix [i-1][j-1]
 			syn_dict = {"weight": syn_weight}
 			nest.Connect([i],[j],syn_spec = syn_dict)
-	return
+	return'''
 
 def makeAdjMatrix(pop):
 	"""take a nest network and generate an adjacency matrix,
@@ -60,50 +60,72 @@ def rasterGenerator(pop):
 	plot = nest.raster_plot.from_device(spikes, hist=True)
 	return plot
 
+######################################################################################
+
+#     #    #####    #####     ######   #
+##   ##   #     #   #    #    #        #
+# # # #   #     #   #     #   #        #
+#  #  #   #     #   #     #   ######   #
+#     #   #     #   #     #   #        #
+#     #   #     #   #    #    #        #
+#     #    #####    #####     ######   ######
+
+######################################################################################
+
 #SET PARAMETERS
+numNeuronsEx = 50
+numNeuronsIn = numpy.floor(numNeuronsEx/3)
+numNeurons = int(numNeuronsEx + numNeuronsIn)
 
 #CREATE NODES
-pop1 = nest.Create("iaf_psc_alpha", 15)
-noise = nest.Create("poisson_generator",len(pop1),{'rate':10000.00})
-sine = nest.Create("ac_generator",1,{"amplitude": 100.0, "frequency" :2.0})
-spikes = nest.Create("spike_detector",len(pop1))
+pop = nest.Create("izhikevich", numNeurons)
+popEx = pop[:numNeuronsEx]
+popIn = pop[numNeuronsEx:]
+noiseEx = nest.Create("poisson_generator",len(popEx),{'rate':300.00})
+noiseIn = nest.Create("poisson_generator", len(popIn),{'rate':100.00})
+#sine = nest.Create("ac_generator",1,{"amplitude": 100.0, "frequency" :2.0})
+spikes = nest.Create("spike_detector", 2)
+spikesEx = spikes[:1]
+spikesIn = spikes[1:]
 
-#nest.SetStatus(pop1, {"I_e": 376.0})
+#nest.SetStatus(pop, {"I_e": 376.0})
 #multimeter to detect membrance potential
 #multimeter = nest.Create("multimeter")
 #nest.SetStatus(multimeter, {"withtime":True, "record_from":["V_m"]})
 
-Ex = 10
+Ex = 2
 d = 1.0
-w = 1.0
+wEx = .01
+wIn = -.05
 
 #SPECIFY CONNECTION DICTIONARIES
 conn_dict = {"rule": "fixed_indegree", "indegree": Ex,
 			"autapses":False,"multapses":False} #connection dictionary
-syn_dict = {"delay": d, "weight": w}
+syn_dict_ex = {"delay": d, "weight": wEx}
+syn_dict_in = {"delay": d, "weight": wIn}
 
 #SPECIFY CONNECTIONS
-nest.Connect(pop1, pop1, conn_dict)
-#weightFile = readAndConnect("./Syn Weights/syn_weights1.csv")
-#connectWithWeights(weightFile, pop1)
-nest.Connect(noise, pop1, syn_spec = syn_dict)
-nest.Connect(sine, [1])
-nest.Connect(pop1, spikes)
+#nest.Connect(pop1, pop1, conn_dict, syn_spec = syn_dict_ex)
+nest.Connect(popEx, pop, conn_dict, syn_spec = syn_dict_ex)
+nest.Connect(popIn, pop, conn_dict, syn_spec = syn_dict_in)
+nest.Connect(noiseEx, popEx)
+nest.Connect(noiseIn, popIn)
+#nest.Connect(sine, [1])
+nest.Connect(popEx, spikesEx)
+nest.Connect(popIn, spikesIn)
 #nest.Connect(multimeter, [1])
 
 #show me the connections
 #print(nest.GetConnections())
 #nest.PrintNetwork()
 #print nest.GetConnections(pop1)
-#print(makeCSVAdjMatrix(pop1))
+#print(makeAdjMatrix(popEx))
 
-nest.Connect(pop1, spikes)
-
-nest.Simulate(1000.0)
+nest.Simulate(300.0)
 
 #pylab.figure(2)
 #genNetwork(pop1)
-plot = nest.raster_plot.from_device(spikes, hist=True)
+plot = nest.raster_plot.from_device(spikesEx, hist=True)
 plt.show()
 
 #print(readAndConnect("./Syn Weights/syn_weights1.csv"))

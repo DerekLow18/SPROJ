@@ -70,12 +70,20 @@ def rasterGenerator(pop):
 #     #   #     #   #    #    #        #
 #     #    #####    #####     ######   ######
 
+#########################################
+'''
+TO DO:
+Control so inhibitory neurons are not connected to inhibitory neurons.
+
+
+
+'''
 ######################################################################################
 
 #SET PARAMETERS
-numNeuronsEx = 50
-numNeuronsIn = numpy.floor(numNeuronsEx/3)
-numNeurons = int(numNeuronsEx + numNeuronsIn)
+numNeurons = 50
+numNeuronsIn = numpy.floor(numNeurons/5)
+numNeuronsEx = int(numNeurons-numNeuronsIn)
 
 #CREATE NODES
 pop = nest.Create("izhikevich", numNeurons)
@@ -93,7 +101,7 @@ spikesIn = spikes[1:]
 #multimeter = nest.Create("multimeter")
 #nest.SetStatus(multimeter, {"withtime":True, "record_from":["V_m"]})
 
-Ex = 2
+Ex = 1
 d = 1.0
 wEx = .01
 wIn = -.05
@@ -121,7 +129,7 @@ nest.Connect(popIn, spikesIn)
 #print nest.GetConnections(pop1)
 #print(makeAdjMatrix(popEx))
 
-nest.Simulate(300.0)
+nest.Simulate(1000.0)
 
 #pylab.figure(2)
 #genNetwork(pop1)

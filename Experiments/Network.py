@@ -22,16 +22,25 @@ def genNetwork(pop):
 	nx.draw(G, with_labels=True)
 	return G
 
-def readAndConnect(file):
+def readAndConnect(file, population):
 	"""Reads from a csv file for storing weights, connects corresponding
 	nest neurons, outputs a numpy matrix"""
 	matrix = numpy.loadtxt(open(file, "rb"), delimiter=",")
-	'''in_pos = 
+	row_pos = 0
+	adjMatrix = []
 	for i in matrix:
-		print i
+		col_pos = 0
 		for j in i:
-			if i[j] == 1:
-				nest.Connect([i],[j])'''
+			if j == 1.0:
+				adjMatrix.append([row_pos,col_pos])
+				nest.Connect([population[row_pos]],[population[col_pos]])
+			col_pos = col_pos + 1		
+		row_pos = row_pos +1
+	'''for i in adjMatrix:
+		print "connection:",population[i[0]], " to ", population[i[1]]
+		firstConnect = int(i[0])
+		secondConnect = int(i[1])
+		nest.Connect([population[firstConnect]], [population[secondConnect]])'''
 	return matrix
 
 '''def connectWithWeights(adjmatrix, pop):
@@ -42,7 +51,7 @@ def readAndConnect(file):
 			nest.Connect([i],[j],syn_spec = syn_dict)
 	return'''
 
-def makeAdjMatrix(pop):
+'''def makeAdjMatrix(pop):
 	"""take a nest network and generate an adjacency matrix,
 	where 1 = connected, 0 = not connected. Reads from a csv file for storing weights"""
 	pop_connect_dict = nest.GetConnections(pop)
@@ -52,7 +61,7 @@ def makeAdjMatrix(pop):
 		src=i[0]
 		dest=i[1]
 		pcdMatrix[src-1][dest-1] = 1
-	return pcdMatrix
+	return pcdMatrix'''
 
 def rasterGenerator(pop):
 	spikes = nest.Create("spike_detector",len(pop))
@@ -73,15 +82,15 @@ def rasterGenerator(pop):
 #########################################
 '''
 TO DO:
-Control so inhibitory neurons are not connected to inhibitory neurons.
-
+-get the model to read from an adj matrix csv
+-write a separate coding segment that will generate a csv with specific network parameters such as small-worldness, average links, etc
 
 
 '''
 ######################################################################################
 
 #SET PARAMETERS
-numNeurons = 50
+numNeurons = 5
 numNeuronsIn = numpy.floor(numNeurons/5)
 numNeuronsEx = int(numNeurons-numNeuronsIn)
 
@@ -113,16 +122,17 @@ syn_dict_ex = {"delay": d, "weight": wEx}
 syn_dict_in = {"delay": d, "weight": wIn}
 
 #SPECIFY CONNECTIONS
-#nest.Connect(pop1, pop1, conn_dict, syn_spec = syn_dict_ex)
-nest.Connect(popEx, pop, conn_dict, syn_spec = syn_dict_ex)
+'''nest.Connect(popEx, pop, conn_dict, syn_spec = syn_dict_ex)
 nest.Connect(popIn, pop, conn_dict, syn_spec = syn_dict_in)
 nest.Connect(noiseEx, popEx)
 nest.Connect(noiseIn, popIn)
-#nest.Connect(sine, [1])
 nest.Connect(popEx, spikesEx)
-nest.Connect(popIn, spikesIn)
-#nest.Connect(multimeter, [1])
+nest.Connect(popIn, spikesIn)'''
 
+#nest.Connect(multimeter, [1])
+#nest.Connect(sine, [1])
+#nest.Connect([pop[1]],[pop[2]])
+print(readAndConnect("./Syn Weights/syn_weights1.csv",pop))
 #show me the connections
 #print(nest.GetConnections())
 #nest.PrintNetwork()
@@ -132,8 +142,7 @@ nest.Connect(popIn, spikesIn)
 nest.Simulate(1000.0)
 
 #pylab.figure(2)
-#genNetwork(pop1)
-plot = nest.raster_plot.from_device(spikesEx, hist=True)
+genNetwork(pop)
+#plot = nest.raster_plot.from_device(spikesEx, hist=True)
 plt.show()
-
-#print(readAndConnect("./Syn Weights/syn_weights1.csv"))
+print(pop)

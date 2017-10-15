@@ -5,9 +5,10 @@ import nest.raster_plot as raster
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy
+import csv
 
 #DEFINE FUNCTIONS
-def genNetwork(pop):
+def drawNetwork(pop):
 	"""take a nest network and generate a networkX graph"""
 	pop_connect_dict = nest.GetConnections(pop)
 	G = nx.DiGraph()
@@ -21,6 +22,19 @@ def genNetwork(pop):
 	G.add_edges_from(netXEdges)
 	nx.draw(G, with_labels=True)
 	return G
+
+def writeToCSV(adjMatrix):
+	#writes the provided adjacency matrix to a CSV for viewing
+	write_file = "~/Documents/SPROJ/Experiments/Syn Weights/syn_trial.csv"
+	with open(write_file, "wb") as file:
+		matrix_writer = csv.writer(file, delimiter=',')
+	return
+
+def createNetwork(popSize):
+	#generates an adj matrix based on parameters of network, and depending on formula
+	#such as small world, clustering, criticality, etc. WIP
+
+	return
 
 def readAndConnect(file, population):
 	"""Reads from a csv file for storing weights, connects corresponding
@@ -50,18 +64,6 @@ def readAndConnect(file, population):
 			syn_dict = {"weight": syn_weight}
 			nest.Connect([i],[j],syn_spec = syn_dict)
 	return'''
-
-'''def makeAdjMatrix(pop):
-	"""take a nest network and generate an adjacency matrix,
-	where 1 = connected, 0 = not connected. Reads from a csv file for storing weights"""
-	pop_connect_dict = nest.GetConnections(pop)
-	numPop = len(pop)
-	pcdMatrix = numpy.zeros((numPop,numPop))
-	for i in pop_connect_dict:
-		src=i[0]
-		dest=i[1]
-		pcdMatrix[src-1][dest-1] = 1
-	return pcdMatrix'''
 
 def rasterGenerator(pop):
 	spikes = nest.Create("spike_detector",len(pop))
@@ -142,7 +144,6 @@ print(readAndConnect("./Syn Weights/syn_weights1.csv",pop))
 nest.Simulate(1000.0)
 
 #pylab.figure(2)
-genNetwork(pop)
+drawNetwork(pop)
 #plot = nest.raster_plot.from_device(spikesEx, hist=True)
 plt.show()
-print(pop)

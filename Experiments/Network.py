@@ -22,18 +22,20 @@ def drawNetwork(pop):
 	G.add_edges_from(netXEdges)
 	nx.draw(G, with_labels=True)
 	return G
-
+'''
 def writeToCSV(adjMatrix):
 	#writes the provided adjacency matrix to a CSV for viewing
 	write_file = "~/Documents/SPROJ/Experiments/Syn Weights/syn_trial.csv"
 	with open(write_file, "wb") as file:
 		matrix_writer = csv.writer(file, delimiter=',')
 	return
+'''
 
 def createNetwork(popSize):
 	#generates an adj matrix based on parameters of network, and depending on formula
 	#such as small world, clustering, criticality, etc. WIP
-
+	adjMatrix = numpy.zeros((popSize, popSize))
+	numpy.savetxt("./Syn Weights/foo.csv", adjMatrix, delimiter=",")
 	return
 
 def readAndConnect(file, population):
@@ -58,26 +60,31 @@ def readAndConnect(file, population):
 	return matrix
 
 def readAndCreate(file):
-	'''Reads from a csv file for storing weights, creates the population indicated'''
+	'''Reads from a csv file for storing weights, creates the population indicated,
+	returns population'''
+	#read a csv file with conections, and rows and columns correspond to individual neurons
 	matrix = numpy.loadtxt(open(file, "rb"), delimiter=",")
+	#Set parameters of the network by reading the length of the matrix (number of arrays)
+	numNeuronsCSV = len(matrix)
+	numNeuronsInCSV = numpy.floor(numNeuronsCSV/5)
+	numNeuronsExCSV = int(numNeuronsCSV-numNeuronsInCSV)
+
+	#Create the neurons for the network
+	pop = nest.Create("izhikevich", numNeuronsCSV)
+	popEx = pop[:numNeuronsExCSV]
+	popIn = pop[numNeuronsExCSV:]
 	row_pos = 0
 	#adjMatrix = []
+	#Connect the neurons
 	for i_neuron_array in matrix:
 		col_pos = 0
 		for j_connection in i_neuron_array:
 			if j_connection == 1.0:
 				#adjMatrix.append([row_pos,col_pos])
-				nest.Connect([population[row_pos]],[population[col_pos]])
+				nest.Connect([pop[row_pos]],[pop[col_pos]])
 			col_pos = col_pos + 1		
 		row_pos = row_pos +1
-	'''for i in adjMatrix:
-		print "connection:",population[i[0]], " to ", population[i[1]]
-		firstConnect = int(i[0])
-		secondConnect = int(i[1])
-		nest.Connect([population[firstConnect]], [population[secondConnect]])'''
-	return matrix
-
-
+	return pop, popEx, popIn
 
 '''def connectWithWeights(adjmatrix, pop):
 	for i in pop:
@@ -112,18 +119,23 @@ TO DO:
 
 '''
 ######################################################################################
-
+'''
 #SET PARAMETERS
 numNeurons = 10
 numNeuronsIn = numpy.floor(numNeurons/5)
 numNeuronsEx = int(numNeurons-numNeuronsIn)
 
-#CREATE NODES
+#Create the neurons for the network
 pop = nest.Create("izhikevich", numNeurons)
 popEx = pop[:numNeuronsEx]
 popIn = pop[numNeuronsEx:]
-noiseEx = nest.Create("poisson_generator",len(popEx),{'rate':300.00})
-noiseIn = nest.Create("poisson_generator", len(popIn),{'rate':100.00})
+'''
+createNetwork(10)
+neuronPop, neuronEx, neuronIn = readAndCreate("./Syn Weights/syn_weights1.csv")
+
+#CREATE NODES
+noiseEx = nest.Create("poisson_generator",len(neuronEx),{'rate':700.00})
+noiseIn = nest.Create("poisson_generator", len(neuronIn),{'rate':100.00})
 #sine = nest.Create("ac_generator",1,{"amplitude": 100.0, "frequency" :2.0})
 spikes = nest.Create("spike_detector", 2)
 spikesEx = spikes[:1]
@@ -148,15 +160,16 @@ syn_dict_in = {"delay": d, "weight": wIn}
 #SPECIFY CONNECTIONS
 '''nest.Connect(popEx, pop, conn_dict, syn_spec = syn_dict_ex)
 nest.Connect(popIn, pop, conn_dict, syn_spec = syn_dict_in)'''
-nest.Connect(noiseEx, popEx)
-nest.Connect(noiseIn, popIn)
-nest.Connect(popEx, spikesEx)
-nest.Connect(popIn, spikesIn)
+nest.Connect(noiseEx, neuronEx)
+nest.Connect(noiseIn, neuronIn)
+nest.Connect(neuronEx, spikesEx)
+nest.Connect(neuronIn, spikesIn)
 
 #nest.Connect(multimeter, [1])
 #nest.Connect(sine, [1])
 #nest.Connect([pop[1]],[pop[2]])
-readAndConnect("./Syn Weights/syn_weights1.csv",pop)
+#readAndConnect("./Syn Weights/syn_weights1.csv",pop)
+
 #show me the connections
 #print(nest.GetConnections())
 #nest.PrintNetwork()
@@ -166,6 +179,6 @@ readAndConnect("./Syn Weights/syn_weights1.csv",pop)
 nest.Simulate(1000.0)
 
 #pylab.figure(2)
-drawNetwork(pop)
+drawNetwork(neuronPop)
 plot = nest.raster_plot.from_device(spikesEx, hist=True)
 plt.show()

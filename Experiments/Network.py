@@ -37,16 +37,16 @@ def createNetwork(popSize):
 	return
 
 def readAndConnect(file, population):
-	"""Reads from a csv file for storing weights, connects corresponding
-	nest neurons, outputs a numpy matrix"""
+	'''Reads from a csv file for storing weights, connects corresponding
+	nest neurons, outputs a numpy matrix'''
 	matrix = numpy.loadtxt(open(file, "rb"), delimiter=",")
 	row_pos = 0
-	adjMatrix = []
-	for i in matrix:
+	#adjMatrix = []
+	for i_neuron_array in matrix:
 		col_pos = 0
-		for j in i:
-			if j == 1.0:
-				adjMatrix.append([row_pos,col_pos])
+		for j_connection in i_neuron_array:
+			if j_connection == 1.0:
+				#adjMatrix.append([row_pos,col_pos])
 				nest.Connect([population[row_pos]],[population[col_pos]])
 			col_pos = col_pos + 1		
 		row_pos = row_pos +1
@@ -56,6 +56,28 @@ def readAndConnect(file, population):
 		secondConnect = int(i[1])
 		nest.Connect([population[firstConnect]], [population[secondConnect]])'''
 	return matrix
+
+def readAndCreate(file):
+	'''Reads from a csv file for storing weights, creates the population indicated'''
+	matrix = numpy.loadtxt(open(file, "rb"), delimiter=",")
+	row_pos = 0
+	#adjMatrix = []
+	for i_neuron_array in matrix:
+		col_pos = 0
+		for j_connection in i_neuron_array:
+			if j_connection == 1.0:
+				#adjMatrix.append([row_pos,col_pos])
+				nest.Connect([population[row_pos]],[population[col_pos]])
+			col_pos = col_pos + 1		
+		row_pos = row_pos +1
+	'''for i in adjMatrix:
+		print "connection:",population[i[0]], " to ", population[i[1]]
+		firstConnect = int(i[0])
+		secondConnect = int(i[1])
+		nest.Connect([population[firstConnect]], [population[secondConnect]])'''
+	return matrix
+
+
 
 '''def connectWithWeights(adjmatrix, pop):
 	for i in pop:
@@ -86,13 +108,13 @@ def rasterGenerator(pop):
 TO DO:
 -get the model to read from an adj matrix csv
 -write a separate coding segment that will generate a csv with specific network parameters such as small-worldness, average links, etc
-
+-downsample
 
 '''
 ######################################################################################
 
 #SET PARAMETERS
-numNeurons = 5
+numNeurons = 10
 numNeuronsIn = numpy.floor(numNeurons/5)
 numNeuronsEx = int(numNeurons-numNeuronsIn)
 
@@ -125,16 +147,16 @@ syn_dict_in = {"delay": d, "weight": wIn}
 
 #SPECIFY CONNECTIONS
 '''nest.Connect(popEx, pop, conn_dict, syn_spec = syn_dict_ex)
-nest.Connect(popIn, pop, conn_dict, syn_spec = syn_dict_in)
+nest.Connect(popIn, pop, conn_dict, syn_spec = syn_dict_in)'''
 nest.Connect(noiseEx, popEx)
 nest.Connect(noiseIn, popIn)
 nest.Connect(popEx, spikesEx)
-nest.Connect(popIn, spikesIn)'''
+nest.Connect(popIn, spikesIn)
 
 #nest.Connect(multimeter, [1])
 #nest.Connect(sine, [1])
 #nest.Connect([pop[1]],[pop[2]])
-print(readAndConnect("./Syn Weights/syn_weights1.csv",pop))
+readAndConnect("./Syn Weights/syn_weights1.csv",pop)
 #show me the connections
 #print(nest.GetConnections())
 #nest.PrintNetwork()
@@ -145,5 +167,5 @@ nest.Simulate(1000.0)
 
 #pylab.figure(2)
 drawNetwork(pop)
-#plot = nest.raster_plot.from_device(spikesEx, hist=True)
+plot = nest.raster_plot.from_device(spikesEx, hist=True)
 plt.show()

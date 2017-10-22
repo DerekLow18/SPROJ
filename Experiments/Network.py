@@ -31,11 +31,11 @@ def writeToCSV(adjMatrix):
 	return
 '''
 
-def createNetwork(popSize):
+def createNetwork(file_name, popSize):
 	#generates an adj matrix based on parameters of network, and depending on formula
 	#such as small world, clustering, criticality, etc. WIP
 	adjMatrix = numpy.zeros((popSize, popSize))
-	numpy.savetxt("./Syn Weights/foo.csv", adjMatrix, delimiter=",")
+	numpy.savetxt("./Syn Weights/"+file_name, adjMatrix, delimiter=",")
 	return
 
 def readAndConnect(file, population):
@@ -130,7 +130,7 @@ pop = nest.Create("izhikevich", numNeurons)
 popEx = pop[:numNeuronsEx]
 popIn = pop[numNeuronsEx:]
 '''
-createNetwork(10)
+createNetwork("foo.csv",10)
 neuronPop, neuronEx, neuronIn = readAndCreate("./Syn Weights/syn_weights1.csv")
 
 #CREATE NODES

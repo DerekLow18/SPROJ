@@ -8,8 +8,10 @@ import numpy
 import csv
 
 #DEFINE FUNCTIONS
+'''
+Take a NEST network as a parameter and generates a networkX graph
+'''
 def drawNetwork(pop):
-	"""take a nest network and generate a networkX graph"""
 	pop_connect_dict = nest.GetConnections(pop)
 	G = nx.DiGraph()
 	for i in pop:
@@ -22,15 +24,15 @@ def drawNetwork(pop):
 	G.add_edges_from(netXEdges)
 	nx.draw(G, with_labels=True)
 	return G
-'''
-def writeToCSV(adjMatrix):
-	#writes the provided adjacency matrix to a CSV for viewing
-	write_file = "~/Documents/SPROJ/Experiments/Syn Weights/syn_trial.csv"
-	with open(write_file, "wb") as file:
-		matrix_writer = csv.writer(file, delimiter=',')
-	return
-'''
 
+'''
+Create a random network (random being defined by the numpy.random.randint function_)
+and write it to a csv. Honestly, easier way to do this is numpy.random.randint(0,high=2,10,10)
+or something like that, as numpy will create a 2d array with those randints.
+
+However, I did it this way as an exploration into how I could manipulate these arrays for
+future purposes, such as implementing other network properties.
+'''
 def createRandomNetwork(file_name, popSize):
 	#generates an adj matrix based on parameters of network, and depending on formula
 	#such as small world, clustering, criticality, etc. WIP
@@ -41,10 +43,11 @@ def createRandomNetwork(file_name, popSize):
 	print adjMatrix
 	numpy.savetxt("./Syn Weights/"+file_name, adjMatrix, delimiter=",")
 	return
-
+'''
+Reads from a csv file for storing weights, connects corresponding
+nest neurons, outputs a numpy matrix
+'''
 def readAndConnect(file, population):
-	'''Reads from a csv file for storing weights, connects corresponding
-	nest neurons, outputs a numpy matrix'''
 	matrix = numpy.loadtxt(open(file, "rb"), delimiter=",")
 	row_pos = 0
 	#adjMatrix = []
@@ -70,6 +73,7 @@ def readAndCreate(file):
 	matrix = numpy.loadtxt(open(file, "rb"), delimiter=",")
 	#Set parameters of the network by reading the length of the matrix (number of arrays)
 	numNeuronsCSV = len(matrix)
+	#the last 5th of neurons are inhibitory, defined here
 	numNeuronsInCSV = numpy.floor(numNeuronsCSV/5)
 	numNeuronsExCSV = int(numNeuronsCSV-numNeuronsInCSV)
 
@@ -93,6 +97,9 @@ def readAndCreate(file):
 		row_pos = row_pos +1
 	return pop, popEx, popIn
 
+'''
+WIP: Weighted adjacency matrix
+'''
 '''def connectWithWeights(adjmatrix, pop):
 	for i in pop:
 		for j in pop:
@@ -101,11 +108,15 @@ def readAndCreate(file):
 			nest.Connect([i],[j],syn_spec = syn_dict)
 	return'''
 
+'''
+WIP: Not really sure if this is necessary anymore, or if it works...
+'''
 def rasterGenerator(pop):
 	spikes = nest.Create("spike_detector",len(pop))
 	nest.Connect(pop, spikes)
 	plot = nest.raster_plot.from_device(spikes, hist=True)
 	return plot
+
 
 ######################################################################################
 
@@ -126,9 +137,11 @@ TO DO:
 
 '''
 ######################################################################################
-'''
+
 #SET PARAMETERS
 numNeurons = 10
+poisson_rate = 4*(numNeurons**3.0)
+'''
 numNeuronsIn = numpy.floor(numNeurons/5)
 numNeuronsEx = int(numNeurons-numNeuronsIn)
 
@@ -137,12 +150,14 @@ pop = nest.Create("izhikevich", numNeurons)
 popEx = pop[:numNeuronsEx]
 popIn = pop[numNeuronsEx:]
 '''
-createRandomNetwork("foo.csv",50)
+
+
+createRandomNetwork("foo.csv",numNeurons)
 neuronPop, neuronEx, neuronIn = readAndCreate("./Syn Weights/foo.csv")
 
 #CREATE NODES
-noiseEx = nest.Create("poisson_generator",1,{'rate':6000.0})
-noiseIn = nest.Create("poisson_generator",1,{'rate':10000.0})
+noise = nest.Create("poisson_generator",1,{'rate':poisson_rate})
+#noiseIn = nest.Create("poisson_generator",1,{'rate':10000.0})
 #sine = nest.Create("ac_generator",1,{"amplitude": 100.0, "frequency" :2.0})
 spikes = nest.Create("spike_detector", 1)
 #spikesEx = spikes[:1]
@@ -165,7 +180,7 @@ syn_dict_ex = {"delay": d, "weight": wEx}
 syn_dict_in = {"delay": d, "weight": wIn}
 
 #SPECIFY CONNECTIONS
-nest.Connect(noiseEx, neuronPop,syn_spec = syn_dict_ex)
+nest.Connect(noise, neuronPop,syn_spec = syn_dict_ex)
 nest.Connect(neuronPop,spikes)
 #nest.Connect(noiseIn, neuronIn, syn_spec = syn_dict_in)
 #nest.Connect(neuronEx, spikesEx)

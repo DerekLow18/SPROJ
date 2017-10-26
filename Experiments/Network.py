@@ -134,7 +134,7 @@ createNetwork("foo.csv",10)
 neuronPop, neuronEx, neuronIn = readAndCreate("./Syn Weights/syn_weights1.csv")
 
 #CREATE NODES
-noiseEx = nest.Create("poisson_generator",len(neuronEx),{'rate':700.00})
+noiseEx = nest.Create("poisson_generator",len(neuronEx),{'rate':1000.00})
 noiseIn = nest.Create("poisson_generator", len(neuronIn),{'rate':100.00})
 #sine = nest.Create("ac_generator",1,{"amplitude": 100.0, "frequency" :2.0})
 spikes = nest.Create("spike_detector", 2)
@@ -178,7 +178,13 @@ nest.Connect(neuronIn, spikesIn)
 
 nest.Simulate(1000.0)
 
-#pylab.figure(2)
+pylab.figure(2)
 drawNetwork(neuronPop)
 plot = nest.raster_plot.from_device(spikesEx, hist=True)
+
+'''
+The exact neuron spikes and corresponding timings can be obtained by viewing the events
+dictionary of GetStatus(spikesEx, "events")
+'''
+print nest.GetStatus(spikesEx, "events")
 plt.show()

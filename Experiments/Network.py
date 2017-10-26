@@ -31,10 +31,14 @@ def writeToCSV(adjMatrix):
 	return
 '''
 
-def createNetwork(file_name, popSize):
+def createRandomNetwork(file_name, popSize):
 	#generates an adj matrix based on parameters of network, and depending on formula
 	#such as small world, clustering, criticality, etc. WIP
 	adjMatrix = numpy.zeros((popSize, popSize))
+	for i_neuron_array in range(len(adjMatrix)):
+		for j_connection_value in range(len(adjMatrix[i_neuron_array])):
+			adjMatrix[i_neuron_array][j_connection_value]= numpy.random.randint(0,high=2)
+	print adjMatrix
 	numpy.savetxt("./Syn Weights/"+file_name, adjMatrix, delimiter=",")
 	return
 
@@ -81,7 +85,10 @@ def readAndCreate(file):
 		for j_connection in i_neuron_array:
 			if j_connection == 1.0:
 				#adjMatrix.append([row_pos,col_pos])
-				nest.Connect([pop[row_pos]],[pop[col_pos]])
+				if row_pos <= numNeuronsInCSV:
+					nest.Connect([pop[row_pos]],[pop[col_pos]],syn_spec = {"weight":-1.0})
+				else:
+					nest.Connect([pop[row_pos]],[pop[col_pos]])
 			col_pos = col_pos + 1		
 		row_pos = row_pos +1
 	return pop, popEx, popIn
@@ -130,16 +137,16 @@ pop = nest.Create("izhikevich", numNeurons)
 popEx = pop[:numNeuronsEx]
 popIn = pop[numNeuronsEx:]
 '''
-createNetwork("foo.csv",10)
-neuronPop, neuronEx, neuronIn = readAndCreate("./Syn Weights/syn_weights1.csv")
+createRandomNetwork("foo.csv",50)
+neuronPop, neuronEx, neuronIn = readAndCreate("./Syn Weights/foo.csv")
 
 #CREATE NODES
-noiseEx = nest.Create("poisson_generator",len(neuronEx),{'rate':1000.00})
-noiseIn = nest.Create("poisson_generator", len(neuronIn),{'rate':100.00})
+noiseEx = nest.Create("poisson_generator",1,{'rate':6000.0})
+noiseIn = nest.Create("poisson_generator",1,{'rate':10000.0})
 #sine = nest.Create("ac_generator",1,{"amplitude": 100.0, "frequency" :2.0})
-spikes = nest.Create("spike_detector", 2)
-spikesEx = spikes[:1]
-spikesIn = spikes[1:]
+spikes = nest.Create("spike_detector", 1)
+#spikesEx = spikes[:1]
+#spikesIn = spikes[1:]
 
 #nest.SetStatus(pop, {"I_e": 376.0})
 #multimeter to detect membrance potential
@@ -148,8 +155,8 @@ spikesIn = spikes[1:]
 
 Ex = 1
 d = 1.0
-wEx = .01
-wIn = -.05
+wEx = 1.0
+wIn = -1.0
 
 #SPECIFY CONNECTION DICTIONARIES
 conn_dict = {"rule": "fixed_indegree", "indegree": Ex,
@@ -158,12 +165,11 @@ syn_dict_ex = {"delay": d, "weight": wEx}
 syn_dict_in = {"delay": d, "weight": wIn}
 
 #SPECIFY CONNECTIONS
-'''nest.Connect(popEx, pop, conn_dict, syn_spec = syn_dict_ex)
-nest.Connect(popIn, pop, conn_dict, syn_spec = syn_dict_in)'''
-nest.Connect(noiseEx, neuronEx)
-nest.Connect(noiseIn, neuronIn)
-nest.Connect(neuronEx, spikesEx)
-nest.Connect(neuronIn, spikesIn)
+nest.Connect(noiseEx, neuronPop,syn_spec = syn_dict_ex)
+nest.Connect(neuronPop,spikes)
+#nest.Connect(noiseIn, neuronIn, syn_spec = syn_dict_in)
+#nest.Connect(neuronEx, spikesEx)
+#nest.Connect(neuronIn, spikesIn)
 
 #nest.Connect(multimeter, [1])
 #nest.Connect(sine, [1])
@@ -178,13 +184,13 @@ nest.Connect(neuronIn, spikesIn)
 
 nest.Simulate(1000.0)
 
-pylab.figure(2)
+#pylab.figure(2)
 drawNetwork(neuronPop)
-plot = nest.raster_plot.from_device(spikesEx, hist=True)
+plot = nest.raster_plot.from_device(spikes, hist=True)
 
 '''
 The exact neuron spikes and corresponding timings can be obtained by viewing the events
 dictionary of GetStatus(spikesEx, "events")
 '''
-print nest.GetStatus(spikesEx, "events")
+print nest.GetStatus(spikes, "events")
 plt.show()

@@ -5,7 +5,6 @@ import nest.raster_plot as raster
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy
-import csv
 
 #DEFINE FUNCTIONS
 '''
@@ -37,12 +36,19 @@ def createRandomNetwork(file_name, popSize):
 	#generates an adj matrix based on parameters of network, and depending on formula
 	#such as small world, clustering, criticality, etc. WIP
 	adjMatrix = numpy.zeros((popSize, popSize))
-	for i_neuron_array in range(len(adjMatrix)):
-		for j_connection_value in range(len(adjMatrix[i_neuron_array])):
-			adjMatrix[i_neuron_array][j_connection_value]= numpy.random.randint(0,high=2)
+	#ensure that there are no self-connections at each neuron
+	for ith_neuron_index in range(len(adjMatrix)):
+		adjMatrix[ith_neuron_index][ith_neuron_index] = 0
+
+	#fill out the adj matrix for all other neurons
+	for ith_neuron_index in range(len(adjMatrix)):
+		for jth_neuron_index in range(len(adjMatrix)):
+			if ith_neuron_index != jth_neuron_index:
+				adjMatrix[ith_neuron_index][jth_neuron_index]= numpy.random.randint(0,high=2)
 	print adjMatrix
 	numpy.savetxt("./Syn Weights/"+file_name, adjMatrix, delimiter=",")
-	return
+	return	
+
 '''
 Reads from a csv file for storing weights, connects corresponding
 nest neurons, outputs a numpy matrix
@@ -73,12 +79,12 @@ def readAndCreate(file):
 	matrix = numpy.loadtxt(open(file, "rb"), delimiter=",")
 	#Set parameters of the network by reading the length of the matrix (number of arrays)
 	numNeuronsCSV = len(matrix)
-	#the last 5th of neurons are inhibitory, defined here
 	numNeuronsInCSV = numpy.floor(numNeuronsCSV/5)
 	numNeuronsExCSV = int(numNeuronsCSV-numNeuronsInCSV)
 
 	#Create the neurons for the network
 	pop = nest.Create("izhikevich", numNeuronsCSV)
+	#the first 1/5 neurons are inhibitory, the rest are excitatory
 	popEx = pop[:numNeuronsExCSV]
 	popIn = pop[numNeuronsExCSV:]
 	row_pos = 0
@@ -89,10 +95,13 @@ def readAndCreate(file):
 		for j_connection in i_neuron_array:
 			if j_connection == 1.0:
 				#adjMatrix.append([row_pos,col_pos])
+				#nest.Connect([pop[row_pos]],[pop[col_pos]])
+				
 				if row_pos <= numNeuronsInCSV:
+					print "inhib connected"
 					nest.Connect([pop[row_pos]],[pop[col_pos]],syn_spec = {"weight":-1.0})
 				else:
-					nest.Connect([pop[row_pos]],[pop[col_pos]])
+					nest.Connect([pop[row_pos]],[pop[col_pos]],syn_spec={"weight":1.0})
 			col_pos = col_pos + 1		
 		row_pos = row_pos +1
 	return pop, popEx, popIn
@@ -131,16 +140,14 @@ def rasterGenerator(pop):
 #########################################
 '''
 TO DO:
--get the model to read from an adj matrix csv
 -write a separate coding segment that will generate a csv with specific network parameters such as small-worldness, average links, etc
 -downsample
-
 '''
 ######################################################################################
 
 #SET PARAMETERS
-numNeurons = 10
-poisson_rate = 4*(numNeurons**3.0)
+numNeurons = 5
+poisson_rate = 3000.0
 '''
 numNeuronsIn = numpy.floor(numNeurons/5)
 numNeuronsEx = int(numNeurons-numNeuronsIn)
@@ -162,11 +169,6 @@ noise = nest.Create("poisson_generator",1,{'rate':poisson_rate})
 spikes = nest.Create("spike_detector", 1)
 #spikesEx = spikes[:1]
 #spikesIn = spikes[1:]
-
-#nest.SetStatus(pop, {"I_e": 376.0})
-#multimeter to detect membrance potential
-#multimeter = nest.Create("multimeter")
-#nest.SetStatus(multimeter, {"withtime":True, "record_from":["V_m"]})
 
 Ex = 1
 d = 1.0
@@ -190,12 +192,6 @@ nest.Connect(neuronPop,spikes)
 #nest.Connect(sine, [1])
 #nest.Connect([pop[1]],[pop[2]])
 #readAndConnect("./Syn Weights/syn_weights1.csv",pop)
-
-#show me the connections
-#print(nest.GetConnections())
-#nest.PrintNetwork()
-#print nest.GetConnections(pop1)
-#print(makeAdjMatrix(popEx))
 
 nest.Simulate(1000.0)
 

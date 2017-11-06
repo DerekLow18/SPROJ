@@ -6,6 +6,20 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy
 
+#SET PARAMETERS
+numNeurons = 5
+poisson_rate = 3000.0
+nest.CopyModel("stdp_synapse", "new_stdp", {"Wmax":1.0})
+'''
+numNeuronsIn = numpy.floor(numNeurons/5)
+numNeuronsEx = int(numNeurons-numNeuronsIn)
+
+#Create the neurons for the network
+pop = nest.Create("izhikevich", numNeurons)
+popEx = pop[:numNeuronsEx]
+popIn = pop[numNeuronsEx:]
+'''
+
 #DEFINE FUNCTIONS
 '''
 Take a NEST network as a parameter and generates a networkX graph
@@ -44,7 +58,8 @@ def createRandomNetwork(file_name, popSize):
 	for ith_neuron_index in range(len(adjMatrix)):
 		for jth_neuron_index in range(len(adjMatrix)):
 			if ith_neuron_index != jth_neuron_index:
-				adjMatrix[ith_neuron_index][jth_neuron_index]= numpy.random.randint(0,high=2)
+				adjMatrix[ith_neuron_index][jth_neuron_index]= numpy.random.ranf()
+				#adjMatrix[ith_neuron_index][jth_neuron_index]=0.01
 	print adjMatrix
 	numpy.savetxt("./Syn Weights/"+file_name, adjMatrix, delimiter=",")
 	return	
@@ -93,18 +108,23 @@ def readAndCreate(file):
 	for i_neuron_array in matrix:
 		col_pos = 0
 		for j_connection in i_neuron_array:
-			if j_connection == 1.0:
+			if j_connection > 0.0:
 				#adjMatrix.append([row_pos,col_pos])
 				#nest.Connect([pop[row_pos]],[pop[col_pos]])
 				
 				if row_pos <= numNeuronsInCSV:
-					print "inhib connected"
-					nest.Connect([pop[row_pos]],[pop[col_pos]],syn_spec = {"model":"stdp_synapse","weight":-1.0})
+					#print "inhib connected"
+					nest.Connect([pop[row_pos]],[pop[col_pos]],syn_spec = {"model":"new_stdp","weight":-(j_connection)})
 				else:
-					nest.Connect([pop[row_pos]],[pop[col_pos]],syn_spec={"model":"stdp_synapse","weight":1.0})
+					nest.Connect([pop[row_pos]],[pop[col_pos]],syn_spec={"model":"new_stdp","weight":j_connection})
 			col_pos = col_pos + 1		
 		row_pos = row_pos +1
 	return pop, popEx, popIn
+
+def outputWeightMatrix(pop):
+	nest.GetConnections(pop,pop,"new_stdp")
+
+	return
 
 '''
 WIP: Weighted adjacency matrix
@@ -144,20 +164,6 @@ TO DO:
 -downsample
 '''
 ######################################################################################
-
-#SET PARAMETERS
-numNeurons = 5
-poisson_rate = 3000.0
-'''
-numNeuronsIn = numpy.floor(numNeurons/5)
-numNeuronsEx = int(numNeurons-numNeuronsIn)
-
-#Create the neurons for the network
-pop = nest.Create("izhikevich", numNeurons)
-popEx = pop[:numNeuronsEx]
-popIn = pop[numNeuronsEx:]
-'''
-
 
 createRandomNetwork("foo.csv",numNeurons)
 neuronPop, neuronEx, neuronIn = readAndCreate("./Syn Weights/foo.csv")
@@ -203,5 +209,11 @@ plot = nest.raster_plot.from_device(spikes, hist=True)
 The exact neuron spikes and corresponding timings can be obtained by viewing the events
 dictionary of GetStatus(spikesEx, "events")
 '''
+
+conn = nest.GetConnections(neuronPop,neuronPop,"new_stdp")
+connStatus = nest.GetStatus(conn)
+connWeight = nest.GetStatus(conn, "weight")
+
 print nest.GetStatus(spikes, "events")
+print connStatus
 plt.show()

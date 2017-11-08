@@ -122,8 +122,8 @@ def readAndCreate(file):
 	return pop, popEx, popIn
 
 def outputWeightMatrix(pop):
-	nest.GetConnections(pop,pop,"new_stdp")
-
+	connects = nest.GetConnections(pop,pop,"new_stdp")
+	connInfo = nest.GetStatus(connects)
 	return
 
 '''

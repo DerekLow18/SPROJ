@@ -12,16 +12,18 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy
 import copy
+import sys
 
 class pageRankOnWeights(object):
 
-	def __init__(self, csv):
+	def __init__(self, csv = "randomWeights.csv"):
 		self.connections = numpy.loadtxt(open(csv, "rb"), delimiter=",")
-		self.maxIterations = 50
+		self.maxIterations = 1000
 		#Store the transpose of the neuron, which will be helpful in calculating the weight
 		self.incomingWeight = (copy.deepcopy(self.connections)).transpose()
 		self.rankDict = {}
-		self.dampingFactor = 0.85
+		self.dampingFactor = 0.2
+		#self.normFactor = 2.2
 		self.initializeRankDict()
 
 	def initializeRankDict(self):
@@ -93,15 +95,21 @@ class pageRankOnWeights(object):
 					else:
 						#runningSum += priorRankDict[source]['pageRank']/float(self.rankDict[source]['num_outgoing_connections'])
 						print "prior page rank is " + str(priorRankDict[source]['pageRank'])
+						#changing the denominator of each summation factor kind of changes the results?
 						runningSum += (self.rankDict[source]['pageRank']*self.incomingWeight[neuron][source])/float(self.rankDict[source]['num_outgoing_connections'])
 				print "running sum is " + str(runningSum)
-				self.rankDict[neuron]['pageRank'] = (1-self.dampingFactor) + self.dampingFactor*runningSum
-				#print self.rankDict
+				#this is the standard method, with damping factor
+				self.rankDict[neuron]['pageRank'] = (1-self.dampingFactor)/float(len(self.connections)) + self.dampingFactor*runningSum
+				#lets do this in a normalization factor way:
+				#self.rankDict[neuron]['pageRank'] = self.normFactor*runningSum
+
+				
 			numIterations += 1
 			#check for convergence, or if maxIterations have been reached
 			if priorRankDict == self.rankDict or numIterations == self.maxIterations:
 				notConverged = False
-		print "Convergence took %s iterations." %numIterations
+		print "Convergence took %s iterations. The pageRanks are:" %numIterations
+		print self.rankDict
 		return
 
 	def updateWeights(self):
@@ -111,15 +119,30 @@ class pageRankOnWeights(object):
 		newConnections = copy.deepcopy(self.connections)
 		for sourceIndex in range(len(self.connections)):
 			for targetIndex in range(len(self.connections)):
-				self.connections[sourceIndex][targetIndex] *= self.rankDict[sourceIndex]['pageRank']
+				newConnections[sourceIndex][targetIndex] *= self.rankDict[sourceIndex]['pageRank']
 		print self.connections
-		print ('The new connection matrix is:')
+		print ('The pageRank-updated connection matrix is:')
 		print newConnections
 		return newConnections
 
 	def pruneNetwork(self):
-
-		return
+		'''
+		Take the updated weight matrix and use the new weight values to prune connections based on the weights
+		Higher weights stay, lower weights go
+		'''
+		connectionMatrix = self.updateWeights()
+		inverseMatrix = copy.deepcopy(connectionMatrix).transpose()
+		outputMatrix = numpy.zeros((len(connectionMatrix), len(connectionMatrix)))
+		for sourceIndex in range(len(connectionMatrix)):
+			for targetIndex in range(len(connectionMatrix)):
+				if connectionMatrix[sourceIndex][targetIndex] >= connectionMatrix[targetIndex][sourceIndex]:
+					outputMatrix[sourceIndex][targetIndex] = 1
+					outputMatrix[targetIndex][sourceIndex] = 0
+				elif connectionMatrix[sourceIndex][targetIndex] < connectionMatrix[targetIndex][sourceIndex]:
+					outputMatrix[sourceIndex][targetIndex] = 0
+					outputMatrix[targetIndex][sourceIndex] = 1
+		print outputMatrix
+		return outputMatrix
 
 	def printStuff(self):
 		'''
@@ -153,18 +176,19 @@ def createRandomNetwork(file_name, popSize):
 		for jth_neuron_index in range(len(adjMatrix)):
 			if ith_neuron_index != jth_neuron_index:
 				adjMatrix[ith_neuron_index][jth_neuron_index]= numpy.random.ranf()
-				#if adjMatrix[ith_neuron_index][jth_neuron_index] <= weightThreshold:
-					#adjMatrix[ith_neuron_index][jth_neuron_index] = 0
 	numpy.savetxt(file_name, adjMatrix, delimiter=",")
 	return	
 
 
 def main():
-	createRandomNetwork("initPRWeights.csv",5)
-	pageRanks = pageRankOnWeights("initPRWeights.csv")
+	if len(sys.argv) == 2:
+		pageRanks = pageRankOnWeights(sys.argv[1])
+	if len(sys.argv) != 2:
+		print("If you don't enter as: %s weight CSV, random weight csv will be generated." % sys.argv[0])
+		pageRanks = pageRankOnWeights()
+
 	pageRanks.assignPageRank()
-	pageRanks.updateWeights()
-	pageRanks.printStuff()
+	pageRanks.pruneNetwork()
 
 if __name__ =="__main__":
 	main()

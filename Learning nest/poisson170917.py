@@ -4,6 +4,7 @@ import pylab
 #create a neuron called "neuron"
 #type integrate-and-fire alpha-shaped post synaptic currents
 neuron = nest.Create("iaf_psc_alpha")
+neuron2 = nest.Create("iaf_psc_alpha")
 nest.GetStatus(neuron) #get all properties of the created neuron
 nest.GetStatus(neuron,"I_e") #get the constant background current of neuron
 
@@ -21,7 +22,7 @@ nest.SetStatus(neuron, {"I_e": 0.0})
 syn_dict_ex = {"weight":1.2}
 syn_dict_in = {"weight": -2.0}
 nest.Connect(noise_ex, neuron, syn_spec = syn_dict_ex)
-nest.Connect(noise_in, neuron, syn_spec = syn_dict_in)
+#nest.Connect(noise_in, neuron, syn_spec = syn_dict_in)
 
 
 #create the device used to record the membrane voltage of a neuron over time
@@ -39,6 +40,13 @@ spikedetector = nest.Create("spike_detector", params={"withgid": True, "withtime
 #multimeter message transmits to neuron to request membrane potential info
 nest.Connect(multimeter, neuron)
 nest.Connect(neuron,spikedetector)
+
+#create a second neuron with a different background current
+nest.SetStatus(neuron2, {"I_e": 370.0})
+nest.Connect(multimeter, neuron2)
+nest.Connect(neuron2, spikedetector)
+syn_neuron_ex = {"weight":100}
+nest.Connect(neuron, neuron2, syn_spec = syn_neuron_ex)
 
 #simulate for 1000ms
 nest.Simulate(1000.0)
@@ -62,10 +70,6 @@ ts = dSD["times"]
 pylab.plot(ts,evs,".")
 
 #create a second neuron with a different background current
-neuron2 = nest.Create("iaf_psc_alpha")
-nest.SetStatus(neuron2, {"I_e": 370.0})
-
-nest.Connect(multimeter, neuron2)
 pylab.figure(2)
 Vms1 = dmm["events"]["V_m"][::2]#start at index 0: till the end: every second entry
 ts1 = dmm["events"]["times"][::2]

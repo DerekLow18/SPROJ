@@ -6,9 +6,7 @@ It will iterate and make updates to the pageRanks until the values converge (i.e
 a certain margin of the page rank from the previous iteration)
 
 '''
-import nest
 import pylab
-import networkx as nx
 import matplotlib.pyplot as plt
 import numpy
 import copy
@@ -16,13 +14,13 @@ import sys
 
 class pageRankOnWeights(object):
 
-	def __init__(self, csv = "randomWeights.csv"):
+	def __init__(self, csv = "./Syn Weights/randomWeights.csv"):
 		self.connections = numpy.loadtxt(open(csv, "rb"), delimiter=",")
 		self.maxIterations = 1000
 		#Store the transpose of the neuron, which will be helpful in calculating the weight
 		self.incomingWeight = (copy.deepcopy(self.connections)).transpose()
 		self.rankDict = {}
-		self.dampingFactor = 0.2
+		self.dampingFactor = 0.8
 		#self.normFactor = 2.2
 		self.initializeRankDict()
 
@@ -141,7 +139,9 @@ class pageRankOnWeights(object):
 				elif connectionMatrix[sourceIndex][targetIndex] < connectionMatrix[targetIndex][sourceIndex]:
 					outputMatrix[sourceIndex][targetIndex] = 0
 					outputMatrix[targetIndex][sourceIndex] = 1
+
 		print outputMatrix
+		numpy.savetxt('./Syn Weights/pageRankAdjConn.csv', outputMatrix, delimiter=",")
 		return outputMatrix
 
 	def printStuff(self):
@@ -185,6 +185,7 @@ def main():
 		pageRanks = pageRankOnWeights(sys.argv[1])
 	if len(sys.argv) != 2:
 		print("If you don't enter as: %s weight CSV, random weight csv will be generated." % sys.argv[0])
+		createRandomNetwork("./Syn Weights/randomWeights.csv",10)
 		pageRanks = pageRankOnWeights()
 
 	pageRanks.assignPageRank()

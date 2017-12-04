@@ -1,16 +1,20 @@
-import nest
 import pylab
-import nest.topology as topp
-import nest.raster_plot as raster
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy
 import time
+import nest.raster_plot as raster
+import nest.topology as topp
+import nest
+import sys
 
 #DEFINE FUNCTIONS
 '''
 Take a NEST network as a parameter and generates a networkX graph
 '''
+#suppress terminal print updates from nest functions
+nest.set_verbosity("M_WARNING")
+
 def drawNetwork(pop):
 	pop_connect_dict = nest.GetConnections(pop)
 	G = nx.DiGraph()
@@ -85,7 +89,7 @@ def readAndCreate(file):
 	for row_pos in range(len(matrix)):
 		for col_pos in range(len(matrix[row_pos])):
 			if matrix[row_pos][col_pos] == 1.0:
-				nest.Connect([pop[row_pos]],[pop[col_pos]],syn_spec = {"model":"stdp_synapse","weight":(-20.0 if numpy.random.random() <= ratio else 20.0)})
+				nest.Connect([pop[row_pos]],[pop[col_pos]],syn_spec = {"model":"stdp_synapse","weight":(-10.0 if numpy.random.random() <= ratio else 10.0)})
 	#Set parameters of the network by reading the length of the matrix (number of arrays)
 	'''numNeuronsCSV = len(matrix)
 	numNeuronsInCSV = numpy.floor(numNeuronsCSV/5)
@@ -115,16 +119,14 @@ def readAndCreate(file):
 		row_pos = row_pos +1'''
 	return pop, matrix
 
-'''
-WIP: Weighted adjacency matrix
-'''
-'''def connectWithWeights(adjmatrix, pop):
-	for i in pop:
-		for j in pop:
-			syn_weight = adjmatrix [i-1][j-1]
-			syn_dict = {"weight": syn_weight}
-			nest.Connect([i],[j],syn_spec = syn_dict)
-	return'''
+def spikeTimeMatrix(spikes, numNeurons, timesteps):
+	# takes saved matrix where first row is spiking neuron
+	# and second row is time of spike
+	# note: loses precision
+	output = numpy.matrix(numpy.zeros((numNeurons, timesteps)))
+	for i in range(len(spikes[0])):
+		output[int(spikes[0][i]-1), int(round(spikes[1][i]))] = 1
+	return output
 
 ######################################################################################
 
@@ -143,29 +145,16 @@ TO DO:
 -downsample
 '''
 ######################################################################################
-def main():
-
+def main(num):
+	nest.ResetKernel()
 	msd = int(time.time())
 	N_vp = nest.GetKernelStatus(['total_num_virtual_procs'])[0]
-
 	nest.SetKernelStatus({'rng_seeds': range(msd+N_vp+1,msd+2*N_vp+1)})
 
 	#SET PARAMETERS
 	numNeurons = 50
 	cE = float((.8*numNeurons)/10)
-	poisson_rate = 1.0 #1000.0*((2.0*30.0)/(0.1*20.0*cE))*cE
-	'''
-	numNeuronsIn = numpy.floor(numNeurons/5)
-	numNeuronsEx = int(numNeurons-numNeuronsIn)
-
-	#Create the neurons for the network
-	pop = nest.Create("izhikevich", numNeurons)
-	popEx = pop[:numNeuronsEx]
-	popIn = pop[numNeuronsEx:]
-	'''
-
-
-	#createRandomNetwork("foo.csv",numNeurons)
+	poisson_rate = 20.0 #1000.0*((2.0*30.0)/(0.1*20.0*cE))*cE
 	neuronPop, popMatrix = readAndCreate("./Syn Weights/groundTruth.csv")
 
 	#CREATE NODES
@@ -178,7 +167,7 @@ def main():
 
 	Ex = 1
 	d = 1.0
-	wEx = 50.0
+	wEx = 20.0
 	wIn = -1.0
 
 	#SPECIFY CONNECTION DICTIONARIES
@@ -190,27 +179,23 @@ def main():
 	#SPECIFY CONNECTIONS
 	nest.Connect(noise, neuronPop,syn_spec = syn_dict_ex)
 	nest.Connect(neuronPop,spikes)
-	#nest.Connect(noiseIn, neuronIn, syn_spec = syn_dict_in)
-	#nest.Connect(neuronEx, spikesEx)
-	#nest.Connect(neuronIn, spikesIn)
 
-	#nest.Connect(multimeter, [1])
-	#nest.Connect(sine, [1])
-	#nest.Connect([pop[1]],[pop[2]])
 	#readAndConnect("./Syn Weights/syn_weights1.csv",pop)
+	simTime = 1000.0
+	nest.Simulate(simTime)
+	n = nest.GetStatus(spikes, "events")[0]
+	temp = numpy.array([n['senders'], n['times']])
+	fullMatrix = spikeTimeMatrix(temp, len(neuronPop), int(simTime))
+	numpy.savetxt("./Spike Results/idTimes"+str(num)+".csv",fullMatrix,delimiter=',')
 
-	nest.Simulate(1000.0)
-
-	#pylab.figure(2)
-	#drawNetwork(neuronPop)
-	plot = nest.raster_plot.from_device(spikes, hist=True)
-
-	'''
-	The exact neuron spikes and corresponding timings can be obtained by viewing the events
-	dictionary of GetStatus(spikesEx, "events")
-	'''
-	print nest.GetStatus(spikes, "events")
-	print nest.GetStatus(nest.GetConnections(neuronPop, synapse_model = 'stdp_synapse'))
-	plt.show()
 if __name__=="__main__":
-	main()
+	if len(sys.argv) < 2:
+		print("Incorrect number of arguments. Please state number of iterations")
+		exit()
+
+	numGraphs = int(sys.argv[1])
+	initIdx = 0
+	for i in range(initIdx, initIdx + numGraphs-1):
+		sys.stdout.write("\r" +"Simulation number: " + str(i))
+		sys.stdout.flush()
+		main(i)

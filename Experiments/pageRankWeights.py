@@ -190,6 +190,10 @@ def main():
 
 	pageRanks.assignPageRank()
 	pageRanks.pruneNetwork()
+	for i in range(2):
+		pageRanks1 = pageRankOnWeights('./Syn Weights/pageRankAdjConn.csv')
+		pageRanks1.assignPageRank()
+		pageRanks1.pruneNetwork()
 
 if __name__ =="__main__":
 	main()

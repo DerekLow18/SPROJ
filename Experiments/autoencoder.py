@@ -1,54 +1,54 @@
-""" Recurrent Neural Network.
-
-A Recurrent Neural Network (LSTM) implementation example using TensorFlow library.
-This example is using the MNIST database of handwritten digits (http://yann.lecun.com/exdb/mnist/)
-
-Links:
-    [Long Short Term Memory](http://deeplearning.cs.cmu.edu/pdfs/Hochreiter97_lstm.pdf)
-    [MNIST Dataset](http://yann.lecun.com/exdb/mnist/).
-
-Author: Aymeric Damien
-Project: https://github.com/aymericdamien/TensorFlow-Examples/
-"""
-
 from __future__ import print_function
 
 import tensorflow as tf
+import numpy as np
 from tensorflow.contrib import rnn
 
-# Import MNIST data
-from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+#First step here should be to take the time series data, and convert it to two arrays as input for training, the array for time step t and t+1.
 
-'''
-To classify images using a recurrent neural network, we consider every image
-row as a sequence of pixels. Because MNIST image shape is 28*28px, we will then
-handle 28 sequences of 28 steps for every sample.
-'''
+class sortData():
 
-# Training Parameters
-learning_rate = 0.001
-training_steps = 10000
-batch_size = 128
-display_step = 200
+	def __init__(self,minIdx = 1,maxIdx = 100):
+		self.inputs = []
+		self.outputs = []
+		itrIdx = minIdx
+		while itrIdx < maxIdx:
+			temp = np.loadtxt("./Spike Results/1idTimes.csv", delimiter = ',' ).transpose()
+			for i in range(len(temp)-1):
+				self.inputs.append(temp[i])
+				self.outputs.append(temp[i+1])
+				itrIdx +=1
+		self.batchID = 0
+		popLen = len(temp)
+
+	def next(self,batchSize):
+		if self.batchId == len(self.data):
+			self.batchId = 0
+		batchData = self.data[self.batchId:min(self.batchId + batchSize, len(self.data))]
+		batchLabels = self.labels[self.batchId:min(self.batchId + batchSize, len(self.data))]
+		self.batchId = min(self.batchId + batchSize, len(self.data))
+		return batchData, batchLabels
 
 # Network Parameters
-num_input = 28 # MNIST data input (img shape: 28*28)
-timesteps = 28 # timesteps
-num_hidden = 128 # hidden layer num of features
-num_classes = 10 # MNIST total classes (0-9 digits)
+batchSize = 6
+numOutput = 1
+numInput = 1
+numHidden = 1
+learningRate = .01
+trainingSteps = 100
+popLen = 10
+epochLen = 20
+
+training = sortData(1,75)
+testing = sortData(75,100)
 
 # tf Graph input
-X = tf.placeholder("float", [None, timesteps, num_input])
-Y = tf.placeholder("float", [None, num_classes])
+X = tf.placeholder("float", [None, popLen, numInput])
+Y = tf.placeholder("float", [None, popLen, numOutput])
 
 # Define weights
-weights = {
-    'out': tf.Variable(tf.random_normal([num_hidden, num_classes]))
-}
-biases = {
-    'out': tf.Variable(tf.random_normal([num_classes]))
-}
+weights = {'out': tf.Variable(tf.random_normal([numHidden, numClasses]))}
+biases = {'out': tf.Variable(tf.random_normal([numClasses]))}
 
 
 def RNN(x, weights, biases):
@@ -61,7 +61,7 @@ def RNN(x, weights, biases):
     x = tf.unstack(x, timesteps, 1)
 
     # Define a lstm cell with tensorflow
-    lstm_cell = rnn.BasicLSTMCell(num_hidden, forget_bias=1.0)
+    lstm_cell = rnn.BasicLSTMCell(numHidden, forget_bias=1.0)
 
     # Get lstm cell output
     outputs, states = rnn.static_rnn(lstm_cell, x, dtype=tf.float32)
@@ -73,8 +73,7 @@ logits = RNN(X, weights, biases)
 prediction = tf.nn.softmax(logits)
 
 # Define loss and optimizer
-loss_op = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(
-    logits=logits, labels=Y))
+loss_op = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=Y))
 optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)
 train_op = optimizer.minimize(loss_op)
 
@@ -92,24 +91,20 @@ with tf.Session() as sess:
     sess.run(init)
 
     for step in range(1, training_steps+1):
-        batch_x, batch_y = mnist.train.next_batch(batch_size)
-        # Reshape data to get 28 seq of 28 elements
-        batch_x = batch_x.reshape((batch_size, timesteps, num_input))
+        batch_x, batch_y = training.next(batch_size)
         # Run optimization op (backprop)
         sess.run(train_op, feed_dict={X: batch_x, Y: batch_y})
         if step % display_step == 0 or step == 1:
             # Calculate batch loss and accuracy
-            loss, acc = sess.run([loss_op, accuracy], feed_dict={X: batch_x,
-                                                                 Y: batch_y})
+            loss, acc = sess.run([loss_op, accuracy], feed_dict={X: batch_x,Y: batch_y})
             print("Step " + str(step) + ", Minibatch Loss= " + \
                   "{:.4f}".format(loss) + ", Training Accuracy= " + \
                   "{:.3f}".format(acc))
 
     print("Optimization Finished!")
 
-    # Calculate accuracy for 128 mnist test images
     test_len = 128
-    test_data = mnist.test.images[:test_len].reshape((-1, timesteps, num_input))
-    test_label = mnist.test.labels[:test_len]
+    test_data = testing.data
+    test_label = testing.labels
     print("Testing Accuracy:", \
         sess.run(accuracy, feed_dict={X: test_data, Y: test_label}))

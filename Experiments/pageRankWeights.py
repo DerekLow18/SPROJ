@@ -11,18 +11,24 @@ import matplotlib.pyplot as plt
 import numpy
 import copy
 import sys
+import argparse
+import networkx as nx
 
 class pageRankOnWeights(object):
 
-	def __init__(self, csv = "./Syn Weights/randomWeights.csv"):
+	#def __init__(self, csv = "./Syn Weights/randomWeights1.csv"):
+	def __init__(self,csv):
 		self.connections = numpy.loadtxt(open(csv, "rb"), delimiter=",")
+		self.prunedConnections = []
 		self.maxIterations = 1000
 		#Store the transpose of the neuron, which will be helpful in calculating the weight
 		self.incomingWeight = (copy.deepcopy(self.connections)).transpose()
 		self.rankDict = {}
 		self.dampingFactor = 0.8
 		#self.normFactor = 2.2
+		self.finalMatrix = []
 		self.initializeRankDict()
+		self.pruneOriginal()
 
 	def initializeRankDict(self):
 		'''
@@ -52,7 +58,19 @@ class pageRankOnWeights(object):
 		#TODO: this second implemntation will initalize page rank based on some arbitrary value, perhaps determined by initial weights
 		return
 
-
+	def pruneOriginal(self):
+		connectionMatrix = self.connections
+		outputMatrix = numpy.zeros((len(connectionMatrix), len(connectionMatrix)))
+		for sourceIndex in range(len(connectionMatrix)):
+			for targetIndex in range(len(connectionMatrix)):
+				if connectionMatrix[sourceIndex][targetIndex] >= connectionMatrix[targetIndex][sourceIndex]:
+					outputMatrix[sourceIndex][targetIndex] = 1
+					outputMatrix[targetIndex][sourceIndex] = 0
+				elif connectionMatrix[sourceIndex][targetIndex] < connectionMatrix[targetIndex][sourceIndex]:
+					outputMatrix[sourceIndex][targetIndex] = 0
+					outputMatrix[targetIndex][sourceIndex] = 1
+		self.prunedConnections = outputMatrix
+		return
 
 	def assignPageRank(self):
 		'''
@@ -92,12 +110,12 @@ class pageRankOnWeights(object):
 						runningSum += 0
 					else:
 						#runningSum += priorRankDict[source]['pageRank']/float(self.rankDict[source]['num_outgoing_connections'])
-						print "prior page rank is " + str(priorRankDict[source]['pageRank'])
+						#print "prior page rank is " + str(priorRankDict[source]['pageRank'])
 						#changing the denominator of each summation factor kind of changes the results?
-						runningSum += (self.rankDict[source]['pageRank']*self.incomingWeight[neuron][source])/float(self.rankDict[source]['num_outgoing_connections'])
-				print "running sum is " + str(runningSum)
+						runningSum += (self.rankDict[source]['pageRank']*self.incomingWeight[neuron][source])/float(numpy.sum(self.connections[source]))
+				#print "running sum is " + str(runningSum)
 				#this is the standard method, with damping factor
-				self.rankDict[neuron]['pageRank'] = (1-self.dampingFactor)/float(len(self.connections)) + self.dampingFactor*runningSum
+				self.rankDict[neuron]['pageRank'] = (1-self.dampingFactor) + self.dampingFactor*runningSum
 				#lets do this in a normalization factor way:
 				#self.rankDict[neuron]['pageRank'] = self.normFactor*runningSum
 
@@ -129,7 +147,6 @@ class pageRankOnWeights(object):
 		Higher weights stay, lower weights go
 		'''
 		connectionMatrix = self.updateWeights()
-		inverseMatrix = copy.deepcopy(connectionMatrix).transpose()
 		outputMatrix = numpy.zeros((len(connectionMatrix), len(connectionMatrix)))
 		for sourceIndex in range(len(connectionMatrix)):
 			for targetIndex in range(len(connectionMatrix)):
@@ -140,7 +157,7 @@ class pageRankOnWeights(object):
 					outputMatrix[sourceIndex][targetIndex] = 0
 					outputMatrix[targetIndex][sourceIndex] = 1
 
-		print outputMatrix
+		self.finalMatrix = outputMatrix
 		numpy.savetxt('./Syn Weights/pageRankAdjConn.csv', outputMatrix, delimiter=",")
 		return outputMatrix
 
@@ -152,6 +169,40 @@ class pageRankOnWeights(object):
 		#print self.connections
 		#print self.incomingWeight
 		return
+
+#How much has the matrix changed between the input matrix and the pageRank modified matrix?
+def checkChange(original, modified):
+	connectionMatrix = original
+	outputMatrix = numpy.zeros((len(connectionMatrix), len(connectionMatrix)))
+	for sourceIndex in range(len(connectionMatrix)):
+		for targetIndex in range(len(connectionMatrix)):
+			if connectionMatrix[sourceIndex][targetIndex] >= connectionMatrix[targetIndex][sourceIndex]:
+				outputMatrix[sourceIndex][targetIndex] = 1
+				outputMatrix[targetIndex][sourceIndex] = 0
+			elif connectionMatrix[sourceIndex][targetIndex] < connectionMatrix[targetIndex][sourceIndex]:
+				outputMatrix[sourceIndex][targetIndex] = 0
+				outputMatrix[targetIndex][sourceIndex] = 1
+	squashOriginal = outputMatrix.flatten()
+	squashMod = modified.flatten()
+	changed = numpy.sum(squashOriginal != squashMod)
+	print(squashOriginal)
+	print(squashMod)
+	print(str(changed) + " connections have switched.")
+	return squashOriginal, squashMod
+
+#display the prior and recreated populations
+def drawNetwork(pop):
+	G = nx.DiGraph()
+	for i in range(len(pop)):
+		G.add_node(i)
+	netXEdges = []
+	for i in range(len(pop)):
+		for j in range(len(pop)):
+			if pop[i][j] == 1:
+				netXEdges.append((i,j))
+	G.add_edges_from(netXEdges)
+	nx.draw(G, with_labels=True)
+	return G
 
 
 '''
@@ -181,19 +232,46 @@ def createRandomNetwork(file_name, popSize):
 
 
 def main():
-	if len(sys.argv) == 2:
+	parser = argparse.ArgumentParser(description = "Use pageRank to modify the network.")
+	parser.add_argument('-csv', action="store", dest = 'csv',default = "./Syn Weights/randomWeights1.csv")
+	parser.add_argument('-iters', action="store", dest = 
+		'iters',type=int, default = 1)
+	inputs = parser.parse_args()
+	'''
+	if len(sys.argv) == 3:
 		pageRanks = pageRankOnWeights(sys.argv[1])
-	if len(sys.argv) != 2:
-		print("If you don't enter as: %s weight CSV, random weight csv will be generated." % sys.argv[0])
+		numIterations = sys.argv[2]
+	if len(sys.argv) != 3:
+		print("If you don't enter as: %s weight.csv iterations, random weight csv will be generated with 10 pop size, and 1 iteration." % sys.argv[0])
 		createRandomNetwork("./Syn Weights/randomWeights.csv",10)
 		pageRanks = pageRankOnWeights()
-
+		numIterations = 1
+	
+	if inputs.csv == "./Syn Weights/randomWeights.csv":
+		createRandomNetwork(inputs.csv,10)
+		pageRanks = pageRankOnWeights()
+	else:
+		'''
+	pageRanks = pageRankOnWeights(inputs.csv)
 	pageRanks.assignPageRank()
 	pageRanks.pruneNetwork()
-	for i in range(2):
+	for i in range(inputs.iters):
 		pageRanks1 = pageRankOnWeights('./Syn Weights/pageRankAdjConn.csv')
 		pageRanks1.assignPageRank()
 		pageRanks1.pruneNetwork()
+	print("The original is",pageRanks.prunedConnections)
+	print("The final is", pageRanks1.finalMatrix)
+	checkChange(pageRanks.connections, pageRanks1.finalMatrix)
+
+	#origAdjMat = nx.from_numpy_matrix(prunedOrigin, create_using = nx.Digraph())
+	#print(pageRanks1.finalMatrix)
+	#endAdjMat = nx.from_numpy_matrix(pageRanks1.finalMatrix, create_using= nx.DiGraph())
+	#nx.draw(endAdjMat)
+	drawNetwork(pageRanks.prunedConnections)
+	plt.show()
+	drawNetwork(pageRanks1.finalMatrix)
+	plt.show()
+
 
 if __name__ =="__main__":
 	main()

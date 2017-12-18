@@ -3,7 +3,6 @@
 #this is essentially a time series analysis, where the spiking ID is related to the time step
 #of the simulated data
 
-# LSTM for international airline passengers problem with regression framing
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas
@@ -52,7 +51,7 @@ model = keras.models.Sequential()
 model.add(keras.layers.LSTM(10,input_shape=(1, batchSize),return_sequences=True))
 model.add(keras.layers.Flatten())
 model.add(keras.layers.Dense(9))
-model.add(keras.layers.ThresholdedReLU(theta = 0.5))
+#model.add(keras.layers.ThresholdedReLU(theta = 0.5))
 model.compile(loss='mean_squared_error', optimizer='adam')
 model.fit(trainX, trainY, epochs = 10, batch_size = 1, verbose = 2)
 
@@ -65,7 +64,8 @@ print("Outputs: {}".format(model.output_shape))
 print("Actual input: {}".format(trainX.shape))
 print("Actual output: {}".format(trainPredict.shape))
 print(repr(testY[57]))
-print(repr(testPredict[57]))
+print(type(testPredict))
+np.savetxt('kerasPrediction.csv', trainPredict[:len(trainPredict)-1].transpose(), delimiter=",")
 # invert predictions
 #trainPredict = scaler.inverse_transform(trainPredict)
 #trainY = scaler.inverse_transform([trainY])

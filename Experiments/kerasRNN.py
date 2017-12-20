@@ -10,6 +10,7 @@ import math
 import keras
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import normalize
 
 # convert an array of values into a dataset matrix
 def create_dataset(dataset, look_back=1):
@@ -20,37 +21,67 @@ def create_dataset(dataset, look_back=1):
 		dataY.append(dataset[i + look_back, 0])
 	return np.array(dataX), np.array(dataY)
 
-dataframe = pandas.read_csv('./Spike Results/1idTimes.csv')
-dataset = dataframe.values
-dataset = dataset.astype('float32')
+def downsample(dataset, binSize):
+	downsampleDataset = []
+	print(len(dataset))
+	j=0
+	for i in range(int(len(dataset)/10)):
+		runningSum = np.zeros(len(dataset[0]))
+		for k in range(j*10, (j+1)*10):
+			#print(k)
+			toSum = np.concatenate(([runningSum],[dataset[k]]))
+			#print(dataset[58])
+			#print("concat is",toSum)
+			runningSum = np.sum(toSum, axis = 0)
+		j = j + 1
+		downsampleDataset.append(runningSum)
+	downsampleDataset = np.array(downsampleDataset)
+	print(len(downsampleDataset))
+	print(downsampleDataset)
+	return downsampleDataset
+
+dataset = np.genfromtxt('./Spike Results/1idTimes.csv', delimiter = ',')
+print(dataset.shape)
 #scaler = MinMaxScaler(feature_range = (0,1))
 #dataset = scaler.fit_transform(dataset)
-print(dataset)
 dataset = np.transpose(dataset)
-print(len(dataset))
+print(dataset.shape)
+#now, each array in dataset is representative of a single timestep, where each value is whether or not the neuron is spiking at that particular time
 
+#bin the data set so that every set of 10 steps is reshaped to be one step, and multiple spikes during that time only counted as 1
+dataset = downsample(dataset,10)
+
+#length of data set is 1000, so it takes 2/3 of that data set for training
 train_size = int(len(dataset) * 0.67)
 test_size = len(dataset) - train_size
+#the first 2/3 of the dataset is used for training, the last third used for testing
 train, test = dataset[0:train_size,:], dataset[train_size:len(dataset),:]
 
-batchSize = 9
+
+batchSize = 10
 trainX, trainY = train[0:len(train)-1], train[1:len(train)]
+#now I have designated at the inputs are all arrays from the first step to the second to last step,
+#and the corresponding outputs are all arrays from second step to the last step
 print(trainX[58])
 print(trainY[57])
+#if the above are the same, then I have designated my training inputs and outputs correctly
 testX, testY = test[0:len(test)-1], test[1:len(test)]
+#Do the same for the testing set
 #print(trainX[0])
 print(trainX.shape)
 print(testX.shape)
+#the second value, designating that number of neurons in each timestep, should be the same, and indeed they are
 trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
 testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
-print(trainX.shape)
-print(trainY.shape)
+print("train X shape is:",trainX.shape)
+print("train y shape is:",trainY.shape)
 
 #Create the network here. Each hidden layer has 10 LSTM blocks, with 1 input, and a single output layer
 model = keras.models.Sequential()
 model.add(keras.layers.LSTM(10,input_shape=(1, batchSize),return_sequences=True))
-model.add(keras.layers.Flatten())
-model.add(keras.layers.Dense(9))
+#model.add(keras.layers.Flatten())
+#define the output space using Dense
+model.add(keras.layers.Dense(10))
 #model.add(keras.layers.ThresholdedReLU(theta = 0.5))
 model.compile(loss='mean_squared_error', optimizer='adam')
 model.fit(trainX, trainY, epochs = 10, batch_size = 1, verbose = 2)
@@ -63,9 +94,12 @@ print("Inputs: {}".format(model.input_shape))
 print("Outputs: {}".format(model.output_shape))
 print("Actual input: {}".format(trainX.shape))
 print("Actual output: {}".format(trainPredict.shape))
-print(repr(testY[57]))
+print(repr(testY[17]))
 print(type(testPredict))
-np.savetxt('kerasPrediction.csv', trainPredict[:len(trainPredict)-1].transpose(), delimiter=",")
+predictedOutput = testPredict[:len(testPredict)-1].transpose()
+predictedMax, predictedMin = predictedOutput.max(), predictedOutput.min()
+prediction = (predictedOutput - predictedMin)/(predictedMax - predictedMin)
+np.savetxt('kerasPrediction.csv', prediction, delimiter=",")
 # invert predictions
 #trainPredict = scaler.inverse_transform(trainPredict)
 #trainY = scaler.inverse_transform([trainY])

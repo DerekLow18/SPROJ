@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  29 JAN 2018 16:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  31 JAN 2018 14:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -520,23 +520,39 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 29.
  [2]
-Underfull \hbox (badness 10000) in paragraph at lines 44--46
+Underfull \hbox (badness 10000) in paragraph at lines 46--48
 
  []
 
-[3] [4]
-Overfull \hbox (12.61694pt too wide) in paragraph at lines 62--62
+[3]
+
+! Package inputenc Error: Unicode char Î± (U+3B1)
+(inputenc)                not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.53 ...-methyl-D-aspartate receptor (NMDA) and Î±
+                                                  -amino-3-hydroxy-5-methyl-...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[4] [5]
+Overfull \hbox (12.61694pt too wide) in paragraph at lines 70--70
 \OT1/cmr/m/n/10 Zhou et al., 2014 uses Granger Causal-ity as the pri-mary metho
 d of in-fer-ring con-nec-tiv-ity of conductance-
  []
 
 
-LaTeX Warning: Command \^ invalid in math mode on input line 67.
+LaTeX Warning: Command \^ invalid in math mode on input line 75.
 
 ! Please use \mathaccent for accents in math mode.
 \add@accent ...@spacefactor \spacefactor }\accent 
                                                   #1 #2\egroup \spacefactor ...
-l.67 $$TE_{Y->X}(\^{g}
+l.75 $$TE_{Y->X}(\^{g}
                       ) = \sum{P(x_{n+1}, x_x^k,y_{n+1}^k|g_{n+1}<\^{g}}) lo...
 I'm changing \accent to \mathaccent here; wish me luck.
 (Accents are not the same in formulas as they are in text.)
@@ -544,7 +560,7 @@ I'm changing \accent to \mathaccent here; wish me luck.
 ! You can't use `\spacefactor' in display math mode.
 \add@accent ...}\accent #1 #2\egroup \spacefactor 
                                                   \accent@spacefactor 
-l.67 $$TE_{Y->X}(\^{g}
+l.75 $$TE_{Y->X}(\^{g}
                       ) = \sum{P(x_{n+1}, x_x^k,y_{n+1}^k|g_{n+1}<\^{g}}) lo...
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -552,12 +568,12 @@ If you're in the wrong mode, you might be able to
 return to the right one by typing `I}' or `I$' or `I\par'.
 
 
-LaTeX Warning: Command \^ invalid in math mode on input line 67.
+LaTeX Warning: Command \^ invalid in math mode on input line 75.
 
 ! Please use \mathaccent for accents in math mode.
 \add@accent ...@spacefactor \spacefactor }\accent 
                                                   #1 #2\egroup \spacefactor ...
-l.67 ...m{P(x_{n+1}, x_x^k,y_{n+1}^k|g_{n+1}<\^{g}
+l.75 ...m{P(x_{n+1}, x_x^k,y_{n+1}^k|g_{n+1}<\^{g}
                                                   }) log \frac{P(x_{n+1}|x_n...
 I'm changing \accent to \mathaccent here; wish me luck.
 (Accents are not the same in formulas as they are in text.)
@@ -565,7 +581,7 @@ I'm changing \accent to \mathaccent here; wish me luck.
 ! You can't use `\spacefactor' in math mode.
 \add@accent ...}\accent #1 #2\egroup \spacefactor 
                                                   \accent@spacefactor 
-l.67 ...m{P(x_{n+1}, x_x^k,y_{n+1}^k|g_{n+1}<\^{g}
+l.75 ...m{P(x_{n+1}, x_x^k,y_{n+1}^k|g_{n+1}<\^{g}
                                                   }) log \frac{P(x_{n+1}|x_n...
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -573,12 +589,12 @@ If you're in the wrong mode, you might be able to
 return to the right one by typing `I}' or `I$' or `I\par'.
 
 
-LaTeX Warning: Command \^ invalid in math mode on input line 67.
+LaTeX Warning: Command \^ invalid in math mode on input line 75.
 
 ! Please use \mathaccent for accents in math mode.
 \add@accent ...@spacefactor \spacefactor }\accent 
                                                   #1 #2\egroup \spacefactor ...
-l.67 ...n+1}<\^{g}}{P(x_{n+1}|x_n^k,g_{n+1}<\^{g}}
+l.75 ...n+1}<\^{g}}{P(x_{n+1}|x_n^k,g_{n+1}<\^{g}}
                                                   $$
 I'm changing \accent to \mathaccent here; wish me luck.
 (Accents are not the same in formulas as they are in text.)
@@ -586,7 +602,7 @@ I'm changing \accent to \mathaccent here; wish me luck.
 ! You can't use `\spacefactor' in math mode.
 \add@accent ...}\accent #1 #2\egroup \spacefactor 
                                                   \accent@spacefactor 
-l.67 ...n+1}<\^{g}}{P(x_{n+1}|x_n^k,g_{n+1}<\^{g}}
+l.75 ...n+1}<\^{g}}{P(x_{n+1}|x_n^k,g_{n+1}<\^{g}}
                                                   $$
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -594,12 +610,12 @@ If you're in the wrong mode, you might be able to
 return to the right one by typing `I}' or `I$' or `I\par'.
 
 
-LaTeX Warning: Command \^ invalid in math mode on input line 67.
+LaTeX Warning: Command \^ invalid in math mode on input line 75.
 
 ! Please use \mathaccent for accents in math mode.
 \add@accent ...@spacefactor \spacefactor }\accent 
                                                   #1 #2\egroup \spacefactor ...
-l.67 ...n+1}<\^{g}}{P(x_{n+1}|x_n^k,g_{n+1}<\^{g}}
+l.75 ...n+1}<\^{g}}{P(x_{n+1}|x_n^k,g_{n+1}<\^{g}}
                                                   $$
 I'm changing \accent to \mathaccent here; wish me luck.
 (Accents are not the same in formulas as they are in text.)
@@ -607,7 +623,7 @@ I'm changing \accent to \mathaccent here; wish me luck.
 ! You can't use `\spacefactor' in math mode.
 \add@accent ...}\accent #1 #2\egroup \spacefactor 
                                                   \accent@spacefactor 
-l.67 ...n+1}<\^{g}}{P(x_{n+1}|x_n^k,g_{n+1}<\^{g}}
+l.75 ...n+1}<\^{g}}{P(x_{n+1}|x_n^k,g_{n+1}<\^{g}}
                                                   $$
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -619,12 +635,12 @@ Missing character: There is no è in font cmex10!
 Missing character: There is no è in font cmex10!
 Missing character: There is no è in font cmex10!
 
-LaTeX Warning: Command \^ invalid in math mode on input line 69.
+LaTeX Warning: Command \^ invalid in math mode on input line 77.
 
 ! Please use \mathaccent for accents in math mode.
 \add@accent ...@spacefactor \spacefactor }\accent 
                                                   #1 #2\egroup \spacefactor ...
-l.69 ... presented formula is the presence of $\^g
+l.77 ... presented formula is the presence of $\^g
                                                   $, a predefined threshold ...
 I'm changing \accent to \mathaccent here; wish me luck.
 (Accents are not the same in formulas as they are in text.)
@@ -632,7 +648,7 @@ I'm changing \accent to \mathaccent here; wish me luck.
 ! You can't use `\spacefactor' in math mode.
 \add@accent ...}\accent #1 #2\egroup \spacefactor 
                                                   \accent@spacefactor 
-l.69 ... presented formula is the presence of $\^g
+l.77 ... presented formula is the presence of $\^g
                                                   $, a predefined threshold ...
 Sorry, but I'm not programmed to handle this case;
 I'll just pretend that you didn't ask for it.
@@ -640,23 +656,17 @@ If you're in the wrong mode, you might be able to
 return to the right one by typing `I}' or `I$' or `I\par'.
 
 Missing character: There is no è in font cmex10!
-[5] [6] [7] [8] [9]
+[6] [7] [8] [9]
 ! Double subscript.
-l.110 ... PageRank of incoming neuron j, and $W_j_
+l.118 ... PageRank of incoming neuron j, and $W_j_
                                                   i$ is the weight of the co...
 I treat `x_1_2' essentially like `x_1{}_2'.
 
-No file main.bbl.
-
-Overfull \hbox (64.48294pt too wide) in paragraph at lines 122--123
-\OT1/cmr/m/n/10 In-ter-na-tional Joint Con-fer-ence On Neu-ral Net-works, 1, 59
-3{605. https://doi.org/10.1109/IJCNN.1989.118638 
- []
-
 [10]
+No file main.bbl.
 ! Misplaced alignment tab character &.
-l.124 \item Pandarinath, C., O&
-                               #039;Shea, D. J., Collins, J., Jozefowicz, R....
+l.131 \item Katz, B., &
+                        Miledi, R. (1967). A Study of Synaptic Transmission ...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
 simple: Just type `I\&' now. But if some right brace
@@ -664,22 +674,46 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-! You can't use `macro parameter character #' in horizontal mode.
-l.124 \item Pandarinath, C., O&#
-                                039;Shea, D. J., Collins, J., Jozefowicz, R....
-Sorry, but I'm not programmed to handle this case;
-I'll just pretend that you didn't ask for it.
-If you're in the wrong mode, you might be able to
-return to the right one by typing `I}' or `I$' or `I\par'.
+! Misplaced alignment tab character &.
+l.132 \item Katz, B., &
+                        Miledi, R. (1968). The role of calcium in neuromuscu...
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+[11]
+! Misplaced alignment tab character &.
+l.134 \item Orrenius, S., Zhivotovsky, B., &
+                                             Nicotera, P. (2003). REGULATION...
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
 
 
-Overfull \hbox (14.00142pt too wide) in paragraph at lines 124--125
+Overfull \hbox (14.00142pt too wide) in paragraph at lines 135--136
 \OT1/cmr/m/n/10 encoders. bioRxiv. Re-trieved from http://biorxiv.org/content/e
 arly/2017/06/20/152884.abstract 
  []
 
 ! Misplaced alignment tab character &.
-l.133 \item Widrow, B., &
+l.136 ...Etzler, J. C., Watts, L. T., Zheng, W., &
+                                                   Lechleiter, J. D. (2008)....
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+[12]
+! Misplaced alignment tab character &.
+l.145 \item Widrow, B., &
                           Lehr, M. A. (1990). 30 Years of Adaptive Neural Ne...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -689,35 +723,35 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 
-Overfull \hbox (41.69597pt too wide) in paragraph at lines 133--134
+Overfull \hbox (41.69597pt too wide) in paragraph at lines 145--146
 \OT1/cmr/m/n/10 line, and Back-prop-a-ga-tion. Pro-ceed-ings of the IEEE, 78(9)
 , 1415{1442. https://doi.org/10.1109/5.58323 
  []
 
-[11] [12] (./main.aux) ) 
+[13] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 2596 strings out of 494910
- 34527 string characters out of 6179836
- 101921 words of memory out of 5000000
- 5869 multiletter control sequences out of 15000+600000
+ 2597 strings out of 494910
+ 34532 string characters out of 6179836
+ 101954 words of memory out of 5000000
+ 5870 multiletter control sequences out of 15000+600000
  7895 words of font info for 28 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 37i,8n,31p,1513b,189s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex1
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmsy7.pfb>
-Output written on main.pdf (12 pages, 149511 bytes).
+ 37i,8n,31p,1970b,189s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx
+12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmsy7.pfb>
+Output written on main.pdf (13 pages, 156101 bytes).
 PDF statistics:
- 87 PDF objects out of 1000 (max. 8388607)
- 61 compressed objects within 1 object stream
+ 91 PDF objects out of 1000 (max. 8388607)
+ 64 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

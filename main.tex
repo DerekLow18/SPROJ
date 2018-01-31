@@ -1,0 +1,141 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+
+\title{SPROJ}
+\author{Derek Low}
+\date{2017-2018}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\renewcommand{\baselinestretch}{1.6}
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\subsection{The Neuron}
+Neurons are fundamental units of human cognition, allowing a large range of capabilities such as movement and maintenance of the body, speech, decision making, and learning among many other functions. The interactions between neurons throughout human bodies, from the brain to the spinal cord, is understood microscopic levels, such as the voltage propagation along the neuron, and the interaction between connected neurons at the synapses. Additionally, connectivity of the neuron is understood at macroscopic levels, where certain areas of the brain are responsible for certain functions of the nervous system. However, the precise organization of neurons, and the relationship between this organization and possible functions of this organization, are still unknown. Analysis of the patterns of connections in populations of neurons indicate that these cells are characterized by certain network properties, and are not completely random. Understandings of these connections may provide insight to the function and activity of these populations of neurons, as well as divulging further characteristics of the neuron populations (Sporns et al., 2004). \par
+
+The functionality of neurons rely on the differences in the electrical potential between the neuron and its surrounding environment, known as the membrane potential; changes in concentrations of specific molecules drive neuronal activity by changing this membrane potential. These changes occur through a variety of manners; in the most general sense, systems with differences in concentrations, whether these systems are concerned with ionic concentrations or involve thermal dynamics, or even the movement of people into train compartments, tend to move towards a state of electrochemical equilibrium, where the concentration is diffused across the entirety of the space available. Molecules in and between neurons are no exception to this tendency, and move toward electrochemical equilibrium across the membrane.\par
+
+In the context of membrane potential and concentration gradients, the primary, relevant ionic molecules of the discussion are Potassium (K+), Sodium (Na+), Calcium (Ca2+), and Chloride (Cl-). Membrane potential is quantified by the polarity of these ionic molecules, and their respective concentrations on each side of the membrane, or the difference between the intracellular and extracellular concentrations. (Will include more here; pending further research)\par
+Membranes of neurons have two important levels of potential: resting potential and threshold potential.The nature of this difference in potential is such that the interior of the cell is negative relative to its exterior, with most neurons resting between -40 and -90 millivolts, also known as the resting potential. As the concentrations of molecules shift, the respective voltages on the interior and exterior of the neuron changes, resulting in changes to the membrane potential and driving this potential to positive1. The changes to the interior and exterior voltages push the membrane potential from the resting potential, towards the threshold potential; once this threshold is exceeded, an occurrence typically described as a “spike” results, denoting an active state of the neuron. These spikes are so named due to the briefly large rise in voltage, followed by a rapid descent towards the resting potential. These spikes are brief, typically lasting approximately a single millisecond in the case of most neurons.\par 
+\subsection{Representing Networks of Neurons}
+Deriving the organization of neurons in networks is difficult at lower populations of neurons, and the difficulty increases significantly as the population of neurons increases. The organization of neurons can be represented as a matrix, typically referred to as an adjacency or weight matrix; whether the matrix is an adjacency or weight matrix depends on how these connections between neurons are represented, and what information is useful and preserved. Weight matrices assign values based on the strength of connections between neurons, and whether the source neuron is an excitatory or inhibitory neuron, while adjacency matrices are representative of whether or not there is a connection, and ignores the strength of these connections. For example, the following matrix describes connections between a population of three neurons:\par
+
+\begin{center}
+\begin{tabular}{ |p{3cm}|p{3cm}|p{3cm}|p{3cm}|  }
+ \hline
+ \multicolumn{4}{|c|}{Sample Adjacency Matrix} \\
+ \hline
+  & Neuron 1 & Neuron 2 & Neuron 3\\
+ \hline
+ Neuron 1 & 0 & 1 & 1\\
+ Neuron 2 & 0 & 0 & 0\\
+ Neuron 3 & 1 & 1 & 0\\
+ \hline
+\end{tabular}
+\end{center}
+
+Matrices such as the one above describe the connections between different neurons in an observed population, with observed being an important keyword; these neurons could have incoming connections from sources outside of the observed population, depending on the context of the observations. One standard feature of network matrices is the zero value along the diagonal, representative of a lack of a connection from a neuron to itself. In the example above, there is a directional connection between the outward axonal connection of Neuron 3 and the incoming dendritic connection of Neuron 1; therefore, assuming a positive value to represent an excitatory connection, spikes in Neuron 3 result in a voltage increase of Neuron 1. By this method of representation, the matrix can describe the relative strength and nature of all connections between neurons in the observed population.\par
+
+\subsection{Network Science of Neurons}
+
+Calcium Imaging uses calcium to provide approximations of spike timing in networks of neurons, by indicating the neuronal signaling of a network over time. Using the spiking data provided by this method, I hope to teach a program to reconstruct the network and characterize the connections between neurons.\\
+\\
+Why is it important to characterize networks of neurons? Currently, our methods of studying neurons and brain activity relies on techniques that observe activity at macroscopic (e.g. fMRI, PET, CAT, calcium imaging) or microscopic scales (e.g. electrodes and membrane potentials, patch clamp). However, there is no method of accurately imaging and representing larger networks of neurons in areas of the brain, or outgoing pathways from the brain. While machine learning algorithms may not provide exact mappings of networks, implementation of these algorithms is an opportunity to generate hypotheses.\par
+
+\subsection{Calcium Imaging}
+A commonly employed method of recording activity of neurons is calcium imaging. Neurons are partially characterized by the ionic molecules that exist both intra- and extracellularly: potassium, sodium, and calcium. At every spiking event, these ions travel through the cell membrane of each neuron by movement through voltage-dependent ion channels, which are functionally altered by the voltage changes that occur in neurons.\par
+
+The versatility and presence of calcium in neurons can be desribed by the large variety of neuronal processes related to it. Calcium performs several major roles in the function and management of biological cells; most notably, in the presynaptic neuron, an influx of calcium into the neuron triggers the release of neurotransmitter to the synapse via exocytosis (PERHAPS CITATION HERE). Postsynaptically, calcium is responsible for activating the synaptic plasticity cascade (MORE HERE PENDING RESEARCH). Functions of calcium extend further than synaptic activity, and is additionally responsible 
+
+As mentioned, calcium activity is dependent on the voltage changes of neurons and the responses of voltage-gated channels to voltage changes, and concentration is higher extracellularly until spike time. Therefore, introducing into the neurons an indicator that fluoresces when bound to calcium allows recording of calcium concentration and activity. Among the first discovered and applied calcium indicators is the protein aequorin (Shimomura et al., 1962), where, when the calcium binds to the three binding sites located on the protein, it emits a photon (Grienberger and Konnerth, 2012). The necessity of the three calcium molecules, in combination with a controlled amount of indicator injected into these neurons, allows for a controlled fluorescence method that is directly related to the calcium concentration within the cell; the higher the calcium concentration within the cell, the more rapid the rate of fluorescence from the resulting change of binding with the fluorescent protein. There are particular drawbacks of aequorin, such as a low protein stability and a relatively low fluorescence rate with regards to the amount of decomposition in the concentration of the protein (Grienberger and Konnerth, 2012). A more widely used calcium indicator is fura-2 (Grynkiewicz et al., 1985); this indicator operates by excitation with ultraviolet light, resulting in a fluorescence shift of the indicator; this fluorescence level changes when the molecule is bound to calcium (Grienberger and Konnerth, 2012).\par
+
+Calcium activity is dependent on the voltage changes of neurons and the responses of voltage-gated channels. Typically, calcium concentration around neurons are externally higher, and 
+
+The second component is the imaging, recording, and approximation of recorded data as a measurement of brain activity. There are several technologies employed in the recording of calcium indicator fluorescence; the technique used widely depends on the subject being recorded, the brain state during recording, and quality of the imaging required. For example, recording calcium fluorescence of mice that are not bound requires employment of head-fixed microscopy, while imaging of smaller populations of in vitro specimens might require a higher resolution and sensitivity method, such as two-photon microscopy. The fluorescence recorded through these imaging techniques can in turn be computationally analyzed for measures of activity, where a briefly higher level of fluorescence over a discrete time period is considered a spike of the neuron.\par
+
+\subsection{Current Approaches to Reconstruction}
+Several different frameworks of reconstruction have been offered to tackle the problem of inferring connectivity of neurons. While these reconstruction methods use different methods for evaluating activity and connectivity, they are typically applied to simulated neuron populations, where the ground truth of the activity is known, allowing evaluation on the accuracy of the model.\par
+
+\subsubsection{Cross-Correlation}
+
+
+\subsubsection{Granger Causailty}
+Zhou et al., 2014 uses Granger Causality as the primary method of inferring connectivity of conductance-based integrate-and-fire neuron models; the analysis method states that if the variance in prediction error for a particular time series is reduced by incorporating knowledge of another time series, then the second time series has some causal effect on the first time series. In other words, if incorporating information about event X allows prediction of event Y beyond prediction concerning event Y without any additional information, then event X and event Y are causally related.  In brief, the researchers demonstrate that using Granger Causality allows the construction of a causality matrix, which can then be mapped to the structural connectivity matrix of the population and be observed for relationships between the activity and structure of the network.\par
+
+\subsubsection{Transfer Entropy}
+Stetter et al., 2012, incorporates information theory as a reconstruction method from calcium imaging data. This particular method of reconstruction focused on in vitro calcium imaging fluorescence levels, with a slightly variant version of the Generalized Transfer Entropy formula:
+
+$$TE_{Y->X}(\^{g}) = \sum{P(x_{n+1}, x_x^k,y_{n+1}^k|g_{n+1}<\^{g}}) log \frac{P(x_{n+1}|x_n,y_{n+1}^k,g_{n+1}<\^{g}}{P(x_{n+1}|x_n^k,g_{n+1}<\^{g}}$$
+
+The major difference between the Generalized Transfer Entropy formula and the presented formula is the presence of $\^g$, a predefined threshold of fluorescence, where $g_t$ is the average fluorescence of the network at a particular time $t$.\par
+
+The researchers use Transfer Entropy to evaluate the information transfer, where information transfer can be understood as how likely the activity of neuron Y indicates the activity in neuron X, between all possible directed pairs of neurons in the network. Afterwards, the researchers use a threshold Transfer Entropy to prune the the connections with the lowest values of information transfer, and reconstruct the network based on the remaining neurons, finding Transfer Entropy to reconstruct network properties more accurately than previous reconstruction methods, and at varying levels of visual noise in the data, or light scattering.\par
+
+\subsection{The Relevance of Advances in Machine Learning}
+The story concerning the invention and development of machine learning is one of constant juxtapositions with human intelligence. For example, the perhaps one of the most famous early experiments in artificial intelligence research is the Turing Test. The Turing Test, devised by Alan Turing, was originally named "The Imitation Game" by Turing in the 1950 paper "Computing Machinery and Intelligence". The experiment was devised with the proposed definition of artificial intelligence as the ability of a machine to replace a human counterpart in repeated rounds of questioning and answering; in other words, is the machine capable of imitating a human to the extent that participants are fooled by its answers? The performance evaluation of the machine is defined as a comparison with human intelligence, and as an antagonist to human interaction. Naturally, in the consistent comparison with human intelligence as benchmarks for machine intelligence, artificial intelligence research eventually developed methods of machine learning loosely based in the fundamental biological unit of human intelligence: the neuron.\par
+
+As discussed previously, neurons are the fundamental units that allow what we understand to be human intelligence. As discussed by Steels in the paper "Fifty Years of AI: From Symbols to Embodiment", the field transitioned through several methods and approaches to AI before arriving at the neural network in the 1980s. These neural networks were developed with the intent to model the biological mechanisms of the human brain as closely as possible, primarily the neurons, which the nervous system is composed of. Even in the short history of neural networks, the method has transitioned through varying degrees of discovery and standardization concerning their usage and applicability.\par
+
+\subsubsection{Supervised and Unsupervised Learning}
+While the studies of machine learning have developed a variety of methods to encompass an ever-growing scope of questions to answer, the methods and questions fall into one of two categorizations: supervised and unsupervised learning. Supervised learning methods rely on the "completeness" of a data set, in which all inputs have correspondingly labelled outputs. Therefore, the output of a supervised learning algorithm is similar in type to the actual outputs $Y$ presented in the training data set for every $X$; in other words, there is a corresponding dependent output on the independent input. The natures of the inputs and outputs are variable, and need not necessarily be of the same type; for example, an input of an image can result in a categorization of the image contents, such as "dog" or "human". They can also be numerical, such as a prediction of grade based on the input amount of time studying (Hastie et al., 2009). In these two examples, the prior is an instance of qualitative, or categorical, prediction, while the latter is a quantitative, or regression, prediction.\par
+
+Unsupervised learning differs in that there is no input-output; while there are $X$ labels, there are no corresponding $Y$ labels. Some neural networks fall under this classification of algorithms; for example, Pandarinath et al. 2017, introduces an algorithm that uses sequential auto-encoders to infer underlying patterns of spike trains. Auto-encoders are one example of unsupervised learning, where the network receives an input $X$, attempts to represent underlying patterns in the data, and recreate the input as the network's output. 
+
+\subsubsection{Artificial Neural Networks}
+As discussed, neural networks are based on the morphology of human brains, and the neurons that the brain is composed of. These networks are composed of some number of nodes, or neurons, that are connected to each other in some fashion, depending on the task the particular network is designed for. These nodes are typically categorized into one of three layers: input, hidden, and output layers. Neurons of the input layer have no predecessor neurons, and neurons of the output layers have no following neurons; instead the the input neurons receive input information of a particular data set, and the output neurons displayed the expected outputs based on the inputs to the network and the corresponding hidden layers.\par
+
+The general theory behind Artificial Neural Networks can be described as a metaphor to learning; just students prepare for exams by thoroughly studying and applying knowledge repeatedly prior to the exam, neural networks typically train on large data sets by taking an input $X$, and producing some inferred output $Y$, then comparing to the actual output that is provided by the corresponding input in the data set to calculate the error between the prediction and the true output reflected in the data set. This data set is referred to as the "training set", on which the neural network  metaphorically prepares for the exam. The goal of this training is to adapt the system to handle situations that are not contained within the training set, and predict these outputs with accuracy based on the training information provided to the network (Werbos, 1990).\par
+
+\subsubsection{Hidden Layers}
+
+\subsubsection{Backpropagation}
+Backpropagation is one of the most recognized techniques in the study of neural networks. Developed by Paul Werbos in the 1970's, backpropagation is the primarily used method of learning in neural networks. The method is so named because the updating of weights at every layer begins at the final layer, and propagates backwards to every node and weight until all weights of all nodes in each layer have been updated to correct for the calculated error in the network.
+
+\subsubsection{Gradient Descent}
+
+
+\subsection{NEST: Generating Training Data}
+There are several reasons for generating simulated calcium imaging data for the purposes of network reconstruction. First, generation of simulated calcium imaging data allows for benchmarking of the reconstruction methods employed. In typical calcium imaging data, the ground truth is not known, resulting in a lack of comparison between the reconstructed network and the network targeted for reconstruction. By generating simulated networks and recreating calcium imaging data, we ensure access to the ground truth for comparison with the model. Simulation of training data also permits programming of particular characteristics to the network, and observing the changes of this reconstruction in both the simulated data and the reconstruction of these networks.\par
+Machine learning methods are typically trained on some prior data set; simulation of calcium imaging data provides a easy method of accessing data for training and testing the machine learning based model, due to unconstrained and unrestricted access to training data, before allowing the model to analyze recorded data that would be ideally used as testing data. Additionally, including a training set ensures that the algorithm is able to remain “generalized”; that is, the algorithm does not learn to represent that single data set exceptionally well, and fail when a different pattern is presented to the algorithm.\par
+The simulations presented here are performed in NEST simulator, a tool maintained by the NEST initiative. The NEST simulator was selected for the purpose of simulations that maintain biological realism and complexity, with emphasis on simulation of large neuronal networks. The advantage NEST has over other simulators is the capability to simulate large networks with varying facets, such as synapse and neuron types, while retaining accurate representation of the individual neurons.\par
+
+\section{Methods}
+\subsection{Simulation of Neurons for Spike Train Generation}
+The NEST simulator is used for the purposes of generating spike train data. NEST Izhikevich neurons are used as the model neurons, due to the increased complexity over leaky integrate-and-fire neurons, and the reduced computational complexity over models of significantly more numerous compartment models, such as the Hodgkin-Huxley models (Brette, 2015). First, an adjacency matrix is provided to the simulation pipeline, which then creates a NEST neuron population with the exact number of neurons, and connections between the neurons in the population, with the corresponding weight of the connections. The population is then recorded over 1000 simulation steps, or 100 ms. The corresponding output of the simulation is converted to a matrix of $n x t$ dimensionality, where n is the population size, and t the number of time steps of simulation.\par
+
+\subsection{PageRank}
+The PageRank algorithm takes a weighted adjacency matrix as an input; a non-weighted adjacency matrix would result in no change in the PageRanks of each neuron, and no change in the resulting adjacency matrix. The PageRank for each neuron is then calculated based on the following formula:
+
+$$PR_i = (1-d)+d(\sum(\frac{PR_j}{C} * W_ij))$$
+
+Where PR is the PageRank of neuron $i$, $d$ is the standard damping factor of 0.8, $PR_j$ is the PageRank of incoming neuron j, and $W_j_i$ is the weight of the connection from neuron j to i. The summation calculates for all incoming connections to neuron i. The formula is recalculated until convergence, where the PageRanks no longer change, at which point the weights are updated such that the weight of each connection is multiplied by the PageRank of the source of the connection. The network is then pruned by comparing the weights between neuron i and j, or Wij and Wji, and the the lower value is reduced to 0, while the higher value is set to 1, preserving the higher connection. The process is then repeated, using the new weights, for an arbitrary number of times.\par
+
+\section{Conclusion}
+
+\bibliographystyle{plain}
+\bibliography{references}
+\begin{enumerate}
+\item Alberts B, Johnson A, Lewis J, et al. Molecular Biology of the Cell. 4th edition. New York: Garland Science; 2002. Ion Channels and the Electrical Properties of Membranes. Available from: https://www.ncbi.nlm.nih.gov/books/NBK26910/
+\item Brette, R. (2015). What Is the Most Realistic Single-Compartment Model of Spike Initiation? PLoS Computational Biology. https://doi.org/10.1371/journal.pcbi.1004114
+\item Brette R, Rudolph M, Carnevale T, et al. Simulation of networks of spiking neurons: A review of tools and strategies. Journal of computational neuroscience. 2007;23(3):349-398. doi:10.1007/s10827-007-0038-6.
+\item Grynkiewicz, G., Poenie, M., and Tsien, R.Y. (1985). A new generation of Ca 2+ indicators with greatly improved fluorescence properties. J. Biol. Chem.260 , 3440–3450
+\item Hastie T., Tibshirani R., Friedman J. (2009) Overview of Supervised Learning. In: The Elements of Statistical Learning. Springer Series in Statistics. Springer, New York, NY
+\item Hecht-Nielsen, R. (1989). Theory of the Backpropagation Neural Network. Proceedings Of The International Joint Conference On Neural Networks, 1, 593–605. https://doi.org/10.1109/IJCNN.1989.118638
+\item Kunkel, Susanne, Morrison, Abigail, Weidel, Philipp, Eppler, Jochen Martin, Sinha, Ankur, Schenck, Wolfram, … Plesser, Hans Ekkehard. (2017, March 1). NEST 2.12.0. Zenodo. http://doi.org/10.5281/zenodo.259534
+\item Pandarinath, C., O&#039;Shea, D. J., Collins, J., Jozefowicz, R., Stavisky, S. D., Kao, J. C., … Sussillo, D. (2017). Inferring single-trial neural population dynamics using sequential auto-encoders. bioRxiv. Retrieved from http://biorxiv.org/content/early/2017/06/20/152884.abstract
+\item Purves, D., Augustine, G. J., Fitzpatrick, D., Hall, W. C., LaMantia, A., and White, L. E. (2012). Neuroscience. Sunderland, Massachusetts.: Sinauer Associates, Inc.
+\item Stetter  O,  Battaglia  D,  Soriano  J,  Geisel  T  (2012)  Model-Free  Reconstruction  of  Excitatory  Neuronal  Connectivity  from  Calcium  Imaging  Signals.  PLo S Comput  Biol  8(8):  e1002653.  doi:10.1371/journal.pcbi.1002653
+\item Shimomura, O., Johnson, F. H. and Saiga, Y. (1962), Extraction, Purification and Properties of Aequorin, a Bioluminescent Protein from the Luminous Hydromedusan, Aequorea. J. Cell. Comp. Physiol., 59: 223–239. doi:10.1002/jcp.1030590302
+\item Sporns, O., Chialvo, D., Kaiser, M., and Hilgetag, C. (2004). Organization, development and function of complex brain networks. Trends in Cognitive Sciences, 8(9), 418-425. \\doi:10.1016/j.tics.2004.07.008
+\item Steels, L. (2007). Fifty Years of AI: From Symbols to Embodiment -and Back, 18–28.
+\item Stetter, O., Battaglia, D., Soriano, J., and Geisel, T. (2012). Model-Free Reconstruction of Excitatory Neuronal Connectivity from Calcium Imaging Signals. PLoS Computational Biology. https://doi.org/10.1371/journal.pcbi.1002653
+\item Turing, A. M. (2009). Computing machinery and intelligence. In Parsing the Turing Test: Philosophical and Methodological Issues in the Quest for the Thinking Computer.\\ https://doi.org/10.1007/978-1-4020-6710-5\_3
+\item Werbos, P. J. (1990). Backpropagation Through Time: What It Does and How to Do It. Proceedings of the IEEE, 78(10), 1550–1560. https://doi.org/10.1109/5.58337
+\item Widrow, B., & Lehr, M. A. (1990). 30 Years of Adaptive Neural Networks: Perceptron, Madaline, and Backpropagation. Proceedings of the IEEE, 78(9), 1415–1442. https://doi.org/10.1109/5.58323
+\end{enumerate}
+\end{document}

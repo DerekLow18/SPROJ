@@ -181,7 +181,7 @@ def main(num):
 	nest.Connect(neuronPop,spikes)
 
 	#readAndConnect("./Syn Weights/syn_weights1.csv",pop)
-	simTime = 1000.0
+	simTime = 10000.0
 	nest.Simulate(simTime)
 	n = nest.GetStatus(spikes, "events")[0]
 	temp = numpy.array([n['senders'], n['times']])
@@ -195,7 +195,7 @@ def main(num):
 	The exact neuron spikes and corresponding timings can be obtained by viewing the events
 	dictionary of GetStatus(spikesEx, "events")
 	'''
-	print nest.GetStatus(spikes, "events")
+	#print nest.GetStatus(spikes, "events")
 	#print nest.GetStatus(nest.GetConnections(neuronPop, synapse_model = 'stdp_synapse'))
 	#plt.show()
 if __name__=="__main__":

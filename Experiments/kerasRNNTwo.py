@@ -12,7 +12,6 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import normalize
 from sklearn.metrics import log_loss
-import matplotlib.pyplot as plt
 
 # convert an array of values into a dataset matrix
 def create_dataset(dataset, look_back=1):
@@ -30,12 +29,12 @@ def downsample(dataset, binSize):
 	for i in range(int(len(dataset)/10)):
 		runningSum = np.zeros(len(dataset[0]))
 		for k in range(j*10, (j+1)*10):
+			#print(k)
 			toSum = np.concatenate(([runningSum],[dataset[k]]))
+			#print(dataset[58])
+			#print("concat is",toSum)
 			runningSum = np.sum(toSum, axis = 0)
 		j = j + 1
-		for l in range(len(runningSum)):
-			if runningSum[l] >1:
-				runningSum[l] = 1
 		downsampleDataset.append(runningSum)
 	downsampleDataset = np.array(downsampleDataset)
 	print(len(downsampleDataset))
@@ -53,6 +52,7 @@ print(dataset.shape)
 
 #bin the data set so that every set of 10 steps is reshaped to be one step, and multiple spikes during that time only counted as 1
 dataset = downsample(dataset,10)
+
 testset = np.genfromtxt('./Spike Results/2idTimes.csv', delimiter = ',')
 print(testset.shape)
 #scaler = MinMaxScaler(feature_range = (0,1))
@@ -76,7 +76,14 @@ popSize = 10
 trainX, trainY = train[0:len(train)-1], train[1:len(train)]
 #now I have designated at the inputs are all arrays from the first step to the second to last step,
 #and the corresponding outputs are all arrays from second step to the last step
+print(trainX[58])
+print(trainY[57])
+#if the above are the same, then I have designated my training inputs and outputs correctly
 testX, testY = test[0:len(test)-1], test[1:len(test)]
+#Do the same for the testing set
+#print(trainX[0])
+print(trainX.shape)
+print(testX.shape)
 #the second value, designating that number of neurons in each timestep, should be the same, and indeed they are
 trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
 testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
@@ -90,8 +97,8 @@ model.add(keras.layers.Flatten())
 #define the output space using Dense
 model.add(keras.layers.Dense(10,activation= 'linear'))
 #model.add(keras.layers.ThresholdedReLU(theta = 0.5))
-model.compile(loss='binary_crossentropy', optimizer='RMSprop')
-model.fit(trainX, trainY, epochs = 10, batch_size = 1, verbose = 2)
+model.compile(loss='binary_crossentropy', optimizer='adam')
+model.fit(trainX, trainY, epochs = 50, batch_size = 1, verbose = 2)
 
 #run the model here
 trainPredict = model.predict(trainX)
@@ -101,6 +108,7 @@ print("Inputs: {}".format(model.input_shape))
 print("Outputs: {}".format(model.output_shape))
 print("Actual input: {}".format(trainX.shape))
 print("Actual output: {}".format(trainPredict.shape))
+print(repr(testY[17]))
 print("testPredict shape is",testPredict.shape)
 predictedOutput = testPredict.transpose()
 predictedMax, predictedMin = predictedOutput.max(), predictedOutput.min()
@@ -121,8 +129,4 @@ trainScore = math.sqrt(mean_squared_error(testY, testPredict))
 print('Non-thresholded: %.2f RMSE' % (trainScore))
 testScore = math.sqrt(mean_squared_error(testY, prediction.transpose()))
 print('Thresholded: %.2f RMSE' % (testScore))
-#plt.vlines(testY.transpose())
-#plt.show()
-#plt.eventplot(prediction.transpose())
-#plt.show()
 

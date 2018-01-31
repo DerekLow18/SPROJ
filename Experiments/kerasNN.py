@@ -31,6 +31,8 @@ def downsample(dataset, binSize):
 		runningSum = np.zeros(len(dataset[0]))
 		for k in range(j*10, (j+1)*10):
 			toSum = np.concatenate(([runningSum],[dataset[k]]))
+			#print(dataset[58])
+			#print("concat is",toSum)
 			runningSum = np.sum(toSum, axis = 0)
 		j = j + 1
 		for l in range(len(runningSum)):
@@ -53,6 +55,7 @@ print(dataset.shape)
 
 #bin the data set so that every set of 10 steps is reshaped to be one step, and multiple spikes during that time only counted as 1
 dataset = downsample(dataset,10)
+
 testset = np.genfromtxt('./Spike Results/2idTimes.csv', delimiter = ',')
 print(testset.shape)
 #scaler = MinMaxScaler(feature_range = (0,1))
@@ -77,6 +80,7 @@ trainX, trainY = train[0:len(train)-1], train[1:len(train)]
 #now I have designated at the inputs are all arrays from the first step to the second to last step,
 #and the corresponding outputs are all arrays from second step to the last step
 testX, testY = test[0:len(test)-1], test[1:len(test)]
+#Do the same for the testing set
 #the second value, designating that number of neurons in each timestep, should be the same, and indeed they are
 trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
 testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
@@ -85,12 +89,12 @@ print("train y shape is:",trainY.shape)
 
 #Create the network here. Each hidden layer has 10 LSTM blocks, with 1 input, and a single output layer
 model = keras.models.Sequential()
-model.add(keras.layers.LSTM(10,input_shape=(1, popSize),return_sequences=True))
+model.add(keras.layers.Dense(10,input_shape=(1, popSize)))
 model.add(keras.layers.Flatten())
 #define the output space using Dense
 model.add(keras.layers.Dense(10,activation= 'linear'))
 #model.add(keras.layers.ThresholdedReLU(theta = 0.5))
-model.compile(loss='binary_crossentropy', optimizer='RMSprop')
+model.compile(loss='binary_crossentropy', optimizer='RMSProp')
 model.fit(trainX, trainY, epochs = 10, batch_size = 1, verbose = 2)
 
 #run the model here
@@ -121,8 +125,11 @@ trainScore = math.sqrt(mean_squared_error(testY, testPredict))
 print('Non-thresholded: %.2f RMSE' % (trainScore))
 testScore = math.sqrt(mean_squared_error(testY, prediction.transpose()))
 print('Thresholded: %.2f RMSE' % (testScore))
-#plt.vlines(testY.transpose())
-#plt.show()
-#plt.eventplot(prediction.transpose())
-#plt.show()
 
+#model value extraction
+model2 = keras.models.Sequential()
+model2.add(keras.layers.Dense(10, input_shape=(1, popSize), weights = model.layers[0].get_weights()))
+model2.add(keras.layers.Flatten())
+model2.compile(loss='binary_crossentropy', optimizer = 'RMSProp')
+weights = model2.predict(trainX)
+print(weights.shape)

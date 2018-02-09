@@ -2,12 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas
 import math
-import keras
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import mean_squared_error
-from sklearn.preprocessing import normalize
-from sklearn.metrics import log_loss
 import matplotlib.pyplot as plt
+import scipy.spatial
 
 # convert an array of values into a dataset matrix
 def create_dataset(dataset, look_back=1):
@@ -60,21 +56,33 @@ print(weights)
 
 
 
-#formula for the prediction of what the next step will look like
+#formula for the prediction of what the next step will look like. Currently, it's at simple thresholding
+def activation(activity):
+	output = 0
+	if activity == 1:
+		output = 1
+	else: output = 0
+	return output
+
+#takes a timeStep and attempts to predict the next time step
 def prediction(timeStep):
 	global weights, activation
+	#matrix multiply the weight matrix with the spiking matrix
 	adjustedStep = np.matmul(timeStep, weights)
+	#go through all values of the adjusted step matrix, and multiply them by the activation function
 	for value in range(len(adjustedStep)):
-		activation = timeStep[value]
-		adjustedStep[value] = adjustedStep[value]*timeStep[value]
+		adjustedStep[value] = adjustedStep[value]*activation(timeStep[value])
+		#print(adjustedStep)
+	#return the resulting and final adjusted step
 	return adjustedStep
 
-def error():
-	return
+#error calculation between the predicted step and the actual step, euclidean distance
+def error(prediction, actual):
+	return scipy.spatial.distance.euclidean(prediction, actual)
 
-
+#main network training function
 def trainNetwork(Max_iters = 10):
 	for i in range(len(dataset)):
-		print(prediction(dataset[i]))
+		print("This is the error: " + str(error(prediction(dataset[i]),dataset[i])))
 
 trainNetwork()

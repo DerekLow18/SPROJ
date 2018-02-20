@@ -154,11 +154,11 @@ def main(num):
 	#SET PARAMETERS
 	numNeurons = 50
 	cE = float((.8*numNeurons)/10)
-	poisson_rate = 5.0 #1000.0*((2.0*30.0)/(0.1*20.0*cE))*cE
+	poisson_rate = 10.0 #1000.0*((2.0*30.0)/(0.1*20.0*cE))*cE
 	neuronPop, popMatrix = readAndCreate("./Syn Weights/groundTruth.csv")
 
 	#CREATE NODES
-	noise = nest.Create("poisson_generator",1,{'rate':poisson_rate})
+	noise = nest.Create("poisson_generator",2,{'rate':poisson_rate})
 	#noiseIn = nest.Create("poisson_generator",1,{'rate':10000.0})
 	#sine = nest.Create("ac_generator",1,{"amplitude": 100.0, "frequency" :2.0})
 	spikes = nest.Create("spike_detector", 1)
@@ -166,8 +166,8 @@ def main(num):
 	#spikesIn = spikes[1:]
 
 	Ex = 1
-	d = 20.0
-	wEx = 15.1
+	d = .0
+	wEx = 30.0
 	wIn = -1.0
 
 	#SPECIFY CONNECTION DICTIONARIES

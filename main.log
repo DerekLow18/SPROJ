@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  8 FEB 2018 14:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  16 FEB 2018 12:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -514,12 +514,12 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 30.
+(Font)              <7> on input line 32.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 30.
- [2]
+(Font)              <5> on input line 32.
+
 Underfull \hbox (badness 10000) in paragraph at lines 47--49
 
  []
@@ -657,15 +657,69 @@ If you're in the wrong mode, you might be able to
 return to the right one by typing `I}' or `I$' or `I\par'.
 
 Missing character: There is no è in font cmex10!
-[7] [8] [9] [10]
+[7] [8] [9]
+! Missing } inserted.
+<inserted text> 
+                }
+l.119 $$if v >= V_th:{$
+                       $
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Undefined control sequence.
+l.120 \tab
+          $$v = c$$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[10]
+! Undefined control sequence.
+l.121 \tab
+          $$u = u + d}$$$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Extra }, or forgotten $.
+l.121 \tab$$u = u + d}
+                      $$$
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.122 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+<figures/figure1.png, id=45, 578.16pt x 433.62pt>
+File: figures/figure1.png Graphic file (type png)
+ <use figures/figure1.png>
+Package pdftex.def Info: figures/figure1.png used on input line 127.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+
+[11 <./figures/figure1.png>]
 ! Double subscript.
-l.121 ... PageRank of incoming neuron j, and $W_j_
+l.134 ... PageRank of incoming neuron j, and $W_j_
                                                   i$ is the weight of the co...
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 No file main.bbl.
 ! Misplaced alignment tab character &.
-l.131 \item Denk, W., Strickler, J. H., &
+l.144 \item Denk, W., Strickler, J. H., &
                                           Webb, W. W. (1990). Two-Photon Las...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -674,9 +728,25 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-[11]
 ! Misplaced alignment tab character &.
-l.135 \item Katz, B., &
+l.145 ...Garofalo, M., Nieus, T., Massobrio, P., &
+                                                   Martinoia, S. (2009). Eva...
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+
+Overfull \hbox (4.88919pt too wide) in paragraph at lines 145--146
+\OT1/cmr/m/n/10 nec-tiv-ity in Cor-ti-cal Net-works. PLoS ONE, 4(8). https://do
+i.org/10.1371/journal.pone.0006482 
+ []
+
+[12]
+! Misplaced alignment tab character &.
+l.150 \item Katz, B., &
                         Miledi, R. (1967). A Study of Synaptic Transmission ...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -686,7 +756,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.136 \item Katz, B., &
+l.151 \item Katz, B., &
                         Miledi, R. (1968). The role of calcium in neuromuscu...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -696,7 +766,27 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.139 \item Orrenius, S., Zhivotovsky, B., &
+l.153 \item Marblestone, A., Wayne, G., &
+                                          Kording, K. (2016). Towards an int...
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.154 \item McCulloch, W. S., &
+                                Pitts, W. H. (1943). A Logical Calculus of t...
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.157 \item Orrenius, S., Zhivotovsky, B., &
                                              Nicotera, P. (2003). REGULATION...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -705,14 +795,14 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-
-Overfull \hbox (14.00142pt too wide) in paragraph at lines 140--141
+[13]
+Overfull \hbox (14.00142pt too wide) in paragraph at lines 158--159
 \OT1/cmr/m/n/10 encoders. bioRxiv. Re-trieved from http://biorxiv.org/content/e
 arly/2017/06/20/152884.abstract 
  []
 
 ! Misplaced alignment tab character &.
-l.141 ...Etzler, J. C., Watts, L. T., Zheng, W., &
+l.159 ...Etzler, J. C., Watts, L. T., Zheng, W., &
                                                    Lechleiter, J. D. (2008)....
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -721,9 +811,8 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-[12]
 ! Misplaced alignment tab character &.
-l.148 \item Svoboda, K., Yasuda, R., &
+l.166 \item Svoboda, K., Yasuda, R., &
                                        Carolina, N. (2006). Principles of Tw...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -733,13 +822,14 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 
-Overfull \hbox (85.94597pt too wide) in paragraph at lines 148--149
+Overfull \hbox (85.94597pt too wide) in paragraph at lines 166--167
 \OT1/cmr/m/n/10 croscopy and Its Ap-pli-ca-tions to Neu-ro-science. Neu-ron, 50
 , 823{839. https://doi.org/10.1016/j.neuron.2006.05.019 
  []
 
+[14]
 ! Misplaced alignment tab character &.
-l.151 \item Widrow, B., &
+l.169 \item Widrow, B., &
                           Lehr, M. A. (1990). 30 Years of Adaptive Neural Ne...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -749,17 +839,27 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 
-Overfull \hbox (41.69597pt too wide) in paragraph at lines 151--152
+Overfull \hbox (41.69597pt too wide) in paragraph at lines 169--170
 \OT1/cmr/m/n/10 line, and Back-prop-a-ga-tion. Pro-ceed-ings of the IEEE, 78(9)
 , 1415{1442. https://doi.org/10.1109/5.58323 
  []
 
-[13] (./main.aux) ) 
+! Misplaced alignment tab character &.
+l.170 ... Zhou, D., Xiao, Y., Zhang, Y., Xu, Z., &
+                                                   Cai, D. (2014). Granger c...
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+[15] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 2597 strings out of 494910
- 34532 string characters out of 6179836
+ 2604 strings out of 494910
+ 34650 string characters out of 6179836
  101954 words of memory out of 5000000
- 5870 multiletter control sequences out of 15000+600000
+ 5874 multiletter control sequences out of 15000+600000
  7895 words of font info for 28 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  37i,8n,31p,1970b,189s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -774,10 +874,10 @@ dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmsy7.pfb>
-Output written on main.pdf (13 pages, 157586 bytes).
+Output written on main.pdf (15 pages, 182510 bytes).
 PDF statistics:
- 91 PDF objects out of 1000 (max. 8388607)
- 64 compressed objects within 1 object stream
+ 100 PDF objects out of 1000 (max. 8388607)
+ 69 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

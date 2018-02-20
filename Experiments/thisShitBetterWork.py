@@ -7,6 +7,7 @@ import scipy.spatial
 from sympy import symbols, diff	
 
 # convert an array of values into a dataset matrix
+'''
 def create_dataset(dataset, look_back=1):
 	dataX, dataY = [], []
 	for i in range(len(dataset)-look_back-1):
@@ -43,13 +44,22 @@ print(dataset.shape)
 #dataset = scaler.fit_transform(dataset)
 dataset = np.transpose(dataset)
 print(dataset.shape)
-#now, each array in dataset is representative of a single timestep, where each value is whether or not the neuron is spiking at that particular time
+#now, each array in dataset is representative of a single timestep,
+#where each value is whether or not the neuron is spiking at that particular time
 
-#bin the data set so that every set of 10 steps is reshaped to be one step, and multiple spikes during that time only counted as 1
+#bin the data set so that every set of 10 steps is reshaped to be one step,
+#and multiple spikes during that time only counted as 1
 dataset = downsample(dataset,10)
 
 print(dataset.shape)
 print(dataset)
+'''
+#making sure it works on a smaller example
+dataset =[[0.5,0.10],[0.1,0.99]]
+hidden_layer_weights = [0.15,0.20,0.25,0.30]
+output_layer_weights = [0.40,0.45,0.50,0.55]
+hidden_layer_bias = 0.35
+output_layer_bias = 0.6
 
 #intilizalize the weight array
 weights = np.random.rand(10,10)
@@ -58,13 +68,16 @@ weights = np.random.rand(10,10)
 def error(prediction, actual):
 	return scipy.spatial.distance.euclidean(prediction, actual)
 
-def pdEuclideanDistance(predicted,actual):#calculate value for partial deriv of euclidean distance w.r.t. predicted
-	return (predicted-actual)/(np.sqrt((predicted-actual)**2))
-
-#formula for the prediction of what the next step will look like. Currently, it's at sigmoind function
+#formula for the prediction of what the next step will look like.
+#Currently, it's at sigmoind function
 def activation(activity):
 	return 1 / (1 + math.exp(-activity))
 
+def pdEuclideanDistance(predicted,actual)
+:#calculate value for partial deriv of euclidean distance w.r.t. predicted
+	return (predicted-actual)/(np.sqrt((predicted-actual)**2))
+
+#partial derivative of the activation function
 def pdSigmoid(x):
 	return x*(1-x)
 
@@ -73,7 +86,8 @@ def prediction(timeStep):
 	global weights, activation
 	#matrix multiply the weight matrix with the spiking matrix
 	adjustedStep = np.matmul(timeStep, weights)
-	#go through all values of the adjusted step matrix, and multiply them by the activation function
+	#go through all values of the adjusted step matrix,
+        #and multiply them by the activation function
 	for value in range(len(adjustedStep)):
 		adjustedStep[value] = activation(adjustedStep[value])
 		#print(adjustedStep)
@@ -89,8 +103,10 @@ def weightChange(predicted,actual,activity,priorStep):
 	f = ((x-y)**2)**(1/2)
 	deriv = diff(f, x)
 	print(deriv)'''
-	i = pdEuclideanDistance(predicted,actual) #partial derivative of euclidean distance with respect to the prediction
-	j = pdSigmoid(activation(activity)) #partial derivative of activation function with respect to the activity
+	i = pdEuclideanDistance(predicted,actual)
+        #partial derivative of euclidean distance with respect to the prediction
+	j = pdSigmoid(activation(activity))
+        #partial derivative of activation function with respect to the activity
 	totalChange = i*j*priorStep
 	print(totalChange)
 	return totalChange
@@ -98,9 +114,12 @@ def weightChange(predicted,actual,activity,priorStep):
 #main network training function
 def trainNetwork(Max_iters = 1):
 	predictionMatrix = []
+        #Iterates through all values in the data set
 	for i in range(len(dataset)):
+                #predict the value for the next step and store it
 		predictionMatrix[i] = prediction(dataset[i]);
 		for predicted in range(len(dataset[i])):
+                        #check to see if prediction and actual are different
 			if predictionMatrix[i][predicted] != dataset[i][predicted]:
 				
 

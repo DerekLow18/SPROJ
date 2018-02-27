@@ -55,9 +55,9 @@ print(dataset.shape)
 print(dataset)
 '''
 #making sure it works on a smaller example
-dataset =[[0.5,0.10],[0.1,0.99]]
-hidden_layer_weights = [0.15,0.20,0.25,0.30]
-output_layer_weights = [0.40,0.45,0.50,0.55]
+dataset =[[0.05,0.10],[0.1,0.99]]
+hidden_layer_weights = [[0.15,0.20],[0.25,0.30]]
+output_layer_weights = [[0.40,0.45],[0.50,0.55]]
 hidden_layer_bias = 0.35
 output_layer_bias = 0.6
 
@@ -68,20 +68,51 @@ weights = np.random.rand(10,10)
 def error(prediction, actual):
 	return scipy.spatial.distance.euclidean(prediction, actual)
 
+def squaredError(prediction,actual):
+	squaredErrorVector = []
+	for index in range(len(prediction)):
+		squaredErrorVector.append((1/2)*(actual[i] - prediction[i])**2)
+	return squaredErrorVector
+
 #formula for the prediction of what the next step will look like.
 #Currently, it's at sigmoind function
 def activation(activity):
 	return 1 / (1 + math.exp(-activity))
 
-def pdEuclideanDistance(predicted,actual)
-:#calculate value for partial deriv of euclidean distance w.r.t. predicted
+def pd
+
+def pdEuclideanDistance(predicted,actual):
+#calculate value for partial deriv of euclidean distance w.r.t. predicted
 	return (predicted-actual)/(np.sqrt((predicted-actual)**2))
 
 #partial derivative of the activation function
 def pdSigmoid(x):
 	return x*(1-x)
 
+#using this for the purposes of testing a standard prediction formula
+def prediction(timeStep):
+	#first calculate the hidden layer values
+	predictionArray = [0,0]
+	for hiddenIndex in range(len(predictionArray)):
+		predicted = 0
+		for inputIndex in range(len(dataset[0])):
+			predicted += dataset[0][inputIndex]*hidden_layer_weights[hiddenIndex][inputIndex]
+		predicted = predicted + hidden_layer_bias
+		predictionArray[hiddenIndex] = activation(predicted)
+	outputArray = [0,0]
+	for outputIndex in range(len(outputArray)):
+		predicted = 0
+		for hiddenIndex in range(len(predictionArray)):
+			predicted += predictionArray[hiddenIndex]*output_layer_weights[outputIndex][hiddenIndex]
+		predicted = predicted + output_layer_bias
+		outputArray[outputIndex] = activation(predicted)
+
+	print(predictionArray)
+	print(outputArray)
+	return predictionArray, outputArray
+
 #takes a timeStep and attempts to predict the next time step
+'''
 def prediction(timeStep):
 	global weights, activation
 	#matrix multiply the weight matrix with the spiking matrix
@@ -93,6 +124,7 @@ def prediction(timeStep):
 		#print(adjustedStep)
 	#return the resulting and final adjusted step
 	return adjustedStep
+	'''
 
 '''
 change the weight between one source neuron and the target neuron
@@ -121,10 +153,11 @@ def trainNetwork(Max_iters = 1):
 		for predicted in range(len(dataset[i])):
                         #check to see if prediction and actual are different
 			if predictionMatrix[i][predicted] != dataset[i][predicted]:
-				
+				return
 
 
 		print("This is the error: " + str(error(prediction(dataset[i]),dataset[i])))
 
-trainNetwork()
-weightChange(0,1,0,1)
+#trainNetwork()
+#weightChange(0,1,0,1)
+prediction(dataset[0])

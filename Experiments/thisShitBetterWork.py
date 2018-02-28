@@ -116,8 +116,8 @@ def prediction(timeStep):
 		outputActivity[outputIndex] = round(predicted,9)
 		outputArray[outputIndex] = round(activation(predicted),9)
 
-	print(predictionArray)
-	print(outputArray)
+	#print(predictionArray)
+	#print(outputArray)
 	return [predictionArray, outputArray, predictionActivity, outputActivity]
 
 #takes a timeStep and attempts to predict the next time step
@@ -144,53 +144,90 @@ def weightChangeOutput(predicted,actual,priorStep):
 	f = ((x-y)**2)**(1/2)
 	deriv = diff(f, x)
 	print(deriv)'''
-	print("priorStep is",priorStep)
+	#print("priorStep is",priorStep)
 	i = round(pdSquaredError(predicted,actual),9)
-	print("the pd squared error is ", i)
+	#print("the pd squared error is ", i)
 	#partial derivative of euclidean distance with respect to the prediction
-	print("the activity is", predicted)
+	#print("the activity is", predicted)
 	j = round(pdSigmoid(predicted),9)
-	print("the pd sigmoid is",j)
+	#print("the pd sigmoid is",j)
 		#partial derivative of activation function with respect to the activity
 	totalChange = round(i*j*priorStep,9)
 	return totalChange
+'''
+calculate the weight change for one weight in the hidden layer
 
-def weightChangeHidden(predicted,actual,priorStep):
-	return
+Prior step is the input to the hidden layer
+'''
+def weightChangeHidden(predictedArray,actualArray,priorStep,weightIndex,hiddenOutput):
+	totalError = 0
+	#here, predictedArray is the array from the layer forward to the current hidden layer
+	#actual array is the corresponding output array
+	#print("THe predicted array is ",predictedArray)
+	#print("the actual array is ", actualArray)
+	for outputIndex in range(len(predictedArray)):
+		i = round(pdSquaredError(predictedArray[outputIndex],actualArray[outputIndex]),9)
+		j = round(pdSigmoid(predictedArray[outputIndex]),9)
+		w = output_layer_weights[weightIndex][outputIndex]
+		#print(i,j,w)
+		totalError = totalError + round(i*j*w,9)
+	hO = round(pdSigmoid(hiddenOutput),9)
+	#print(totalError,hO,priorStep)
+	totalChange = round(totalError*hO*priorStep,9)
+	return totalChange
 
 #main network training function
-def trainNetwork(Max_iters = 1):
+def trainNetwork(Max_iters = 10000):
 	#predictionMatrix = []
 	#Iterates through all values in the data set
 	#for i in range(len(dataset)):
 		#predict the value for the next step and store it
-	predictionMatrix = prediction(dataset[0]);#store the predictions for the array into a matrix
-	'''
-		for predicted in range(len(dataset[i])):
-						#check to see if prediction and actual are different
-			if predictionMatrix[i][predicted] != dataset[i][predicted]:
-				return
-				'''
-	'''
-	now that we have the predictions, we need to calculate the weight change for each weight in the
-	weight matrix. Start with the output layer's weights from the hidden layer
-	'''
-	updatedWeights = copy.deepcopy(output_layer_weights)
-	for weightArrayIndex in range(len(output_layer_weights)):
-		for weightValueIndex in range(len(output_layer_weights[weightArrayIndex])):
-			print("Calculating for ", weightArrayIndex,weightValueIndex)
-			weightValue = output_layer_weights[weightArrayIndex][weightValueIndex]
-			weightDelta=weightChangeOutput(predictionMatrix[1][weightValueIndex],dataset[1][weightValueIndex],predictionMatrix[0][weightArrayIndex])
-			print("degree of change is", weightDelta)
-			updatedWeights[weightArrayIndex][weightValueIndex] = weightValue - learningRate*weightDelta
-	print(updatedWeights)
-	'''
-	now we do a similar thing for the input to hidden layer weights.
-	'''
+	i=0
+	while (i <Max_iters):
+		predictionMatrix = prediction(dataset[0]);#store the predictions for the array into a matrix
+		'''
+			for predicted in range(len(dataset[i])):
+							#check to see if prediction and actual are different
+				if predictionMatrix[i][predicted] != dataset[i][predicted]:
+					return
+					'''
+		'''
+		now that we have the predictions, we need to calculate the weight change for each weight in the
+		weight matrix. Start with the output layer's weights from the hidden layer
+		'''
+		global output_layer_weights,hidden_layer_weights
+		#print("Before: \n", output_layer_weights,"\n",hidden_layer_weights,"\n")
+		updatedWeights = copy.deepcopy(output_layer_weights)
+		for weightArrayIndex in range(len(output_layer_weights)):
+			for weightValueIndex in range(len(output_layer_weights[weightArrayIndex])):
+				#print("Calculating for ", weightArrayIndex,weightValueIndex)
+				weightValue = output_layer_weights[weightArrayIndex][weightValueIndex]
+				#calculate weight change for each weight, where first param is outputArray, second is the actual array, and third is the output from the hidden
+				weightDelta=weightChangeOutput(predictionMatrix[1][weightValueIndex],dataset[1][weightValueIndex],predictionMatrix[0][weightArrayIndex])
+				#print("degree of change is", weightDelta)
+				updatedWeights[weightArrayIndex][weightValueIndex] = weightValue - learningRate*weightDelta
+		#print(updatedWeights)
+		'''
+		now we do a similar thing for the input to hidden layer weights.
+		'''
+		updatedIToHWeights = copy.deepcopy(output_layer_weights)
+		for weightArrayIndex in range(len(hidden_layer_weights)):
+			for weightValueIndex in range(len(hidden_layer_weights[weightArrayIndex])):
+				weightValue = hidden_layer_weights[weightArrayIndex][weightValueIndex]
+				weightDelta=weightChangeHidden(predictionMatrix[1],dataset[1],dataset[0][weightArrayIndex],weightArrayIndex,predictionMatrix[0][weightValueIndex])
+				updatedIToHWeights[weightArrayIndex][weightValueIndex] = weightValue - learningRate * weightDelta
+		#print(updatedIToHWeights)
+		output_layer_weights = updatedWeights
+		hidden_layer_weights = updatedIToHWeights
 
-
+		i += 1
+	print("After: \n",output_layer_weights,"\n",hidden_layer_weights,"\n")
+	print(predictionMatrix[1])
 		#print("This is the error: " + str(error(prediction(dataset[i]),dataset[i])))
-
-#trainNetwork()
-#weightChange(0,1,0,1)
+'''predicted = prediction(dataset[0])
+actualArray = dataset[1]
+priorStep = dataset[0][0]
+hiddenOutput = predicted[0]
+print(weightChangeHidden(predicted[1],actualArray,priorStep,0,hiddenOutput[0]))
+'''
 trainNetwork()

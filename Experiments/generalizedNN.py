@@ -4,10 +4,10 @@ import pandas
 import math
 #import scipy.spatial
 import copy
-#from sympy import symbols, diff
-
+import sys
+np.set_printoptions(threshold=np.nan)
 # convert an array of values into a dataset matrix
-'''
+
 def create_dataset(dataset, look_back=1):
 	dataX, dataY = [], []
 	for i in range(len(dataset)-look_back-1):
@@ -51,15 +51,16 @@ print(dataset.shape)
 #and multiple spikes during that time only counted as 1
 dataset = downsample(dataset,10)
 
+old_stdout = sys.stdout
+
+log_file = open("message.log","w")
+sys.stdout = log_file
 print(dataset.shape)
 print(dataset)
-'''
-#making sure it works on a smaller example
-dataset =[[0.05,0.10],[0.01,0.99]]
-hidden_layer_weights = [[0.15,0.25],[0.20,0.30]]
-output_layer_weights = [[0.40,0.50],[0.45,0.55]]
-hidden_layer_bias = 0.35
-output_layer_bias = 0.6
+
+sys.stdout = old_stdout
+
+log_file.close()
 
 #intilizalize the weight array
 weights = np.random.rand(10,10)
@@ -72,11 +73,11 @@ def error(prediction, actual):
 def squaredError(prediction,actual):
 	squaredErrorVector = []
 	for index in range(len(prediction)):
-		squaredErrorVector.append((1/2)*(actual[i] - prediction[i])**2)
-	return squaredErrorVector
+		squaredErrorVector.append((1/2)*(actual[index] - prediction[index])**2)
+	return np.sum(squaredErrorVector)
 
 #formula for the prediction of what the next step will look like.
-#Currently, it's at sigmoind function
+#Currently, it's at sigmoid function
 def activation(activity):
 	return round(1 / (1 + math.exp(-activity)),9)
 
@@ -92,6 +93,7 @@ def pdSigmoid(x):
 	return round(x*(1-x),9)
 
 #using this for the purposes of testing a standard prediction formula
+'''
 def prediction(timeStep):
 	#first calculate the hidden layer values, called prediction array
 	predictionArray = [0,0]
@@ -103,9 +105,7 @@ def prediction(timeStep):
 		predicted = predicted + hidden_layer_bias
 		predictionActivity[hiddenIndex] = round(predicted,9)
 		predictionArray[hiddenIndex] = round(activation(predicted),9)
-	'''
-	now we calculate the values for the output array
-	'''
+	#now we calculate the values for the output array
 	outputArray = [0,0]
 	outputActivity = [0,0]
 	for outputIndex in range(len(outputArray)):
@@ -119,9 +119,10 @@ def prediction(timeStep):
 	#print(predictionArray)
 	#print(outputArray)
 	return [predictionArray, outputArray, predictionActivity, outputActivity]
+	'''
 
 #takes a timeStep and attempts to predict the next time step
-'''
+
 def prediction(timeStep):
 	global weights, activation
 	#matrix multiply the weight matrix with the spiking matrix
@@ -133,17 +134,13 @@ def prediction(timeStep):
 		#print(adjustedStep)
 	#return the resulting and final adjusted step
 	return adjustedStep
-	'''
+	
 
 '''
 change the weight between one source neuron and the target neuron
 
 '''
 def weightChangeOutput(predicted,actual,priorStep):
-	'''x, y= symbols('x y', real=True)
-	f = ((x-y)**2)**(1/2)
-	deriv = diff(f, x)
-	print(deriv)'''
 	#print("priorStep is",priorStep)
 	i = round(pdSquaredError(predicted,actual),9)
 	#print("the pd squared error is ", i)
@@ -154,37 +151,17 @@ def weightChangeOutput(predicted,actual,priorStep):
 		#partial derivative of activation function with respect to the activity
 	totalChange = round(i*j*priorStep,9)
 	return totalChange
-'''
-calculate the weight change for one weight in the hidden layer
-
-Prior step is the input to the hidden layer
-'''
-def weightChangeHidden(predictedArray,actualArray,priorStep,weightIndex,hiddenOutput):
-	totalError = 0
-	#here, predictedArray is the array from the layer forward to the current hidden layer
-	#actual array is the corresponding output array
-	#print("THe predicted array is ",predictedArray)
-	#print("the actual array is ", actualArray)
-	for outputIndex in range(len(predictedArray)):
-		i = round(pdSquaredError(predictedArray[outputIndex],actualArray[outputIndex]),9)
-		j = round(pdSigmoid(predictedArray[outputIndex]),9)
-		w = output_layer_weights[weightIndex][outputIndex]
-		#print(i,j,w)
-		totalError = totalError + round(i*j*w,9)
-	hO = round(pdSigmoid(hiddenOutput),9)
-	#print(totalError,hO,priorStep)
-	totalChange = round(totalError*hO*priorStep,9)
-	return totalChange
 
 #main network training function
-def trainNetwork(Max_iters = 10000):
+def trainNetworkOneStep(timestep,Max_iters = 1,data = dataset):
 	#predictionMatrix = []
 	#Iterates through all values in the data set
 	#for i in range(len(dataset)):
 		#predict the value for the next step and store it
 	i=0
+	global weights
 	while (i <Max_iters):
-		predictionMatrix = prediction(dataset[0]);#store the predictions for the array into a matrix
+		predictionMatrix = prediction(data[timestep]);#store the predictions for the array into a matrix
 		'''
 			for predicted in range(len(dataset[i])):
 							#check to see if prediction and actual are different
@@ -195,39 +172,30 @@ def trainNetwork(Max_iters = 10000):
 		now that we have the predictions, we need to calculate the weight change for each weight in the
 		weight matrix. Start with the output layer's weights from the hidden layer
 		'''
-		global output_layer_weights,hidden_layer_weights
-		#print("Before: \n", output_layer_weights,"\n",hidden_layer_weights,"\n")
-		updatedWeights = copy.deepcopy(output_layer_weights)
-		for weightArrayIndex in range(len(output_layer_weights)):
-			for weightValueIndex in range(len(output_layer_weights[weightArrayIndex])):
+		updatedWeights = copy.deepcopy(weights)
+		for weightArrayIndex in range(len(weights)):
+			for weightValueIndex in range(len(weights[weightArrayIndex])):
 				#print("Calculating for ", weightArrayIndex,weightValueIndex)
-				weightValue = output_layer_weights[weightArrayIndex][weightValueIndex]
-				#calculate weight change for each weight, where first param is outputArray, second is the actual array, and third is the output from the hidden
-				weightDelta=weightChangeOutput(predictionMatrix[1][weightValueIndex],dataset[1][weightValueIndex],predictionMatrix[0][weightArrayIndex])
+				weightValue = weights[weightArrayIndex][weightValueIndex]
+				#calculate weight change for each weight, where first param is outputArray, second is the actual array, and third is the output from the prior step
+				weightDelta=weightChangeOutput(predictionMatrix[weightValueIndex],data[timestep+1][weightValueIndex],data[timestep][weightArrayIndex])
 				#print("degree of change is", weightDelta)
-				updatedWeights[weightArrayIndex][weightValueIndex] = weightValue - learningRate*weightDelta
+				updatedWeights[weightArrayIndex][weightValueIndex] = round(weightValue - learningRate*weightDelta,9)
 		#print(updatedWeights)
-		'''
-		now we do a similar thing for the input to hidden layer weights.
-		'''
-		updatedIToHWeights = copy.deepcopy(output_layer_weights)
-		for weightArrayIndex in range(len(hidden_layer_weights)):
-			for weightValueIndex in range(len(hidden_layer_weights[weightArrayIndex])):
-				weightValue = hidden_layer_weights[weightArrayIndex][weightValueIndex]
-				weightDelta=weightChangeHidden(predictionMatrix[1],dataset[1],dataset[0][weightArrayIndex],weightArrayIndex,predictionMatrix[0][weightValueIndex])
-				updatedIToHWeights[weightArrayIndex][weightValueIndex] = weightValue - learningRate * weightDelta
-		#print(updatedIToHWeights)
-		output_layer_weights = updatedWeights
-		hidden_layer_weights = updatedIToHWeights
+		#print(squaredError(predictionMatrix[1],dataset[1]))
 
 		i += 1
-	print("After: \n",output_layer_weights,"\n",hidden_layer_weights,"\n")
-	print(predictionMatrix[1])
-		#print("This is the error: " + str(error(prediction(dataset[i]),dataset[i])))
-'''predicted = prediction(dataset[0])
-actualArray = dataset[1]
-priorStep = dataset[0][0]
-hiddenOutput = predicted[0]
-print(weightChangeHidden(predicted[1],actualArray,priorStep,0,hiddenOutput[0]))
-'''
+	weights = updatedWeights
+	#print("After: \n",output_layer_weights,"\n",hidden_layer_weights,"\n")
+	#print(predictionMatrix[1])
+
+def trainNetwork():
+	global weights
+	for i in range(len(dataset)-1):
+		trainNetworkOneStep(i)
+
+
+print("Before: \n",weights,"\n")
 trainNetwork()
+print("After:\n",weights,"\n")
+np.savetxt("resultingMatrix1.csv",weights,delimiter=",")

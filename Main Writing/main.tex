@@ -8,7 +8,14 @@
 
 \usepackage{natbib}
 \usepackage{graphicx}
+\usepackage{upgreek}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{caption}
+\captionsetup{justification   = raggedright,
+              singlelinecheck = false}
 \renewcommand{\baselinestretch}{1.6}
+
 \begin{document}
 
 \maketitle
@@ -57,7 +64,7 @@ Why is it important to characterize networks of neurons? Currently, our methods 
 \subsection{Calcium Imaging}
 A commonly employed method of recording activity of neurons is calcium imaging. Neuron activity . At every spiking event, these ions travel through the cell membrane of each neuron by movement through voltage-dependent ion channels, which are functionally altered by the voltage changes that occur in neurons.\par
 
-The versatility and presence of calcium in neurons can be described by the large variety of neuronal processes related to it. Calcium performs several major roles in the function and management of biological cells; most notably, in the presynaptic neuron, an influx of calcium into the neuron triggers the release of neurotransmitter to the synapse via exocytosis (Katz and Miledi, 1967). Furthermore, presynaptically, residual calcium results in neural facilitation, a period in which a successive depolarization of the presynaptic neuron, following the first depolarization event and release of neurotransmitter, raises the likelihood of neurotransmitter release (Katz and Miledi, 1967; Zucker, 1999). Postsynaptically, calcium is responsible for activating the synaptic plasticity cascade. These changes to the synapse, functionally initiated by interactions between calcium and the N-methyl-D-aspartate receptor (NMDA) and α-amino-3-hydroxy-5-methyl-4-isoxazolepropionic acid receptor (AMPA), result in changes to the sensitivity and, by extension, the interactions between the pre- and postsynaptic neurons (Zucker, 1999). The changes enhance or diminish the strength of the connection (potentiation and depression), in various temporal manners (short and long-term). For example, in the case of long-term potentiation (LTP), the influx of calcium into the postsynaptic neuron, and the resulting depolarization, result in the unblocking of the NMDA receptors, allowing for a further influx of calcium into the postsynaptic neuron and inducing LTP (Zucker 1999).Functions of calcium extend further than synaptic activity, and the ion is additionally responsible for biological functions such as cell apoptosis (Orrenius et al., 2003). Therefore, the abundance and utility of calcium, and the deeply integral relationship between calcium and neuron activity, suggest it to be a strong candidate for the purpose of imaging populations of neurons.\par
+The versatility and presence of calcium in neurons can be described by the large variety of neuronal processes related to it. Calcium performs several major roles in the function and management of biological cells; most notably, in the presynaptic neuron, an influx of calcium into the neuron triggers the release of neurotransmitter to the synapse via exocytosis (Katz and Miledi, 1967). Furthermore, presynaptically, residual calcium results in neural facilitation, a period in which a successive depolarization of the presynaptic neuron, following the first depolarization event and release of neurotransmitter, raises the likelihood of neurotransmitter release (Katz and Miledi, 1967; Zucker, 1999). Postsynaptically, calcium is responsible for activating the synaptic plasticity cascade. These changes to the synapse, functionally initiated by interactions between calcium and the N-methyl-D-aspartate receptor (NMDA) and $\alpha$-amino-3-hydroxy-5-methyl-4-isoxazolepropionic acid receptor (AMPA), result in changes to the sensitivity and, by extension, the interactions between the pre- and postsynaptic neurons (Zucker, 1999). The changes enhance or diminish the strength of the connection (potentiation and depression), in various temporal manners (short and long-term). For example, in the case of long-term potentiation (LTP), the influx of calcium into the postsynaptic neuron, and the resulting depolarization, result in the unblocking of the NMDA receptors, allowing for a further influx of calcium into the postsynaptic neuron and inducing LTP (Zucker 1999).Functions of calcium extend further than synaptic activity, and the ion is additionally responsible for biological functions such as cell apoptosis (Orrenius et al., 2003). Therefore, the abundance and utility of calcium, and the deeply integral relationship between calcium and neuron activity, suggest it to be a strong candidate for the purpose of imaging populations of neurons.\par
 
 \subsubsection{Calcium Indicators}
 As mentioned, calcium activity is dependent on the voltage changes of neurons and the responses of voltage-gated channels to voltage changes, and concentration is higher extracellularly until spike time. Therefore, introducing into the neurons an indicator that fluoresces when bound to calcium allows recording of calcium concentration and activity. Among the first discovered and applied calcium indicators is the protein aequorin (Shimomura et al., 1962), where the binding of the calcium to the three binding sites located on the protein results in photon emission (Grienberger and Konnerth, 2012). The necessity of the three calcium molecules, in combination with a controlled amount of indicator injected into these neurons, allows for a controlled fluorescence method that is directly related to the calcium concentration within the cell. However, the particular drawbacks of aequorin, such as a low protein stability and a relatively low fluorescence rate with regards to the amount of decomposition in the concentration of the protein, result in development of several superior and modern alternatives (Grienberger and Konnerth, 2012).\par
@@ -81,9 +88,9 @@ Zhou et al., 2014 uses Granger Causality as the primary method of inferring conn
 \subsubsection{Transfer Entropy}
 Stetter et al., 2012, incorporates information theory as a reconstruction method from calcium imaging data. This particular method of reconstruction focused on in vitro calcium imaging fluorescence levels, with a slightly variant version of the Generalized Transfer Entropy formula:
 
-$$TE_{Y->X}(\^{g}) = \sum{P(x_{n+1}, x_x^k,y_{n+1}^k|g_{n+1}<\^{g}}) log \frac{P(x_{n+1}|x_n,y_{n+1}^k,g_{n+1}<\^{g}}{P(x_{n+1}|x_n^k,g_{n+1}<\^{g}}$$
+$$TE_{Y->X}(\hat{g}) = \sum{P(x_{n+1}, x_x^k,y_{n+1}^k|g_{n+1}<\hat{g}}) log \frac{P(x_{n+1}|x_n,y_{n+1}^k,g_{n+1}<\hat{g}}{P(x_{n+1}|x_n^k,g_{n+1}<\hat{g}}$$
 
-The major difference between the Generalized Transfer Entropy formula and the presented formula is the presence of $\^g$, a predefined threshold of fluorescence, where $g_t$ is the average fluorescence of the network at a particular time $t$.\par
+The major difference between the Generalized Transfer Entropy formula and the presented formula is the presence of $\hat{g}$, a predefined threshold of fluorescence, where $g_t$ is the average fluorescence of the network at a particular time $t$.\par
 
 The researchers use Transfer Entropy to evaluate the information transfer, where information transfer can be understood as how likely the activity of neuron Y indicates the activity in neuron X, between all possible directed pairs of neurons in the network. Afterwards, the researchers use a threshold Transfer Entropy to prune the the connections with the lowest values of information transfer, and reconstruct the network based on the remaining neurons, finding Transfer Entropy to reconstruct network properties more accurately than previous reconstruction methods, and at varying levels of visual noise in the data, or light scattering.\par
 
@@ -116,28 +123,38 @@ Machine learning methods are typically trained on some prior data set; simulatio
 The simulations presented here are performed in NEST simulator, a tool maintained by the NEST initiative. The NEST simulator was selected for the purpose of simulations that maintain biological realism and complexity, with emphasis on simulation of large neuronal networks. The advantage NEST has over other simulators is the capability to simulate large networks with varying facets, such as synapse and neuron types, while retaining accurate representation of the individual neurons.\par
 
 \section{Methods}
+
+\begin{figure}[H]
+\centering
+	\includegraphics[scale=0.4]{./Figures/SPROJModel.jpg}
+	\caption{Experimental Pipeline}
+\end{figure}
+
 \subsection{Simulation of Neurons for Spike Train Generation}
 The NEST simulator is used for the purposes of generating spike train data. NEST Izhikevich neurons are used as the model neurons, due to the increased complexity over leaky integrate-and-fire neurons, and the reduced computational complexity over models of significantly more numerous compartment models, such as the Hodgkin-Huxley models (Brette, 2015). NEST implementation dynamics of Izchikevich neurons are provided by the following :
 
 $$dv/dt=0.04v^2+5v+140-u+I$$
 $$du/dt=a(bv-u)$$
 
-$$if v >= V_th:{$$
-\tab$$v = c$$
-\tab$$u = u + d}$$$
+
+$$ifv >= V_{th}:{$$
+$$v = c$$
+$$u = u + d}$$
 
 where $v$ represents the membrane potential of the neuron and $u$ the membrane recovery variable. The membrane recovery variable captures the responses of $K^{+}$ and $Na^{+}$, and is a source of negative feedback to $v$. Coefficients for change in membrane potential, are based on scale, with membrane potential at $mV$ and time as ms, as are $a$ and $b$. $I$ is the input current to the neuron, and $c$ and $d$ are the post-spike reset values of the neuron (Kunkel et al., 2017, Izhikevich et al., 2004). 
 
 To simulate a population of neurons with $n$ population size over $t$ time, a file containing an $n x n$ adjacency matrix is provided to the simulation program, which then creates a NEST neuron population with the exact number of neurons and connections between the neurons in the population, using the corresponding weight of the connection stored in the adjacency matrix. Interactions with neurons in NEST must be achieved through the creation of new node objects, made to represent and achieve the results of physical instruments and devices; therefore, we create a poisson generator node to add noise to the population, and connect a spike detector node to record all spikes in the population during simulation. The population is then recorded over 1000 simulation steps, or 100 ms. The corresposnding output of the simulation is converted to a matrix of $n x t$ dimensionality.\par
-
-\includegraphics[scale=0.5]{figures/figure1.png} 
+\begin{figure}[H]
+\centering
+	\includegraphics[scale=0.5]{./Figures/figure1.png} 
+\end{figure}
 
 \subsection{PageRank}
 The PageRank-based algorithm takes a weighted adjacency matrix as an input; a non-weighted adjacency matrix would result in no change in the PageRanks of each neuron, and no change in the resulting adjacency matrix. The PageRank for each neuron is then calculated based on the following formula:
 
 $$PR_i = (1-d)+d(\sum(\frac{PR_j}{C} * W_ij))$$
 
-Where PR is the PageRank of neuron $i$, $d$ is the standard damping factor of 0.8, $PR_j$ is the PageRank of incoming neuron j, and $W_j_i$ is the weight of the connection from neuron j to i. The summation calculates for all incoming connections to neuron i. The formula is recalculated until convergence, where the PageRanks no longer change, at which point the weights are updated such that the weight of each connection is multiplied by the PageRank of the source of the connection. The network is then pruned by comparing the weights between neuron i and j, or Wij and Wji, and the the lower value is reduced to 0, while the higher value is set to 1, preserving the higher connection. The process is then repeated, using the new weights, for an arbitrary number of times.\par
+Where PR is the PageRank of neuron $i$, $d$ is the standard damping factor of 0.8, $PR_j$ is the PageRank of incoming neuron j, and $W_{ji}$ is the weight of the connection from neuron j to i. The summation calculates for all incoming connections to neuron i. The formula is recalculated until convergence, where the PageRanks no longer change, at which point the weights are updated such that the weight of each connection is multiplied by the PageRank of the source of the connection. The network is then pruned by comparing the weights between neuron i and j, or Wij and Wji, and the the lower value is reduced to 0, while the higher value is set to 1, preserving the higher connection. The process is then repeated, using the new weights, for an arbitrary number of times.\par
 
 \section{Conclusion}
 
@@ -177,11 +194,11 @@ Where PR is the PageRank of neuron $i$, $d$ is the standard damping factor of 0.
 \item Sporns, O., Chialvo, D., Kaiser, M., and Hilgetag, C. (2004). Organization, development and function of complex brain networks. Trends in Cognitive Sciences, 8(9), 418-425. \\doi:10.1016/j.tics.2004.07.008
 \item Steels, L. (2007). Fifty Years of AI: From Symbols to Embodiment -and Back, 18–28.
 \item Stetter, O., Battaglia, D., Soriano, J., and Geisel, T. (2012). Model-Free Reconstruction of Excitatory Neuronal Connectivity from Calcium Imaging Signals. PLoS Computational Biology. https://doi.org/10.1371/journal.pcbi.1002653
-\item Svoboda, K., Yasuda, R., & Carolina, N. (2006). Principles of Two-Photon Excitation Microscopy and Its Applications to Neuroscience. Neuron, 50, 823–839. https://doi.org/10.1016/j.neuron.2006.05.019
+\item Svoboda, K., Yasuda, R., & Carolina, N. (2006). Principles of Two-Photon Excitation Microscopy and Its Applications to Neuroscience. Neuron, 50, 823–839.\\https://doi.org/10.1016/j.neuron.2006.05.019
 \item Terry, R. D., Masliah, E., Salmon, D. P., Butters, N., Deteresa, R., Hill, R., … Katzman, R. (1991). Physical Basis of Cognitive Alterations in Alzheimer ’ s Disease : Synapse h s s Is the Major Correlate of Cognitive Impairment. Annals of Neurology, 30(4), 572–580.
-\item Turing, A. M. (2009). Computing machinery and intelligence. In Parsing the Turing Test: Philosophical and Methodological Issues in the Quest for the Thinking Computer.\\ https://doi.org/10.1007/978-1-4020-6710-5\_3
+\item Turing, A. M. (2009). Computing machinery and intelligence. In Parsing the Turing Test: Philosophical and Methodological Issues in the Quest for the Thinking Computer.\\https://doi.org/10.1007/978-1-4020-6710-5\_3
 \item Werbos, P. J. (1990). Backpropagation Through Time: What It Does and How to Do It. Proceedings of the IEEE, 78(10), 1550–1560. https://doi.org/10.1109/5.58337
-\item Widrow, B., & Lehr, M. A. (1990). 30 Years of Adaptive Neural Networks: Perceptron, Madaline, and Backpropagation. Proceedings of the IEEE, 78(9), 1415–1442. https://doi.org/10.1109/5.58323
+\item Widrow, B., & Lehr, M. A. (1990). 30 Years of Adaptive Neural Networks: Perceptron, Madaline, and Backpropagation. Proceedings of the IEEE, 78(9), 1415–1442.\\https://doi.org/10.1109/5.58323
 \item Zhou, D., Xiao, Y., Zhang, Y., Xu, Z., & Cai, D. (2014). Granger causality network reconstruction of conductance-based integrate-and-fire neuronal systems. PLoS ONE, 9(2). https://doi.org/10.1371/journal.pone.0087636
 \item Zucker, R. S. (1999). Calcium- and activity-dependent synaptic. Current Opinion in Neurobiology, 9(3), 305–313.
 \end{enumerate}

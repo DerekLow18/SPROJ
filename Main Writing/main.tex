@@ -11,7 +11,7 @@
 \usepackage{upgreek}
 \usepackage{amsmath}
 \usepackage{float}
-\usepackage{caption}
+\usepackage[font=scriptsize,labelfont=bf]{caption}
 \captionsetup{justification   = raggedright,
               singlelinecheck = false}
 \renewcommand{\baselinestretch}{1.6}
@@ -43,11 +43,10 @@ The configuration of neurons and network properties of these particular networks
 
 \subsection{Representing Networks of Neurons}
 Deriving the organization of neurons in networks is difficult at lower populations of neurons, and the difficulty increases significantly as the population of neurons increases. The organization of neurons can be represented as a matrix, typically referred to as an adjacency or weight matrix; whether the matrix is an adjacency or weight matrix depends on how these connections between neurons are represented, and what information is useful and preserved. Weight matrices assign values based on the strength of connections between neurons, and whether the source neuron is an excitatory or inhibitory neuron, while adjacency matrices are representative of whether or not there is a connection, and ignores the strength of these connections. For example, the following matrix describes connections between a population of three neurons:\par
-
+\begin{figure}[H]
 \begin{center}
 \begin{tabular}{ |p{3cm}|p{3cm}|p{3cm}|p{3cm}|  }
- \hline
- \multicolumn{4}{|c|}{Sample Adjacency Matrix} \\
+ \multicolumn{4}{|c|}{} \\
  \hline
   & Neuron 1 & Neuron 2 & Neuron 3\\
  \hline
@@ -57,6 +56,8 @@ Deriving the organization of neurons in networks is difficult at lower populatio
  \hline
 \end{tabular}
 \end{center}
+\caption{Sample Adjacency Matrix of a Population, Size 3. Diagonal indices represent self-connections. Labels along the columns represent the target, and labels along the rows represent the source e.g. the connection at Row 3, Column 2 (value of 1) is a connection from the pre-synaptic Neuron 3 to the post-synaptic Neuron 2. Note the lack of the inverse connection from Neuron 2 to Neuron 3 (value of 0).}
+\end{figure}
 
 Matrices such as the one above describe the connections between different neurons in an observed population, with observed being an important keyword; these neurons could have incoming connections from sources outside of the observed population, depending on the context of the observations. One standard feature of network matrices is the zero value along the diagonal, representative of a lack of a connection from a neuron to itself. In the example above, there is a directional connection between the outward axonal connection of Neuron 3 and the incoming dendritic connection of Neuron 1; therefore, assuming a positive value to represent an excitatory connection, spikes in Neuron 3 result in a voltage increase of Neuron 1. By this method of representation, the matrix can describe the relative strength and nature of all connections between neurons in the observed population.\par
 
@@ -128,7 +129,8 @@ The simulations presented here are performed in NEST simulator, a tool maintaine
 \begin{figure}[H]
 \centering
 	\includegraphics[scale=0.4]{./Figures/SPROJModel.jpg}
-	\caption{Experimental Pipeline}
+	\caption{Experimental Pipeline. We start with a pre-generated adjacency matrix detailing the connections of a population of neurons, and pass it to the NEST simulator program. The NEST simulator reconstructs the network defined by the matrix; at this stage, poisson noise is added to the population via a connection from a 'noise generator' NEST object to all neurons in the population. The simulation is then run for 10000 timesteps (milliseconds), and the generated data is output as a spiketime matrix of n x t dimensionality, n = population size and t = timesteps. The output is then downsampled to reflect realistic calcium imaging frame duration of 10 ms, reducing the data set to t = timesteps/10.\\
+The downsampled data is then trained in the neural network via comparison of previous timestep to next timestep, using mean squared error and backpropagation. After some predetermined iteration value or conditional is reached (such as error convergence), the network outputs the resulting weight matrix, which can then be analyzed with respect to the ground truth adjacency matrix passed in the first stage of the pipeline.}
 \end{figure}
 
 \subsection{Simulation of Neurons for Spike Train Generation}
@@ -145,10 +147,11 @@ $u = u + d}$\par
 }
 where $v$ represents the membrane potential of the neuron and $u$ the membrane recovery variable. The membrane recovery variable captures the responses of $K^{+}$ and $Na^{+}$, and is a source of negative feedback to $v$. Coefficients for change in membrane potential, are based on scale, with membrane potential at $mV$ and time as ms, as are $a$ and $b$. $I$ is the input current to the neuron, and $c$ and $d$ are the post-spike reset values of the neuron (Kunkel et al., 2017, Izhikevich et al., 2004). 
 
-To simulate a population of neurons with $n$ population size over $t$ time, a file containing an $n x n$ adjacency matrix is provided to the simulation program, which then creates a NEST neuron population with the exact number of neurons and connections between the neurons in the population, using the corresponding weight of the connection stored in the adjacency matrix. Interactions with neurons in NEST must be achieved through the creation of new node objects, made to represent and achieve the results of physical instruments and devices; therefore, we create a poisson generator node to add noise to the population, and connect a spike detector node to record all spikes in the population during simulation. The population is then recorded over 1000 simulation steps, or 100 ms. The corresposnding output of the simulation is converted to a matrix of n x t dimensionality.\par
+To simulate a population of neurons with $n$ population size over $t$ time, a file containing an $n x n$ adjacency matrix is provided to the simulation program, which then creates a NEST neuron population with the exact number of neurons and connections between the neurons in the population, using the corresponding weight of the connection stored in the adjacency matrix. Interactions with neurons in NEST must be achieved through the creation of new node objects, made to represent and achieve the results of physical instruments and devices; therefore, we create a poisson generator node to add noise to the population, and connect a spike detector node to record all spikes in the population during simulation. The population is then recorded over 10000 simulation steps, or 10000 ms. The corresposnding output of the simulation is converted to a matrix of n x t dimensionality.\par
 \begin{figure}[H]
 \centering
-	\includegraphics[scale=0.5]{./Figures/figure1.png} 
+	\includegraphics[scale=0.5]{./Figures/figure_1.png} 
+	\caption{Raster Plot via NEST Simulator. The plot is generated by simulating a population of 50 neurons over 10000 time steps (ms), and graphically represents two distinct arrays output by the simulation: one array consisting of neuron IDs in the population, and another array with the corresponding spike times of the spiking neurons stored in the indices of the former array. The NEST simulator connects each neuron based on the input adjacency matrix and attaches additional noise and spike detection objects to every neuron in the population. Device 52 is the NEST spike detection object; all neurons are connected by the NEST simulation program for the purposes of spike detection. Device 51 is the noise generator object, and Devices 1-50 are the neurons in the population. }
 \end{figure}
 
 \subsection{PageRank}

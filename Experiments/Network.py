@@ -89,7 +89,7 @@ def readAndCreate(file):
 	for row_pos in range(len(matrix)):
 		for col_pos in range(len(matrix[row_pos])):
 			if matrix[row_pos][col_pos] == 1.0:
-				nest.Connect([pop[row_pos]],[pop[col_pos]],syn_spec = {"model":"stdp_synapse","weight":(-10.0 if numpy.random.random() <= ratio else 10.0)})
+				nest.Connect([pop[row_pos]],[pop[col_pos]],syn_spec = {"model":"stdp_synapse","weight":(-1.0 if numpy.random.random() <= ratio else 1.0)})
 	#Set parameters of the network by reading the length of the matrix (number of arrays)
 	'''numNeuronsCSV = len(matrix)
 	numNeuronsInCSV = numpy.floor(numNeuronsCSV/5)
@@ -152,10 +152,11 @@ def main(num):
 	nest.SetKernelStatus({'rng_seeds': range(msd+N_vp+1,msd+2*N_vp+1)})
 
 	#SET PARAMETERS
-	numNeurons = 50
-	cE = float((.8*numNeurons)/10)
-	poisson_rate = 5.0 #1000.0*((2.0*30.0)/(0.1*20.0*cE))*cE
-	neuronPop, popMatrix = readAndCreate("./Syn Weights/groundTruth.csv")
+	#numNeurons = 50
+	#cE = float((.8*numNeurons)/10)
+	poisson_rate = 50.0 #1000.0*((2.0*30.0)/(0.1*20.0*cE))*cE
+	createRandomNetwork("groundTruth1.csv",50)
+	neuronPop, popMatrix = readAndCreate("./Syn Weights/groundTruth1.csv")
 
 	#CREATE NODES
 	noise = nest.Create("poisson_generator",1,{'rate':poisson_rate})
@@ -167,8 +168,8 @@ def main(num):
 
 	Ex = 1
 	d = 20.0
-	wEx = 15.1
-	wIn = -1.0
+	wEx = 10.0
+	wIn = -5.0
 
 	#SPECIFY CONNECTION DICTIONARIES
 	conn_dict = {"rule": "fixed_indegree", "indegree": Ex,
@@ -177,7 +178,9 @@ def main(num):
 	syn_dict_in = {"delay": d, "weight": wIn}
 
 	#SPECIFY CONNECTIONS
-	nest.Connect(noise, neuronPop,syn_spec = syn_dict_ex)
+	for i in range(len(neuronPop)):
+		if numpy.random.random() <= .4:
+			nest.Connect(noise,[i],syn_spec = syn_dict_ex)
 	nest.Connect(neuronPop,spikes)
 
 	#readAndConnect("./Syn Weights/syn_weights1.csv",pop)
@@ -188,8 +191,10 @@ def main(num):
 	fullMatrix = spikeTimeMatrix(temp, len(neuronPop), int(simTime))
 	numpy.savetxt("./Spike Results/"+str(num)+"idTimes.csv",fullMatrix,delimiter=',')
 	#pylab.figure(2)
-	#drawNetwork(neuronPop)
 	plot = nest.raster_plot.from_device(spikes, hist=True)
+	for i in range(len(neuronPop)):
+		nest.DisconnectOneToOne([i], [52],syn_dict_ex)
+	drawNetwork(neuronPop)
 	'''
 	The exact neuron spikes and corresponding timings can be obtained by viewing the events
 	dictionary of GetStatus(spikesEx, "events")

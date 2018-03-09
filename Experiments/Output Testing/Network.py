@@ -187,9 +187,10 @@ def main(num):
 	temp = numpy.array([n['senders'], n['times']])
 	fullMatrix = spikeTimeMatrix(temp, len(neuronPop), int(simTime))
 	numpy.savetxt("./Spike Results/"+str(num)+"idTimes.csv",fullMatrix,delimiter=',')
-	#pylab.figure(2)
-	#drawNetwork(neuronPop)
-	plot = nest.raster_plot.from_device(spikes, hist=True)
+	pylab.figure(2)
+	plot1 = drawNetwork(neuronPop)
+	plt.show()
+	plot2 = nest.raster_plot.from_device(spikes, hist=True)
 	'''
 	The exact neuron spikes and corresponding timings can be obtained by viewing the events
 	dictionary of GetStatus(spikesEx, "events")

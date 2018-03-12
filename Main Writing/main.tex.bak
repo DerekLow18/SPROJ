@@ -36,9 +36,8 @@ In particular, Na\textsuperscript{+} channels contain a segement, referred to as
 
 \subsection{Network Neuroscience}
 
-Studies have noted the possible relationshps between the connectivity of neurons and their developmental and functional consequences. Network science provides a framework through which populations of neurons may be analyzed for their structural and functional connectivities by expanding and formalizing the terminologies and definitions for the purposes of neuronal network analysis. Cliques, or all-to-all connectioned networks, of neuronal populations have been studied as a method of relating structural and functional connectivities of neuronal populations; in the context of neuronal networks, cliques are observed under a specific definition, the directed clique. Where cliques are bidirectional, allowing a single connection for both information transfer from a source neuron to a target neuron and information transfer in the inverse direction, directed cliques do not allow for bidirectional information transfer. (Reimann et al., 2017). Thus, for a given connection from a source neuron to a target neuron, there is no direct connection from the target neuron to the source neuron, though there may be an intermediary neuron allowing for a connection in the inverse direction. The small world characteristic is another such definition originating from network science and applied in analysis of neuron populations, where the small world network is a network with a short average path length, indicating a large number of paths, and a high degree of local clustering, the tendency of nodes in a graph to cluster together (Sporns et al., 2004).\par
-%here, start relating to more neurobio things, such as what Arseny mentioned (stuff you have written in your notebook)
-
+Studies have noted the possible relationshps between the connectivity of neurons and their developmental and functional consequences. Network science provides a framework through which populations of neurons may be analyzed for their structural and functional connectivities by expanding and formalizing the terminologies and definitions for the purposes of neuronal network analysis. Cliques, or all-to-all connectioned networks, of neuronal populations have been studied as a method of relating structural and functional connectivities of neuronal populations; in the context of neuronal networks, cliques are observed under a specific definition, the directed clique. Where cliques are bidirectional, allowing a single connection for both information transfer from a source neuron to a target neuron and information transfer in the inverse direction, directed cliques do not allow for bidirectional information transfer. (Reimann et al., 2017). Thus, for a given connection from a source neuron to a target neuron, there is no direct connection from the target neuron to the source neuron, though there may be an intermediary neuron allowing for a connection in the inverse direction. The small world characteristic is another such definition originating from network science and applied in analysis of neuron populations, where the small world network is a network with a short average path length, indicating a large number of paths, and a high degree of local clustering, the tendency of nodes in a graph to cluster together (Sporns et al., 2004).
+\par
 %perhaps I should add a formal definition of clustering coefficient here.
 
 
@@ -171,7 +170,6 @@ Where PR is the PageRank of neuron $i$, $d$ is the standard damping factor of 0.
 
 \section{Conclusion}
 
-\section{Works Cited}
 \bibliographystyle{plain}
 \bibliography{references}
 \begin{enumerate}

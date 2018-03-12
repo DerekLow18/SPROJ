@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  9 MAR 2018 11:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  12 MAR 2018 15:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -606,13 +606,13 @@ Package caption Info: End \AtBeginDocument code.
 File: ./Figures/SPROJModel.jpg Graphic file (type jpg)
 
 <use ./Figures/SPROJModel.jpg>
-Package pdftex.def Info: ./Figures/SPROJModel.jpg used on input line 131.
+Package pdftex.def Info: ./Figures/SPROJModel.jpg used on input line 138.
 (pdftex.def)             Requested size: 310.7555pt x 191.11061pt.
  [12]
 ! Missing } inserted.
 <inserted text> 
                 }
-l.144 if $v >= V_{th}:{$
+l.151 if $v >= V_{th}:{$
                         \\
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -622,7 +622,7 @@ my insertion and my current dilemma will both disappear.
 
 [13 <./Figures/SPROJModel.jpg>]
 ! Extra }, or forgotten $.
-l.146 $u = u + d}
+l.153 $u = u + d}
                  $\par
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -634,12 +634,12 @@ deleted material, e.g., by typing `I$}'.
 File: ./Figures/figure_1.png Graphic file (type png)
 
 <use ./Figures/figure_1.png>
-Package pdftex.def Info: ./Figures/figure_1.png used on input line 153.
+Package pdftex.def Info: ./Figures/figure_1.png used on input line 160.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
  [14] [15 <./Figures/figure_1.png>]
 No file main.bbl.
 ! Misplaced alignment tab character &.
-l.171 \item Armstrong, C. M., &
+l.179 \item Armstrong, C. M., &
                                 Hille, B. (1998). Voltage-Gated Ion Channels...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -649,7 +649,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.172 ...al, B., Yetkin, F. Z., Haughton, V. M., &
+l.180 ...al, B., Yetkin, F. Z., Haughton, V. M., &
                                                    Hyde, J. S. (1995). Funct...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -659,7 +659,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.175 \item Denk, W., Strickler, J. H., &
+l.183 \item Denk, W., Strickler, J. H., &
                                           Webb, W. W. (1990). Two-Photon Las...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -669,7 +669,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.176 ...Garofalo, M., Nieus, T., Massobrio, P., &
+l.184 ...Garofalo, M., Nieus, T., Massobrio, P., &
                                                    Martinoia, S. (2009). Eva...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -679,13 +679,13 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 
-Overfull \hbox (29.87878pt too wide) in paragraph at lines 176--177
+Overfull \hbox (29.87878pt too wide) in paragraph at lines 184--185
 \OT1/cmr/m/n/10.95 Con-nec-tiv-ity in Cor-ti-cal Net-works. PLoS ONE, 4(8). htt
 ps://doi.org/10.1371/journal.pone.0006482 
  []
 
 ! Misplaced alignment tab character &.
-l.177 \item Grady, C. L., McIntosh, A. R., &
+l.185 \item Grady, C. L., McIntosh, A. R., &
                                              Craik, F. I. M. (2003). Age-rel...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -696,7 +696,7 @@ might try typing `S' now just to see what is salvageable.
 
 [16]
 ! Misplaced alignment tab character &.
-l.182 \item Hodgkin, A. L., &
+l.190 \item Hodgkin, A. L., &
                               Kats, B. (1949). The Effect of Sodium Ions on ...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -706,7 +706,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.183 ...n, D. A., Magee, J. C., Colbert, C. M., &
+l.191 ...n, D. A., Magee, J. C., Colbert, C. M., &
                                                    Johnston, D. (1997). K + ...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -716,7 +716,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.185 \item Katz, B., &
+l.193 \item Katz, B., &
                         Miledi, R. (1967). A Study of Synaptic Transmission ...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -726,7 +726,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.186 \item Katz, B., &
+l.194 \item Katz, B., &
                         Miledi, R. (1968). The role of calcium in neuromuscu...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -736,18 +736,8 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.188 \item Marblestone, A., Wayne, G., &
+l.196 \item Marblestone, A., Wayne, G., &
                                           Kording, K. (2016). Towards an int...
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced alignment tab character &.
-l.189 \item McCulloch, W. S., &
-                                Pitts, W. H. (1943). A Logical Calculus of t...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
 simple: Just type `I\&' now. But if some right brace
@@ -757,7 +747,17 @@ might try typing `S' now just to see what is salvageable.
 
 [17]
 ! Misplaced alignment tab character &.
-l.190 \item Miller, E. K., &
+l.197 \item McCulloch, W. S., &
+                                Pitts, W. H. (1943). A Logical Calculus of t...
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+! Misplaced alignment tab character &.
+l.198 \item Miller, E. K., &
                              Cohen, J. D. (2001). An Integrative Theory of P...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -767,7 +767,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.191 \item Minshew, N. J., &
+l.199 \item Minshew, N. J., &
                               Williams, D. L. (2007). The New Neurobiology o...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -777,7 +777,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.194 \item Orrenius, S., Zhivotovsky, B., &
+l.202 \item Orrenius, S., Zhivotovsky, B., &
                                              Nicotera, P. (2003). REGULATION...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -787,13 +787,13 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 
-Overfull \hbox (20.39pt too wide) in paragraph at lines 195--196
+Overfull \hbox (20.39pt too wide) in paragraph at lines 203--204
 \OT1/cmr/m/n/10.95 encoders. bioRxiv. Re-trieved from http://biorxiv.org/conten
 t/early/2017/06/20/152884.abstract 
  []
 
 ! Misplaced alignment tab character &.
-l.196 ...Etzler, J. C., Watts, L. T., Zheng, W., &
+l.204 ...Etzler, J. C., Watts, L. T., Zheng, W., &
                                                    Lechleiter, J. D. (2008)....
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -804,7 +804,7 @@ might try typing `S' now just to see what is salvageable.
 
 [18]
 ! Misplaced alignment tab character &.
-l.204 \item Svoboda, K., Yasuda, R., &
+l.212 \item Svoboda, K., Yasuda, R., &
                                        Carolina, N. (2006). Principles of Tw...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -814,7 +814,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.208 \item Widrow, B., &
+l.216 \item Widrow, B., &
                           Lehr, M. A. (1990). 30 Years of Adaptive Neural Ne...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -824,7 +824,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.209 ... Zhou, D., Xiao, Y., Zhang, Y., Xu, Z., &
+l.217 ... Zhou, D., Xiao, Y., Zhang, Y., Xu, Z., &
                                                    Cai, D. (2014). Granger c...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -854,7 +854,7 @@ st/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmsy8.pfb>
-Output written on main.pdf (20 pages, 248918 bytes).
+Output written on main.pdf (20 pages, 250187 bytes).
 PDF statistics:
  121 PDF objects out of 1000 (max. 8388607)
  83 compressed objects within 1 object stream

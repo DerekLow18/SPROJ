@@ -63,7 +63,7 @@ sys.stdout = old_stdout
 log_file.close()
 
 #intilizalize the weight array
-weights = np.random.rand(10,10)
+weights = np.random.rand(dataset.shape[1],dataset.shape[1])
 learningRate = 0.5
 
 #error calculation between the predicted step and the actual step, euclidean distance
@@ -172,7 +172,8 @@ def trainNetworkOneStep(timestep,Max_iters = 1,data = dataset):
 		now that we have the predictions, we need to calculate the weight change for each weight in the
 		weight matrix. Start with the output layer's weights from the hidden layer
 		'''
-		updatedWeights = copy.deepcopy(weights)
+		#updatedWeights = copy.deepcopy(weights)
+		updatedWeights = np.zeros((dataset.shape[1],dataset.shape[1]))
 		for weightArrayIndex in range(len(weights)):
 			for weightValueIndex in range(len(weights[weightArrayIndex])):
 				#print("Calculating for ", weightArrayIndex,weightValueIndex)

@@ -155,7 +155,7 @@ def main(num):
 	#numNeurons = 50
 	#cE = float((.8*numNeurons)/10)
 	poisson_rate = 50.0 #1000.0*((2.0*30.0)/(0.1*20.0*cE))*cE
-	createRandomNetwork("groundTruth1.csv",50)
+	createRandomNetwork("groundTruth1.csv",10)
 	neuronPop, popMatrix = readAndCreate("./Syn Weights/groundTruth1.csv")
 
 	#CREATE NODES
@@ -192,9 +192,9 @@ def main(num):
 	numpy.savetxt("./Spike Results/"+str(num)+"idTimes.csv",fullMatrix,delimiter=',')
 	#pylab.figure(2)
 	plot = nest.raster_plot.from_device(spikes, hist=True)
-	for i in range(len(neuronPop)):
-		nest.DisconnectOneToOne([i], [52],syn_dict_ex)
-	drawNetwork(neuronPop)
+	#for i in range(len(neuronPop)):
+	#	nest.DisconnectOneToOne([i], [52],syn_dict_ex)
+	#drawNetwork(neuronPop)
 	'''
 	The exact neuron spikes and corresponding timings can be obtained by viewing the events
 	dictionary of GetStatus(spikesEx, "events")

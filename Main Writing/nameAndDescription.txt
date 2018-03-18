@@ -1,0 +1,9 @@
+Titles:
+-Reconstruction of Connectivity from Calcium Imaging Signal via Neural Networks
+-Deriving Structural Connectivity from Functional Activity Patterns in Networks of Neurons
+-Machine Learning-Based Reconstruction of Neuronal Networks from Calcium Imaging Signals
+-Neural Network Analysis of Underlying Network Factors From Spike-time data
+-Our Brains Are Not Random: Observations of Neuronal Spiking Data
+-Integration of Neuronal Functional and Structural Connectivity via Machine Learning
+Description:
+Activity of neuronal networks can be recorded via Calcium Imaging. In this study, we develop a machine learning approach to reconstructing network connectivity from calcium imaging data.

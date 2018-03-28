@@ -64,7 +64,7 @@ log_file.close()
 
 #intilizalize the weight array
 weights = np.random.rand(dataset.shape[1],dataset.shape[1])
-learningRate = 0.5
+learningRate = 0.05
 
 #error calculation between the predicted step and the actual step, euclidean distance
 def error(prediction, actual):
@@ -91,35 +91,6 @@ def pdEuclideanDistance(predicted,actual):
 #partial derivative of the activation function
 def pdSigmoid(x):
 	return round(x*(1-x),9)
-
-#using this for the purposes of testing a standard prediction formula
-'''
-def prediction(timeStep):
-	#first calculate the hidden layer values, called prediction array
-	predictionArray = [0,0]
-	predictionActivity = [0,0]
-	for hiddenIndex in range(len(predictionArray)):
-		predicted = 0
-		for inputIndex in range(len(dataset[0])):
-			predicted += dataset[0][inputIndex]*hidden_layer_weights[inputIndex][hiddenIndex]
-		predicted = predicted + hidden_layer_bias
-		predictionActivity[hiddenIndex] = round(predicted,9)
-		predictionArray[hiddenIndex] = round(activation(predicted),9)
-	#now we calculate the values for the output array
-	outputArray = [0,0]
-	outputActivity = [0,0]
-	for outputIndex in range(len(outputArray)):
-		predicted = 0
-		for hiddenIndex in range(len(predictionArray)):
-			predicted += predictionArray[hiddenIndex]*output_layer_weights[hiddenIndex][outputIndex]
-		predicted = predicted + output_layer_bias
-		outputActivity[outputIndex] = round(predicted,9)
-		outputArray[outputIndex] = round(activation(predicted),9)
-
-	#print(predictionArray)
-	#print(outputArray)
-	return [predictionArray, outputArray, predictionActivity, outputActivity]
-	'''
 
 #takes a timeStep and attempts to predict the next time step
 
@@ -153,51 +124,58 @@ def weightChangeOutput(predicted,actual,priorStep):
 	return totalChange
 
 updatedWeights = np.zeros((dataset.shape[1],dataset.shape[1]))
+
 #main network training function
-def trainNetworkOneStep(timestep,data = dataset):
+def trainNetworkOneStep(timestep,predictionMatrix,data = dataset):
 	#predictionMatrix = []
 	#Iterates through all values in the data set
 	#for i in range(len(dataset)):
 		#predict the value for the next step and store it
 	global weights,updatedWeights
-	predictionMatrix = prediction(data[timestep]);#store the predictions for the array into a matrix
-	'''
-		for predicted in range(len(dataset[i])):
-						#check to see if prediction and actual are different
-			if predictionMatrix[i][predicted] != dataset[i][predicted]:
-				return
-				'''
+	#predictionMatrix = prediction(data[timestep]);#store the predictions for the array into a matrix
 	'''
 	now that we have the predictions, we need to calculate the weight change for each weight in the
 	weight matrix. Start with the output layer's weights from the hidden layer
 	'''
 	for weightArrayIndex in range(len(weights)):
 		for weightValueIndex in range(len(weights[weightArrayIndex])):
-			#print("Calculating for ", weightArrayIndex,weightValueIndex)
-			weightValue = weights[weightArrayIndex][weightValueIndex]
-			updatedWeightValue = updatedWeights[weightArrayIndex][weightValueIndex]
-			#calculate weight change for each weight, where first param is outputArray, second is the actual array, and third is the output from the prior step
-			weightDelta=weightChangeOutput(predictionMatrix[weightValueIndex],data[timestep+1][weightValueIndex],data[timestep][weightArrayIndex])
-			#print("degree of change is", weightDelta)
-			updatedWeights[weightArrayIndex][weightValueIndex] = round(updatedWeightValue + weightDelta,9)#round(updatedWeightValue - learningRate*weightDelta,9)
-		#print(updatedWeights)
-		#print(squaredError(predictionMatrix[1],dataset[1]))
 
-	#print("After: \n",output_layer_weights,"\n",hidden_layer_weights,"\n")
-	#print(predictionMatrix[1])
+			#defining some variables so I don't have uber long lines
+			weightValue = weights[weightArrayIndex][weightValueIndex]
+			predicted = predictionMatrix[weightValueIndex]
+			actual = data[timestep+1][weightValueIndex]
+			priorStep = data[timestep][weightArrayIndex]
+			updatedWeightValue = updatedWeights[weightArrayIndex][weightValueIndex]
+
+			#calculate weight change for each weight, where first param is outputArray, 
+			#second is the actual array, and third is the output from the prior step
+			weightDelta=weightChangeOutput(predicted,actual,priorStep)
+			updatedWeights[weightArrayIndex][weightValueIndex] = round(updatedWeightValue + weightDelta,9)
 
 
 def trainNetwork():
+	#use the global weight variable
 	global weights
-	iters = 5
+	iters = 50
 	print("Before: \n",weights,"\n")
+	#looping for some number of iterations
+	priorMSE = 100
 	for i in range(iters):
 		print("Iter number",i)
+		#for every timestep in dataset
+		predictedMatrix = []
 		for i in range(len(dataset)-1):
-			trainNetworkOneStep(i)
+			predictedMatrix.append(prediction(dataset[i]))
+			#do that single step updating for the entire data set
+			trainNetworkOneStep(i,predictedMatrix[i])
+		#update weights according to the learning rate
 		weights = weights - learningRate*updatedWeights
+		mse = ((dataset[:len(dataset)-1] - predictedMatrix) ** 2).mean(axis=None)
 		print("After:\n",weights,"\n")
-
+		print("MSE: ",mse,"\n")
+		if priorMSE - mse <= 0.05 * priorMSE:
+			break
+		priorMSE = mse
 
 trainNetwork()
 np.savetxt("resultingMatrix1.csv",weights,delimiter=",")

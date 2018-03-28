@@ -91,6 +91,7 @@ All microcopy techniques result in the photobleaching and phototoxicity of the o
 Several different frameworks of reconstruction have been offered to tackle the problem of inferring connectivity of neurons. While these reconstruction methods use different methods for evaluating activity and connectivity, they are typically applied to simulated neuron populations, where the ground truth of the activity is known, allowing evaluation on the accuracy of the model.\par
 
 \subsubsection{Cross-Correlation}
+Cross-correlation is a widely applied similarity measurement method across probability and statistics. In neuroscience, cross-correlation is applied as a comparison between the spiking time series of two neurons, measuring the frequency of spiking of one neuron relative to the frequency of spiking of another neuron (Garofalo et al., 2009). The frequency evaluates to a probability of a spike of neuron Y after some time shift $\tau$ (or $t + \tau$) relative to a spike of neuron X at time $t$. Comparing across all possible pairs then establishes the strong and weak connections between neurons in the observed population (Garofalo et al., 2009).
 
 
 \subsubsection{Granger Causailty}

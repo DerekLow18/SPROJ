@@ -64,7 +64,7 @@ log_file.close()
 
 #intilizalize the weight array
 weights = np.random.rand(dataset.shape[1],dataset.shape[1])
-learningRate = 0.05
+learningRate = 0.5
 
 #error calculation between the predicted step and the actual step, euclidean distance
 def error(prediction, actual):
@@ -150,7 +150,7 @@ def trainNetworkOneStep(timestep,predictionMatrix,data = dataset):
 			#calculate weight change for each weight, where first param is outputArray, 
 			#second is the actual array, and third is the output from the prior step
 			weightDelta=weightChangeOutput(predicted,actual,priorStep)
-			updatedWeights[weightArrayIndex][weightValueIndex] = round(updatedWeightValue + weightDelta,9)
+			updatedWeights[weightArrayIndex][weightValueIndex] = round(updatedWeightValue + learningRate*weightDelta,9)
 
 
 def trainNetwork():
@@ -169,11 +169,17 @@ def trainNetwork():
 			#do that single step updating for the entire data set
 			trainNetworkOneStep(i,predictedMatrix[i])
 		#update weights according to the learning rate
-		weights = weights - learningRate*updatedWeights
+		weights = weights - learningRate*(updatedWeights/len(dataset))
+		for i in range(len(weights)):
+			for j in range(len(weights)):
+				if weights[i][j] < -1:
+					weights[i][j] = -1
+				elif weights[i][j] > 1:
+					weights[i][j] = 1 
 		mse = ((dataset[:len(dataset)-1] - predictedMatrix) ** 2).mean(axis=None)
 		print("After:\n",weights,"\n")
 		print("MSE: ",mse,"\n")
-		if priorMSE - mse <= 0.05 * priorMSE:
+		if priorMSE == mse:
 			break
 		priorMSE = mse
 

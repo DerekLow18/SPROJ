@@ -72,7 +72,7 @@ def activation(activity):
 		return 1
 	else:
 		return round(activity)
-		'''
+	'''
 	return round(1 / (1 + math.exp(-activity)),9)
 
 def pdSquaredError(predicted, actual):
@@ -92,11 +92,13 @@ def prediction(timeStep):
 	global weights, activation
 	#matrix multiply the weight matrix with the spiking matrix
 	adjustedStep = np.matmul(timeStep, weights)
+	#print(adjustedStep)
 	#go through all values of the adjusted step matrix,
 		#and multiply them by the activation function
 	for value in range(len(adjustedStep)):
-		adjustedStep[value] = activation(adjustedStep[value])
-		#print(adjustedStep)
+		adjustedStep[value] = (activation(adjustedStep[value]))
+	#print(timeStep)
+	#print(adjustedStep)
 	#return the resulting and final adjusted step
 	return adjustedStep
 	
@@ -146,6 +148,8 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 				weightDelta=weightChangeOutput(predictionMatrix[weightValueIndex],data[timestep+1][weightValueIndex],data[timestep][weightArrayIndex])
 
 				updatedWeights[weightArrayIndex][weightValueIndex] = round(weightValue - learningRate*weightDelta,9)
+				#print(weightArrayIndex," " , weightValueIndex, " " ,weightDelta)
+		#print("new iteration")
 		#print(updatedWeights)
 		#print(squaredError(predictionMatrix[1],dataset[1]))
 
@@ -155,21 +159,24 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 def trainNetwork(Max_iters = 50):
 	global weights
 	priorMSE = 100
-	predictedMatrix = []
 	j = 0
 	while (j<Max_iters):
+		predictedMatrix = []
 		for i in range(len(dataset)-1):
 			predictionTimeStep = prediction(dataset[i])
 			predictedMatrix.append(predictionTimeStep)
 			trainNetworkOneStep(i, predictionTimeStep)
 			
-			print(dataset[i])
-			print(predictionTimeStep)
+			#print(dataset[i])
+			#print(predictionTimeStep)
+		print(dataset)
+		print(predictedMatrix)
+		mse = ((dataset[:len(dataset)-1] - predictedMatrix) ** 2).mean(axis=None)
+		print("After:\n",weights,"\n")
+		print("MSE: ",mse,"\n")
+		#check to compare previous error to current error. If close enough, break
 
-			mse = ((dataset[i] - predictionTimeStep) ** 2).mean(axis=None)
-			print("After:\n",weights,"\n")
-			print("MSE: ",mse,"\n")
-			priorMSE = mse
+		priorMSE = mse
 		i += 1
 
 

@@ -146,13 +146,14 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 				weightDelta=weightChangeOutput(predictionMatrix[weightValueIndex],data[timestep+1][weightValueIndex],data[timestep][weightArrayIndex])
 
 				updatedWeights[weightArrayIndex][weightValueIndex] = round(weightValue - learningRate*weightDelta,9)
+
 		#print(updatedWeights)
 		#print(squaredError(predictionMatrix[1],dataset[1]))
 
 		i += 1
 	weights = updatedWeights
 
-def trainNetwork(Max_iters = 50):
+def trainNetwork(Max_iters = 1):
 	global weights
 	priorMSE = 100
 	predictedMatrix = []
@@ -161,7 +162,12 @@ def trainNetwork(Max_iters = 50):
 		for i in range(len(dataset)-1):
 			predictionTimeStep = prediction(dataset[i])
 			predictedMatrix.append(predictionTimeStep)
-			trainNetworkOneStep(i, predictionTimeStep)
+
+			mse = ((dataset[i] - predictionTimeStep) ** 2).mean(axis=None)
+			while priorMSE - mse < 0.05*priorMSE:
+				trainNetworkOneStep(i, predictionTimeStep)
+				print(weights)
+				print(mse)
 			
 			print(dataset[i])
 			print(predictionTimeStep)

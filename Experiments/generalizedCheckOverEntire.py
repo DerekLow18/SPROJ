@@ -73,7 +73,8 @@ def activation(activity):
 	else:
 		return round(activity)
 	'''
-	return round(1 / (1 + math.exp(-activity)),9)
+	return round(1 / (1 + math.exp(-5 * (activity-0.5))),9)
+	#return round(1 / (1 + math.exp(-activity)),9)
 
 def pdSquaredError(predicted, actual):
 	return round(-(actual - predicted),9)

@@ -73,7 +73,8 @@ def activation(activity):
 	else:
 		return round(activity)
 		'''
-	return round(1 / (1 + math.exp(-activity)),9)
+	return round(1 / (1 + math.exp(-5 * (activity-0.5))),9)
+	#return round(1 / (1 + math.exp(-activity)),9)
 
 def pdSquaredError(predicted, actual):
 	return round(-(actual - predicted),9)
@@ -164,9 +165,13 @@ def trainNetwork(Max_iters = 1):
 			predictedMatrix.append(predictionTimeStep)
 
 			mse = ((dataset[i] - predictionTimeStep) ** 2).mean(axis=None)
-			while priorMSE - mse < 0.05*priorMSE:
+			while priorMSE - mse > 0.05*priorMSE:
+				if round(priorMSE,9) == round(mse,9):
+					break
 				trainNetworkOneStep(i, predictionTimeStep)
-				print(weights)
+				priorMSE = mse
+				print("iteration",i)
+				#print(weights)
 				print(mse)
 			
 			print(dataset[i])

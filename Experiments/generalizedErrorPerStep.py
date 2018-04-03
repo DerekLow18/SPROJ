@@ -64,6 +64,9 @@ def squaredError(prediction,actual):
 		squaredErrorVector.append((1/2)*(actual[index] - prediction[index])**2)
 	return np.sum(squaredErrorVector)
 
+
+sigmoidSteepness = 10
+sigmoidCenter = 0.5
 #formula for the prediction of what the next step will look like.
 #Currently, it's at sigmoid function
 def activation(activity):
@@ -73,7 +76,7 @@ def activation(activity):
 	else:
 		return round(activity)
 		'''
-	return round(1 / (1 + math.exp(-5 * (activity-0.5))),9)
+	return round(1 / (1 + math.exp(-sigmoidSteepness * (activity-sigmoidCenter))),9)
 	#return round(1 / (1 + math.exp(-activity)),9)
 
 def pdSquaredError(predicted, actual):

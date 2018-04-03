@@ -154,7 +154,7 @@ def main(num):
 	#SET PARAMETERS
 	#numNeurons = 50
 	#cE = float((.8*numNeurons)/10)
-	poisson_rate = 50.0 #1000.0*((2.0*30.0)/(0.1*20.0*cE))*cE
+	poisson_rate = 100.0 #1000.0*((2.0*30.0)/(0.1*20.0*cE))*cE
 	createRandomNetwork("groundTruth1.csv",10)
 	neuronPop, popMatrix = readAndCreate("./Syn Weights/groundTruth1.csv")
 
@@ -178,9 +178,12 @@ def main(num):
 	syn_dict_in = {"delay": d, "weight": wIn}
 
 	#SPECIFY CONNECTIONS
+	'''
 	for i in range(len(neuronPop)):
 		if numpy.random.random() <= .4:
 			nest.Connect(noise,[i],syn_spec = syn_dict_ex)
+	'''
+	nest.Connect(noise,neuronPop,syn_spec=syn_dict_ex)
 	nest.Connect(neuronPop,spikes)
 
 	#readAndConnect("./Syn Weights/syn_weights1.csv",pop)
@@ -190,6 +193,7 @@ def main(num):
 	temp = numpy.array([n['senders'], n['times']])
 	fullMatrix = spikeTimeMatrix(temp, len(neuronPop), int(simTime))
 	numpy.savetxt("./Spike Results/"+str(num)+"idTimes.csv",fullMatrix,delimiter=',')
+	numpy.savetxt("./Spike Results/" +str(num)+"spikeTrains.csv",temp,delimiter = ',')
 	#pylab.figure(2)
 	plot = nest.raster_plot.from_device(spikes, hist=True)
 	#for i in range(len(neuronPop)):

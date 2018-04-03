@@ -29,15 +29,15 @@ def downsample(dataset, binSize):
 	np.savetxt('downSampledData.csv', downsampleDataset.transpose(), delimiter=",")
 	return downsampleDataset
 
-dataset = np.genfromtxt('./Spike Results/1idTimes.csv', delimiter = ',')
-dataset = np.transpose(dataset)
-print(dataset.shape)
+dataset = np.genfromtxt('downsampleNoEmpty.csv', delimiter = ',')
+#dataset = np.transpose(dataset)
 #now, each array in dataset is representative of a single timestep,
 #where each value is whether or not the neuron is spiking at that particular time
 
 #bin the data set so that every set of 10 steps is reshaped to be one step,
 #and multiple spikes during that time only counted as 1
-dataset = downsample(dataset,10)
+#dataset = downsample(dataset,10)
+print(dataset)
 
 old_stdout = sys.stdout
 
@@ -64,6 +64,9 @@ def squaredError(prediction,actual):
 		squaredErrorVector.append((1/2)*(actual[index] - prediction[index])**2)
 	return np.sum(squaredErrorVector)
 
+sigmoidSteepness = 10
+sigmoidCenter = 0.5
+
 #formula for the prediction of what the next step will look like.
 #Currently, it's at sigmoid function
 def activation(activity):
@@ -73,7 +76,7 @@ def activation(activity):
 	else:
 		return round(activity)
 		'''
-	return round(1 / (1 + math.exp(-5 * (activity-0.5))),9)
+	return round(1 / (1 + math.exp(-sigmoidSteepness * (activity-sigmoidCenter))),9)
 
 def pdSquaredError(predicted, actual):
 	return round(-(actual - predicted),9)
@@ -84,7 +87,8 @@ def pdEuclideanDistance(predicted,actual):
 
 #partial derivative of the activation function
 def pdSigmoid(x):
-	return round(x*(1-x),9)
+	return (sigmoidSteepness*math.exp(-sigmoidSteepness*(x-sigmoidCenter)))/((1+math.exp(-sigmoidSteepness*(x-sigmoidCenter)))**2)
+	#return round(x*(1-x),9)
 
 #takes a timeStep and attempts to predict the next time step
 
@@ -152,7 +156,7 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 		i += 1
 	weights = updatedWeights
 
-def trainNetwork(Max_iters = 50):
+def trainNetwork(Max_iters = 1):
 	global weights
 	priorMSE = 100
 	predictedMatrix = []
@@ -163,14 +167,14 @@ def trainNetwork(Max_iters = 50):
 			predictedMatrix.append(predictionTimeStep)
 			trainNetworkOneStep(i, predictionTimeStep)
 			
-			print(dataset[i])
-			print(predictionTimeStep)
+			#print(dataset[i])
+			#print(predictionTimeStep)
 
 			mse = ((dataset[i] - predictionTimeStep) ** 2).mean(axis=None)
-			print("After:\n",weights,"\n")
+			#print("After:\n",weights,"\n")
 			print("MSE: ",mse,"\n")
 			priorMSE = mse
-		i += 1
+		j += 1
 
 
 print("Before: \n",weights,"\n")

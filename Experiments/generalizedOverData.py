@@ -67,10 +67,13 @@ def squaredError(prediction,actual):
 		squaredErrorVector.append((1/2)*(actual[index] - prediction[index])**2)
 	return np.sum(squaredErrorVector)
 
+sigmoidSteepness = 10
+sigmoidCenter = 0.5
+
 #formula for the prediction of what the next step will look like.
 #Currently, it's at sigmoid function
 def activation(activity):
-	return round(1 / (1 + math.exp(-5 * (activity-0.5))),9)
+	return round(1 / (1 + math.exp(-sigmoidSteepness * (activity-sigmoidCenter))),9)
 	#return round(1 / (1 + math.exp(-activity)),9)
 
 def pdSquaredError(predicted, actual):
@@ -82,7 +85,8 @@ def pdEuclideanDistance(predicted,actual):
 
 #partial derivative of the activation function
 def pdSigmoid(x):
-	return round(x*(1-x),9)
+	return (sigmoidSteepness*math.exp(-sigmoidSteepness*(x-sigmoidCenter)))/((1+math.exp(-sigmoidSteepness*(x-sigmoidCenter)))**2)
+	#return round(x*(1-x),9)
 
 #takes a timeStep and attempts to predict the next time step
 

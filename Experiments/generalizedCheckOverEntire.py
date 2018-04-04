@@ -28,7 +28,7 @@ def downsample(dataset, binSize):
 	#print(downsampleDataset)
 	np.savetxt('downSampledData.csv', downsampleDataset.transpose(), delimiter=",")
 	return downsampleDataset
-
+'''
 dataset = np.genfromtxt('./Spike Results/1idTimes.csv', delimiter = ',')
 dataset = np.transpose(dataset)
 print(dataset.shape)
@@ -38,6 +38,8 @@ print(dataset.shape)
 #bin the data set so that every set of 10 steps is reshaped to be one step,
 #and multiple spikes during that time only counted as 1
 dataset = downsample(dataset,10)
+'''
+dataset = np.genfromtxt('downsampleNoEmpty.csv', delimiter = ',')
 
 old_stdout = sys.stdout
 
@@ -173,11 +175,17 @@ def trainNetwork(Max_iters = 50):
 			
 			#print(dataset[i])
 			#print(predictionTimeStep)
-		print(dataset)
-		print(predictedMatrix)
+		#print(dataset)
+		#print(predictedMatrix)
 		mse = ((dataset[:len(dataset)-1] - predictedMatrix) ** 2).mean(axis=None)
-		print("After:\n",weights,"\n")
+		print("Curr diff: ", abs(priorMSE - mse))
+		print("target diff:", 0.005*priorMSE)
+		print("Prior MSE: ",priorMSE,"\n")
 		print("MSE: ",mse,"\n")
+		if abs(priorMSE - mse) <= 0.005*(priorMSE):
+			break
+		#print("After:\n",weights,"\n")
+
 		#check to compare previous error to current error. If close enough, break
 
 		priorMSE = mse

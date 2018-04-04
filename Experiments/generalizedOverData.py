@@ -29,18 +29,19 @@ def downsample(dataset, binSize):
 	np.savetxt('downSampledData.csv', downsampleDataset.transpose(), delimiter=",")
 	return downsampleDataset
 
-dataset = np.genfromtxt('./Spike Results/1idTimes.csv', delimiter = ',')
-print(dataset.shape)
+#dataset = np.genfromtxt('./Spike Results/1idTimes.csv', delimiter = ',')
+dataset = np.genfromtxt('downsampleNoEmpty.csv', delimiter = ',')
+#print(dataset.shape)
 #scaler = MinMaxScaler(feature_range = (0,1))
 #dataset = scaler.fit_transform(dataset)
-dataset = np.transpose(dataset)
-print(dataset.shape)
+#dataset = np.transpose(dataset)
+#print(dataset.shape)
 #now, each array in dataset is representative of a single timestep,
 #where each value is whether or not the neuron is spiking at that particular time
 
 #bin the data set so that every set of 10 steps is reshaped to be one step,
 #and multiple spikes during that time only counted as 1
-dataset = downsample(dataset,10)
+#dataset = downsample(dataset,10)
 
 old_stdout = sys.stdout
 
@@ -54,7 +55,8 @@ sys.stdout = old_stdout
 log_file.close()
 
 #intilizalize the weight array
-weights = np.random.rand(dataset.shape[1],dataset.shape[1])
+#weights = np.random.rand(dataset.shape[1],dataset.shape[1])
+weights = np.zeros((dataset.shape[1],dataset.shape[1]))
 learningRate = 0.5
 
 #error calculation between the predicted step and the actual step, euclidean distance

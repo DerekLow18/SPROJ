@@ -28,7 +28,7 @@ def downsample(dataset, binSize):
 	#print(downsampleDataset)
 	np.savetxt('downSampledData.csv', downsampleDataset.transpose(), delimiter=",")
 	return downsampleDataset
-
+'''
 dataset = np.genfromtxt('./Spike Results/1idTimes.csv', delimiter = ',')
 dataset = np.transpose(dataset)
 print(dataset.shape)
@@ -38,7 +38,8 @@ print(dataset.shape)
 #bin the data set so that every set of 10 steps is reshaped to be one step,
 #and multiple spikes during that time only counted as 1
 dataset = downsample(dataset,10)
-
+'''
+dataset = np.genfromtxt('downsampleNoEmpty.csv', delimiter = ',')
 old_stdout = sys.stdout
 
 log_file = open("message.log","w")
@@ -166,7 +167,7 @@ def trainNetwork(Max_iters = 1):
 		for i in range(len(dataset)-1):
 			predictionTimeStep = prediction(dataset[i])
 			predictedMatrix.append(predictionTimeStep)
-
+			print("step: ",i)
 			mse = ((dataset[i] - predictionTimeStep) ** 2).mean(axis=None)
 			while priorMSE - mse > 0.05*priorMSE:
 				if round(priorMSE,9) == round(mse,9):
@@ -177,13 +178,13 @@ def trainNetwork(Max_iters = 1):
 				#print(weights)
 				print(mse)
 			
-			print(dataset[i])
-			print(predictionTimeStep)
+			#print(dataset[i])
+			#print(predictionTimeStep)
 
 			mse = ((dataset[i] - predictionTimeStep) ** 2).mean(axis=None)
-			print("After:\n",weights,"\n")
-			print("MSE: ",mse,"\n")
-			priorMSE = mse
+			#print("After:\n",weights,"\n")
+			#print("MSE: ",mse,"\n")
+			#priorMSE = mse
 		i += 1
 
 

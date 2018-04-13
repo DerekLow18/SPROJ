@@ -5,56 +5,8 @@ import math
 #import scipy.spatial
 import copy
 
-# convert an array of values into a dataset matrix
-'''
-def create_dataset(dataset, look_back=1):
-	dataX, dataY = [], []
-	for i in range(len(dataset)-look_back-1):
-		a = dataset[i:(i+look_back), 0]
-		dataX.append(a)
-		dataY.append(dataset[i + look_back, 0])
-	return np.array(dataX), np.array(dataY)
-
-def downsample(dataset, binSize):
-	downsampleDataset = []
-	print(len(dataset))
-	j=0
-	for i in range(int(len(dataset)/10)):
-		runningSum = np.zeros(len(dataset[0]))
-		for k in range(j*10, (j+1)*10):
-			toSum = np.concatenate(([runningSum],[dataset[k]]))
-			#print(dataset[58])
-			#print("concat is",toSum)
-			runningSum = np.sum(toSum, axis = 0)
-		j = j + 1
-		for l in range(len(runningSum)):
-			if runningSum[l] >1:
-				runningSum[l] = 1
-		downsampleDataset.append(runningSum)
-	downsampleDataset = np.array(downsampleDataset)
-	#print(len(downsampleDataset))
-	#print(downsampleDataset)
-	np.savetxt('downSampledData.csv', downsampleDataset.transpose(), delimiter=",")
-	return downsampleDataset
-
-dataset = np.genfromtxt('./Spike Results/1idTimes.csv', delimiter = ',')
-print(dataset.shape)
-#scaler = MinMaxScaler(feature_range = (0,1))
-#dataset = scaler.fit_transform(dataset)
-dataset = np.transpose(dataset)
-print(dataset.shape)
-#now, each array in dataset is representative of a single timestep,
-#where each value is whether or not the neuron is spiking at that particular time
-
-#bin the data set so that every set of 10 steps is reshaped to be one step,
-#and multiple spikes during that time only counted as 1
-dataset = downsample(dataset,10)
-
-print(dataset.shape)
-print(dataset)
-'''
 #making sure it works on a smaller example
-dataset =[[0.05,0.10],[0.01,0.99]]
+dataset =[[0,0],[1,0]]
 hidden_layer_weights = [[0.15,0.25],[0.20,0.30]]
 output_layer_weights = [[0.40,0.50],[0.45,0.55]]
 hidden_layer_bias = 0.35
@@ -119,20 +71,6 @@ def prediction(timeStep):
 	#print(outputArray)
 	return [predictionArray, outputArray, predictionActivity, outputActivity]
 
-#takes a timeStep and attempts to predict the next time step
-'''
-def prediction(timeStep):
-	global weights, activation
-	#matrix multiply the weight matrix with the spiking matrix
-	adjustedStep = np.matmul(timeStep, weights)
-	#go through all values of the adjusted step matrix,
-		#and multiply them by the activation function
-	for value in range(len(adjustedStep)):
-		adjustedStep[value] = activation(adjustedStep[value])
-		#print(adjustedStep)
-	#return the resulting and final adjusted step
-	return adjustedStep
-	'''
 
 '''
 change the weight between one source neuron and the target neuron
@@ -172,8 +110,10 @@ def weightChangeHidden(predictedArray,actualArray,priorStep,weightIndex,hiddenOu
 	#print(totalChange)
 	return totalChange
 
+
+
 #main network training function
-def trainNetwork(Max_iters = 1):
+def trainNetwork(Max_iters = 100000):
 	#predictionMatrix = []
 	#Iterates through all values in the data set
 	#for i in range(len(dataset)):

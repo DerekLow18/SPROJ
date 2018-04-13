@@ -192,10 +192,10 @@ def main(num):
 	n = nest.GetStatus(spikes, "events")[0]
 	temp = numpy.array([n['senders'], n['times']])
 	fullMatrix = spikeTimeMatrix(temp, len(neuronPop), int(simTime))
-	numpy.savetxt("./Spike Results/"+str(num)+"idTimes.csv",fullMatrix,delimiter=',')
-	numpy.savetxt("./Spike Results/" +str(num)+"spikeTrains.csv",temp,delimiter = ',')
+	numpy.savetxt("./Spike Results/%02didTimes.csv" % (num),fullMatrix,delimiter=',')
+	numpy.savetxt("./Spike Results/%02dspikeTrains.csv" % (num),temp,delimiter = ',')
 	#pylab.figure(2)
-	plot = nest.raster_plot.from_device(spikes, hist=True)
+	#plot = nest.raster_plot.from_device(spikes, hist=True)
 	#for i in range(len(neuronPop)):
 	#	nest.DisconnectOneToOne([i], [52],syn_dict_ex)
 	#drawNetwork(neuronPop)

@@ -6,7 +6,10 @@ import math
 import copy
 import sys
 np.set_printoptions(threshold=np.nan)
-
+'''
+Compile the error across the entire predicted spiketime, then backpropagate the error based
+on that resulting matrix.
+'''
 def downsample(dataset, binSize):
 	downsampleDataset = []
 	print(len(dataset))

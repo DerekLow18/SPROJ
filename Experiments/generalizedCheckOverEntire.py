@@ -6,32 +6,14 @@ import math
 import copy
 import sys
 np.set_printoptions(threshold=np.nan)
-
-def downsample(dataset, binSize):
-	downsampleDataset = []
-	print(len(dataset))
-	j=0
-	for i in range(int(len(dataset)/10)):
-		runningSum = np.zeros(len(dataset[0]))
-		for k in range(j*10, (j+1)*10):
-			toSum = np.concatenate(([runningSum],[dataset[k]]))
-			#print(dataset[58])
-			#print("concat is",toSum)
-			runningSum = np.sum(toSum, axis = 0)
-		j = j + 1
-		for l in range(len(runningSum)):
-			if runningSum[l] >1:
-				runningSum[l] = 1
-		downsampleDataset.append(runningSum)
-	downsampleDataset = np.array(downsampleDataset)
-	#print(len(downsampleDataset))
-	#print(downsampleDataset)
-	np.savetxt('downSampledData.csv', downsampleDataset.transpose(), delimiter=",")
-	return downsampleDataset
 '''
-dataset = np.genfromtxt('./Spike Results/1idTimes.csv', delimiter = ',')
-dataset = np.transpose(dataset)
-print(dataset.shape)
+This version of the neural network changes the weights by predicting timestep t+1
+based on time t, then taking the dataset, producing a prediction model using the final weights,
+and comparing the prediction times to the actual times.
+
+Then, we view the resulting weight matrix as, in some way, informative of the ground truth
+population matrix of the dataset.
+
 #now, each array in dataset is representative of a single timestep,
 #where each value is whether or not the neuron is spiking at that particular time
 
@@ -39,8 +21,10 @@ print(dataset.shape)
 #and multiple spikes during that time only counted as 1
 dataset = downsample(dataset,10)
 '''
-dataset = np.genfromtxt('downsampleNoEmpty.csv', delimiter = ',')
+#import the dataset
+dataset = np.genfromtxt('./Downsampled Spikes/01downsample.csv', delimiter = ',')
 
+'''
 old_stdout = sys.stdout
 
 log_file = open("message.log","w")
@@ -51,9 +35,23 @@ print(dataset)
 sys.stdout = old_stdout
 
 log_file.close()
+'''
+#dataset = dataset[9:11]
+#print(dataset)
+
+
+#calculate spike rate matrix
+spikeRate = np.zeros((dataset.shape[1],1))
+for i in range(len(dataset.transpose())):
+	for j in dataset.transpose()[i]:
+		if j == 1:
+			spikeRate[i] = spikeRate[i] + 1
+	spikeRate[i] = spikeRate[i]/len(dataset)
+print(spikeRate)
 
 #intilizalize the weight array
 weights = np.random.rand(dataset.shape[1],dataset.shape[1])
+#weights = np.zeros((dataset.shape[1],dataset.shape[1]))
 learningRate = 0.5
 
 #error calculation between the predicted step and the actual step, euclidean distance
@@ -72,14 +70,7 @@ sigmoidCenter = 0.5
 #formula for the prediction of what the next step will look like.
 #Currently, it's at sigmoid function
 def activation(activity):
-	'''
-	if activity > 1:
-		return 1
-	else:
-		return round(activity)
-	'''
 	return round(1 / (1 + math.exp(-sigmoidSteepness * (activity-sigmoidCenter))),9)
-	#return round(1 / (1 + math.exp(-activity)),9)
 
 def pdSquaredError(predicted, actual):
 	return round(-(actual - predicted),9)
@@ -90,47 +81,55 @@ def pdEuclideanDistance(predicted,actual):
 
 #partial derivative of the activation function
 def pdSigmoid(x):
-	return round(x*(1-x),9)
+	
+	global sigmoidSteepness,sigmoidCenter
+	numerator = sigmoidSteepness*np.exp(-(sigmoidSteepness)*(x - sigmoidCenter))
+	denominator = (1 + np.exp(-(sigmoidSteepness)*(x-sigmoidCenter)))**2
+	return numerator/denominator
+	
+	#return round(x*(1-x),9)
 
-#takes a timeStep and attempts to predict the next time step
+#turns out we don't want this, because we want to keep probability of spiking
+#separate for each neuron
+def softmax(x):
+    """Compute softmax values for each sets of scores in x."""
+    e_x = np.exp(x - np.max(x))
+    return e_x / e_x.sum()
+
+#takes a timeStep to predict the next time step
 
 def prediction(timeStep):
 	global weights, activation
 	#matrix multiply the weight matrix with the spiking matrix
 	adjustedStep = np.matmul(timeStep, weights)
-	#print(adjustedStep)
 	#go through all values of the adjusted step matrix,
-		#and multiply them by the activation function
+	#and multiply them by the activation function
 	for value in range(len(adjustedStep)):
-		adjustedStep[value] = (activation(adjustedStep[value]))
-	#print(timeStep)
-	#print(adjustedStep)
+		adjustedStep[value] = activation(adjustedStep[value])
+		#multiplication with spike rate
+		#adjustedStep[value] = adjustedStep[value]*spikeRate[value]
 	#return the resulting and final adjusted step
+	#print(adjustedStep)
 	return adjustedStep
 	
+def twoTimeInputPrediction(timeStep,timeStep1):
+	#take the time step, and the next time step, to calculate the third time step
+	return (prediction(timeStep) + prediction(timeStep1))/2
 
 '''
 change the weight between one source neuron and the target neuron
 
 '''
 def weightChangeOutput(predicted,actual,priorStep):
-	#print("priorStep is",priorStep)
 	i = round(pdSquaredError(predicted,actual),9)
-	#print("the pd squared error is ", i)
-	#partial derivative of euclidean distance with respect to the prediction
-	#print("the activity is", predicted)
 	j = round(pdSigmoid(predicted),9)
-	#print("the pd sigmoid is",j)
-		#partial derivative of activation function with respect to the activity
+	#partial derivative of activation function with respect to the activity
 	totalChange = round(i*j*priorStep,9)
+	#totalChange = predicted - actual
 	return totalChange
 
 #main network training function
 def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
-	#predictionMatrix = []
-	#Iterates through all values in the data set
-	#for i in range(len(dataset)):
-		#predict the value for the next step and store it
 	i=0
 	global weights
 	while (i <Max_iters):
@@ -154,45 +153,66 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 				weightDelta=weightChangeOutput(predicted,actual,priorStep)
 
 				updatedWeights[weightArrayIndex][weightValueIndex] = round(weightValue - learningRate*weightDelta,9)
-				#print(weightArrayIndex," " , weightValueIndex, " " ,weightDelta)
-		#print("new iteration")
-		#print(updatedWeights)
-		#print(squaredError(predictionMatrix[1],dataset[1]))
 
 		i += 1
 	weights = updatedWeights
 
-def trainNetwork(Max_iters = 50):
+def trainNetwork(Max_iters = 10):
 	global weights
 	priorMSE = 100
 	j = 0
 	while (j<Max_iters):
 		predictedMatrix = []
-		for i in range(len(dataset)-1):
+		#training step, change the weights
+		for i in range(0,len(dataset)-1):
 			predictionTimeStep = prediction(dataset[i])
-			predictedMatrix.append(predictionTimeStep)
+			#predictedMatrix.append(predictionTimeStep.round())
 			trainNetworkOneStep(i, predictionTimeStep)
-			
-			#print(dataset[i])
-			#print(predictionTimeStep)
-		#print(dataset)
-		#print(predictedMatrix)
+		
+		#create a new predicted matrix, from the weights of the previous iteration
+		for i in range(len(dataset)-1):
+			predictedMatrix.append(prediction(dataset[i]))
+		
+		#calculate the mean squared error
 		mse = ((dataset[:len(dataset)-1] - predictedMatrix) ** 2).mean(axis=None)
 		print("Curr diff: ", abs(priorMSE - mse))
-		print("target diff:", 0.005*priorMSE)
+		print("target diff:", 0.0005*priorMSE)
 		print("Prior MSE: ",priorMSE,"\n")
 		print("MSE: ",mse,"\n")
-		if abs(priorMSE - mse) <= 0.005*(priorMSE):
+		
+		if mse == 0:
 			break
+			'''
+		if abs(priorMSE - mse) <= 0.0005*(priorMSE):
+			break
+			'''
+			
 		#print("After:\n",weights,"\n")
 
 		#check to compare previous error to current error. If close enough, break
-
+		if j%10 == 0:
+			print(weights)
+			print(j)
 		priorMSE = mse
-		i += 1
+		j += 1
+
+	return predictedMatrix
 
 
 print("Before: \n",weights,"\n")
-trainNetwork()
+x = trainNetwork()
+x = np.array(x)
 print("After:\n",weights,"\n")
+print("final output is ",x)
+print(dataset)
 np.savetxt("resultingMatrix1.csv",weights,delimiter=",")
+np.savetxt("finalPrediction.csv",x,delimiter=',')
+#normalized results"
+xmax, xmin = x.max(), x.min()
+normX = (x - xmin)/(xmax - xmin)
+np.savetxt("normalizedFinalPrediction.csv",normX,delimiter = ',')
+
+threshX = np.where(normX > 0.5, 1, 0)
+
+np.savetxt("thresholdedFinalPrediction.csv",threshX,delimiter = ',')
+

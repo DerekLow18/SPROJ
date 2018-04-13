@@ -5,6 +5,7 @@ import sys
 def spikeTimeToArrays(dataset):
 	#convert a spiketime matrix to an array of neurons, and spiketimes within those arrays
 	dataset = np.genfromtxt(dataset,delimiter = ',')
+	dataset = np.transpose(dataset)
 	idMatrix = [[] for i in range(len(dataset))]#np.zeros((np.shape(dataset)[0],1))
 	print(idMatrix)
 	print(np.shape(idMatrix))
@@ -29,12 +30,11 @@ def createPlot(dataset):
 
 
 
-def main():
+if __name__ == "__main__":
 	if len(sys.argv) < 2:
 		print("Please enter a csv file that you want to rasterize")
 		exit()
 	dataset = str(sys.argv[1])
+	np.transpose(dataset)
 	transDataSet = spikeTimeToArrays(dataset)
 	createPlot(transDataSet)
-
-main()

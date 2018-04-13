@@ -164,7 +164,6 @@ def trainNetwork(Max_iters = 1):
 	while (j<Max_iters):
 		for i in range(len(dataset)-1):
 			predictionTimeStep = prediction(dataset[i])
-			predictedMatrix.append(predictionTimeStep)
 			trainNetworkOneStep(i, predictionTimeStep)
 			
 			#print(dataset[i])
@@ -174,6 +173,9 @@ def trainNetwork(Max_iters = 1):
 			#print("After:\n",weights,"\n")
 			print("MSE: ",mse,"\n")
 			priorMSE = mse
+		for i in range(len(dataset)-1):
+			predictedMatrix.append(prediction(dataset[i]))
+		mse = ((dataset))
 		j += 1
 
 

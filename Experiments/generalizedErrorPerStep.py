@@ -6,7 +6,12 @@ import math
 import copy
 import sys
 np.set_printoptions(threshold=np.nan)
-
+'''
+At every step, predict the step until the error converges.
+Then, move on to the next step, and modify the weight matrix until this one converges.
+Do this for the entire dataset, then run the dataset through the matrix for a prediction,
+and check how close you are.
+'''
 def downsample(dataset, binSize):
 	downsampleDataset = []
 	print(len(dataset))
@@ -169,7 +174,9 @@ def trainNetwork(Max_iters = 1):
 			predictedMatrix.append(predictionTimeStep)
 			print("step: ",i)
 			mse = ((dataset[i] - predictionTimeStep) ** 2).mean(axis=None)
-			while priorMSE - mse > 0.05*priorMSE:
+			print(priorMSE)
+			print(mse)
+			while priorMSE - mse > 0.005*priorMSE:
 				if round(priorMSE,9) == round(mse,9):
 					break
 				trainNetworkOneStep(i, predictionTimeStep)
@@ -177,11 +184,11 @@ def trainNetwork(Max_iters = 1):
 				print("iteration",i)
 				#print(weights)
 				print(mse)
-			
+			priorMSE = mse
 			#print(dataset[i])
 			#print(predictionTimeStep)
 
-			mse = ((dataset[i] - predictionTimeStep) ** 2).mean(axis=None)
+			#mse = ((dataset[i] - predictionTimeStep) ** 2).mean(axis=None)
 			#print("After:\n",weights,"\n")
 			#print("MSE: ",mse,"\n")
 			#priorMSE = mse

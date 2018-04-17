@@ -21,7 +21,7 @@ def spikeTimeToArrays(dataset):
 				idMatrix[i].append(j)
 	return idMatrix
 
-'''
+
 dataset = spikeTimeToArrays('../Downsampled Spikes/01downsample.csv')
 #dataset = dataset.transpose()
 #print(dataset)
@@ -38,7 +38,7 @@ elephantDataset = []
 x = BinnedSpikeTrain(neoDataset,binsize=10*ms)
 
 cov_matrix = corrcoef(x,binary=True)
-'''
+
 
 #pyplot xcorr returns an array of the timelag used, and a corrsponding array
 #of the calculated correlation coefficient between the two spike trains,
@@ -58,8 +58,8 @@ Keep a dictionary with {i:j,n}, where the connection of i to j has n highest val
 def calcCCH(i,j,dataset):
 
 	#use elephant to recreate cross_correlation_histograms
-	cch = cross_correlation_histogram((BinnedSpikeTrain(neoDataset[i],binsize=1*ms)),
-		(BinnedSpikeTrain(neoDataset[j],binsize=1*ms)),border_correction = False,
+	cch = cross_correlation_histogram((BinnedSpikeTrain(neoDataset[i],binsize=10*ms)),
+		(BinnedSpikeTrain(neoDataset[j],binsize=10*ms)),border_correction = False,
 		binary = False, kernel = None)
 	cchArray1 = np.array(cch[0][:,0].magnitude)
 	return cchArray1.max()
@@ -71,14 +71,17 @@ def generateCorrelationMatrix(neoDataset,connectionDict):
 			if i != j:
 				connectionDictionary[i][j] = connectionDictionary[i][j] + calcCCH(i,j,neoDataset)
 	return connectionDictionary
-'''
-This code will produce a single cross correlogram
 
+#This code will produce a single cross correlogram
+
+cch = cross_correlation_histogram((BinnedSpikeTrain(neoDataset[0],binsize=10*ms)),
+	(BinnedSpikeTrain(neoDataset[0],binsize=10*ms)),border_correction = False,
+	binary = False, kernel = None)
 cchArray =  cch[0][:,0].magnitude
 cchArrayTime = cch[0].times.magnitude
 cchArrayNP = np.array(cchArray)
 print("argmax is:",cchArrayNP.max())
-'''
+
 
 #calculate the cross-correlograms of the entire dataset,
 #produce the corresponding correlation matrix
@@ -91,15 +94,16 @@ print(correlationArray)
 #for i in cchArray:
 	#print(i)
 #print(cchArray)
-'''
+
 print(len(cchArray))
 plt.bar(cchArrayTime,cchArray,cch[0].sampling_period.magnitude)
 plt.show()
-'''
+
 
 '''
 Can we reconstruct the network purely based on xc?
 Do this cross-correlation procedure, and add for all sanples in the dataset
+'''
 '''
 if __name__ == "__main__":
 
@@ -115,3 +119,4 @@ if __name__ == "__main__":
 
 			correlationMatrix = generateCorrelationMatrix(neoDataset,correlationMatrix)
 			print(correlationMatrix)
+'''

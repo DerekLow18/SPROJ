@@ -36,7 +36,7 @@ sys.stdout = old_stdout
 
 log_file.close()
 '''
-dataset = dataset[9:11]
+#dataset = dataset[9:11]
 #print(dataset)
 
 
@@ -53,6 +53,7 @@ print(spikeRate)
 weights = np.random.rand(dataset.shape[1],dataset.shape[1])
 #weights = np.zeros((dataset.shape[1],dataset.shape[1]))
 learningRate = 0.5
+sigmoidLR = 0.1
 
 #error calculation between the predicted step and the actual step, euclidean distance
 def error(prediction, actual):
@@ -176,14 +177,17 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 				actual = data[timestep+1][weightValueIndex]
 				priorStep = data[timestep][weightArrayIndex]
 
-				#calculate weight change for each weight, where first param is outputArray, second is the actual array, and third is the output from the prior step
-				weightDelta=weightChangeOutput(predicted,actual,priorStep,weightValueIndex)
 
 				#calculate the sigmoid change
 				sigmoidShift, sigmoidSteep = sigmoidChangeOutput(predicted,actual,weightValueIndex)
 				updatedSteep[weightValueIndex] = round(sigmoidSteepness[weightValueIndex] - learningRate*sigmoidSteep,9)
-				updatedCenter[weightValueIndex] = round(sigmoidCenter[weightValueIndex] - learningRate*sigmoidShift,9)
-
+				updatedCenter[weightValueIndex] = round(sigmoidCenter[weightValueIndex] - sigmoidLR*sigmoidShift,9)
+				'''
+				sigmoidSteepness = updatedSteep
+				sigmoidCenter = updatedCenter
+				'''
+				#calculate weight change for each weight, where first param is outputArray, second is the actual array, and third is the output from the prior step
+				weightDelta=weightChangeOutput(predicted,actual,priorStep,weightValueIndex)
 				updatedWeights[weightArrayIndex][weightValueIndex] = round(weightValue - learningRate*weightDelta,9)
 
 		i += 1
@@ -239,7 +243,7 @@ x = np.array(x)
 print("After:\n",weights,"\n")
 print("final output is ",x)
 print(dataset)
-print(sigmoidSteepness,"\n",sigmoidCenter)
+print("sigmoid params \n",sigmoidSteepness,"\n",sigmoidCenter)
 np.savetxt("resultingMatrix1.csv",weights,delimiter=",")
 np.savetxt("finalPrediction.csv",x,delimiter=',')
 #normalized results"
@@ -247,7 +251,7 @@ xmax, xmin = x.max(), x.min()
 normX = (x - xmin)/(xmax - xmin)
 np.savetxt("normalizedFinalPrediction.csv",normX,delimiter = ',')
 
-threshX = np.where(normX > 0.5, 1, 0)
+threshX = np.where(normX > 0.8, 1, 0)
 
 np.savetxt("thresholdedFinalPrediction.csv",threshX,delimiter = ',')
 

@@ -133,7 +133,7 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 	i=0
 	global weights
 	while (i <Max_iters):
-		predictionMatrix = predictionSet;#store the predictions for the array into a matrix
+		predictionMatrix = predictionSet;#sstore the predictions for the array into a matrix
 		'''
 		now that we have the predictions, we need to calculate the weight change for each weight in the
 		weight matrix. Start with the output layer's weights from the hidden layer

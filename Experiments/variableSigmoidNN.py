@@ -53,7 +53,7 @@ print(spikeRate)
 weights = np.random.rand(dataset.shape[1],dataset.shape[1])
 #weights = np.zeros((dataset.shape[1],dataset.shape[1]))
 learningRate = 0.5
-sigmoidLR = 0.1
+sigmoidLR = 0.3
 
 #error calculation between the predicted step and the actual step, euclidean distance
 def error(prediction, actual):
@@ -195,7 +195,7 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 	sigmoidSteepness = updatedSteep
 	sigmoidCenter = updatedCenter
 
-def trainNetwork(Max_iters = 10):
+def trainNetwork(Max_iters = 30):
 	global weights
 	priorMSE = 100
 	j = 0

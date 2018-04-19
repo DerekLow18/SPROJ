@@ -43,25 +43,37 @@ calculate all tpr and fpr for the given two matrices
 2. order and remove redundant rates
 3. plot each point
 '''
-def calculateROCPlot():
+def calculateROCxc():
 	#gonna hard code the files first to ensure that it works
 	#create a dictionary that will store the tpr and fpr
-
+	tprList = []
+	fprList = []
 	#initialize the groundtruth as a np matrix
-	groundTruth = np.genfromtxt("../Syn Weights/groundTruth1.csv", delimiter = ',')
+	groundTruth = np.genfromtxt("../Syn Weights/groundTruth50.csv", delimiter = ',')
 	#iterate through all files from xcThresholds, calculating the tpr and fpr for each
 	for file in os.listdir("../Other Methods/xcThresholds"):
 		if fnmatch.fnmatch(file,"*xcMatrix.csv"):
 			#generate np matrix reflecting xc
-			hypoMatrix = np.genfromtxt(file,delimiter = ',')
+			hypoMatrix = np.genfromtxt("../Other Methods/xcThresholds/"+file,delimiter = ',')
 			tpr, fpr = calculatePositives(groundTruth,hypoMatrix)
-
-	#sort the dictionary from lowest tpr/fpr to highest tpr/fpr
-
+			tprList.append(tpr)
+			fprList.append(fpr)
 	#return the sorted dictionary
-	return
+	return np.array(tprList), np.array(fprList)
 
 if __name__=='__main__':
 	#calculate the ROC plot
+	defaultX = np.arange(0,1,0.01)
+	defaultY = np.arange(0,1,0.01)
+	tprxc,fprxc = calculateROCxc()
+	fig = plt.figure()
+	ax1 = fig.add_subplot(111)
 
+	ax1.scatter(tprxc,fprxc,s=5,c='b',marker='o')
+	ax1.scatter(defaultX, defaultY, s=5,c='r',marker='x')
+	plt.xlim(0,1)
+	plt.ylim(0,1)
+	plt.show()
+	print("xc:",np.trapz(tprxc,fprxc))
+	print("norm:",np.trapz(defaultY,defaultX))
 	#plot them using pyplot

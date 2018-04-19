@@ -121,7 +121,7 @@ if __name__ == "__main__":
 			[neoDataset.append(neo.SpikeTrain(i,units = 'ms',t_start = 0,t_stop = 1000.0)) for i in dataset]
 			print("calculating for:",file)
 			correlationMatrix = generateCorrelationMatrix(neoDataset,correlationMatrix)
-			print(correlationMatrix)
+			print(numFiles)
 
 	#divide the values by the number of datasets observed
 	avgMatrix = correlationMatrix/numFiles
@@ -145,3 +145,4 @@ if __name__ == "__main__":
 	print(avgMatrix)
 	print(normX)
 	print(threshX)
+

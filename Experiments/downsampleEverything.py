@@ -1,5 +1,5 @@
 import numpy as np
-import os
+import os, sys
 import fnmatch
 import re
 
@@ -28,12 +28,14 @@ def downsample(dataset, binSize):
 
 #downsample all files in the Spike Results Directory
 if __name__ == "__main__":
-
-	for file in os.listdir('./Spike Results/'):
+	if len(sys.argv) <2:
+		raise Exception("Need a directory containing spike result files!")
+		exit()
+	for file in os.listdir(sys.argv[1]):
 		if fnmatch.fnmatch(file,'*idTimes.csv'):
 			fileID = re.findall("(\d+)idTimes.csv",file)
 			
-			dataset = np.genfromtxt('./Spike Results/'+file,delimiter = ',')
+			dataset = np.genfromtxt(sys.argv[1]+file,delimiter = ',')
 			dataset = np.transpose(dataset)
 			newData = downsample(dataset,10)
 

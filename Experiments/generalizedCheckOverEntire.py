@@ -52,7 +52,7 @@ print(spikeRate)
 #intilizalize the weight array
 weights = np.random.rand(dataset.shape[1],dataset.shape[1])
 #weights = np.zeros((dataset.shape[1],dataset.shape[1]))
-learningRate = 0.5
+learningRate = 0.2
 
 #error calculation between the predicted step and the actual step, euclidean distance
 def error(prediction, actual):
@@ -174,7 +174,7 @@ def trainNetwork(Max_iters = 10):
 			predictedMatrix.append(prediction(dataset[i]))
 		
 		#calculate the mean squared error
-		mse = ((dataset[:len(dataset)-1] - predictedMatrix) ** 2).mean(axis=None)
+		mse = ((1/2)*(dataset[:len(dataset)-1] - predictedMatrix) ** 2).mean(axis=None)
 		print("Curr diff: ", abs(priorMSE - mse))
 		print("target diff:", 0.0005*priorMSE)
 		print("Prior MSE: ",priorMSE,"\n")
@@ -198,21 +198,21 @@ def trainNetwork(Max_iters = 10):
 
 	return predictedMatrix
 
+if __name__=='__main__':
+	print("Before: \n",weights,"\n")
+	x = trainNetwork()
+	x = np.array(x)
+	print("After:\n",weights,"\n")
+	print("final output is ",x)
+	print(dataset)
+	np.savetxt("resultingMatrix1.csv",weights,delimiter=",")
+	np.savetxt("finalPrediction.csv",x,delimiter=',')
+	#normalized results"
+	xmax, xmin = x.max(), x.min()
+	normX = (x - xmin)/(xmax - xmin)
+	np.savetxt("normalizedFinalPrediction.csv",normX,delimiter = ',')
 
-print("Before: \n",weights,"\n")
-x = trainNetwork()
-x = np.array(x)
-print("After:\n",weights,"\n")
-print("final output is ",x)
-print(dataset)
-np.savetxt("resultingMatrix1.csv",weights,delimiter=",")
-np.savetxt("finalPrediction.csv",x,delimiter=',')
-#normalized results"
-xmax, xmin = x.max(), x.min()
-normX = (x - xmin)/(xmax - xmin)
-np.savetxt("normalizedFinalPrediction.csv",normX,delimiter = ',')
+	threshX = np.where(normX > 0.5, 1, 0)
 
-threshX = np.where(normX > 0.5, 1, 0)
-
-np.savetxt("thresholdedFinalPrediction.csv",threshX,delimiter = ',')
+	np.savetxt("thresholdedFinalPrediction.csv",threshX,delimiter = ',')
 

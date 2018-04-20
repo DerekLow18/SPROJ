@@ -95,6 +95,6 @@ if __name__=='__main__':
 	plt.xlim(0,1)
 	plt.ylim(0,1)
 	plt.show()
-	print("xc:",np.trapz(tprxc,fprxc))
+	print("xc:",np.trapz(fprxc,tprxc))
 	print("norm:",np.trapz(defaultY,defaultX))
 	#plot them using pyplot

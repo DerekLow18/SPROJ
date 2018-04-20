@@ -36,7 +36,7 @@ sys.stdout = old_stdout
 
 log_file.close()
 '''
-dataset = dataset[14:16]
+#dataset = dataset[14:16]
 #print(dataset)
 
 
@@ -192,7 +192,7 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 	sigmoidCenter = updatedCenter
 
 
-def trainNetwork(Max_iters = 100):
+def trainNetwork(Max_iters = 10):
 	global weights
 	priorMSE = 100
 	j = 0
@@ -262,14 +262,22 @@ print("After:\n",weights,"\n")
 print("final output is ",x)
 print(dataset)
 print("sigmoid params \n",sigmoidSteepness,"\n",sigmoidCenter)
-np.savetxt("resultingMatrix1.csv",weights,delimiter=",")
-np.savetxt("finalPrediction.csv",x,delimiter=',')
+np.savetxt("./Final Results/pop10/resultingMatrix1.csv",weights,delimiter=",")
+np.savetxt("./Final Results/pop10/finalPrediction.csv",x,delimiter=',')
 #normalized results"
 xmax, xmin = x.max(), x.min()
 normX = (x - xmin)/(xmax - xmin)
-np.savetxt("normalizedFinalPrediction.csv",normX,delimiter = ',')
+np.savetxt("./Final Results/pop10/normalizedFinalPrediction.csv",normX,delimiter = ',')
 
 threshX = np.where(normX > 0.8, 1, 0)
-
-np.savetxt("thresholdedFinalPrediction.csv",threshX,delimiter = ',')
-
+np.savetxt("./Final Results/pop10/thresholdedFinalPrediction.csv",threshX,delimiter = ',')
+#normalized weights
+weightMax, weightMin = weights.max(), weights.min() - 0.01*weights.min()
+normWeights = (weights-weightMin)/(weightMax-weightMin)
+np.savetxt("./Final Results/pop10normalizedFinalWeights.csv",normWeights,delimiter=',')
+threshIndex=0
+while threshIndex <= 1:
+	print(threshIndex)
+	threshX = np.where(normWeights > threshIndex, 1, 0)
+	np.savetxt("./varSig thresholds/%dweightMatrix.csv" % (threshIndex*100),threshX,delimiter = ',')
+	threshIndex += 0.01

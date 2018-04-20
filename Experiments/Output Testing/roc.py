@@ -49,12 +49,31 @@ def calculateROCxc():
 	tprList = []
 	fprList = []
 	#initialize the groundtruth as a np matrix
-	groundTruth = np.genfromtxt("../Syn Weights/groundTruth50.csv", delimiter = ',')
+	groundTruth = np.genfromtxt("../Syn Weights/groundTruth10.csv", delimiter = ',')
 	#iterate through all files from xcThresholds, calculating the tpr and fpr for each
 	for file in os.listdir("../Other Methods/xcThresholds"):
 		if fnmatch.fnmatch(file,"*xcMatrix.csv"):
 			#generate np matrix reflecting xc
 			hypoMatrix = np.genfromtxt("../Other Methods/xcThresholds/"+file,delimiter = ',')
+			tpr, fpr = calculatePositives(groundTruth,hypoMatrix)
+			tprList.append(tpr)
+			fprList.append(fpr)
+			print(tpr,fpr)
+	#return the sorted dictionary
+	return np.array(tprList), np.array(fprList)
+
+def calculateROCgCOE():
+	print("calculating COE")
+	tprList = []
+	fprList = []
+	#initialize the groundtruth as a np matrix
+	groundTruth = np.genfromtxt("../Syn Weights/groundTruth10.csv", delimiter = ',')
+	#iterate through all files from xcThresholds, calculating the tpr and fpr for each
+	for file in os.listdir("../generalizedCOE thresholds"):
+		if fnmatch.fnmatch(file,"*weightMatrix.csv"):
+			#generate np matrix reflecting xc
+			hypoMatrix = np.genfromtxt("../generalizedCOE thresholds/"+file,delimiter = ',')
+			np.fill_diagonal(hypoMatrix,0)
 			tpr, fpr = calculatePositives(groundTruth,hypoMatrix)
 			tprList.append(tpr)
 			fprList.append(fpr)
@@ -66,11 +85,13 @@ if __name__=='__main__':
 	defaultX = np.arange(0,1,0.01)
 	defaultY = np.arange(0,1,0.01)
 	tprxc,fprxc = calculateROCxc()
+	tprCOE,fprCOE = calculateROCgCOE()
 	fig = plt.figure()
 	ax1 = fig.add_subplot(111)
 
-	ax1.scatter(tprxc,fprxc,s=5,c='b',marker='o')
+	ax1.scatter(fprxc,tprxc,s=5,c='b',marker='o')
 	ax1.scatter(defaultX, defaultY, s=5,c='r',marker='x')
+	ax1.scatter(fprCOE,tprCOE,s=5,c='r', marker='^')
 	plt.xlim(0,1)
 	plt.ylim(0,1)
 	plt.show()

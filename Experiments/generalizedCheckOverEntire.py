@@ -22,7 +22,7 @@ population matrix of the dataset.
 dataset = downsample(dataset,10)
 '''
 #import the dataset
-dataset = np.genfromtxt('./Downsampled Spikes/01downsample.csv', delimiter = ',')
+dataset = np.genfromtxt('./Downsampled Spikes/pop10/01downsample.csv', delimiter = ',')
 
 '''
 old_stdout = sys.stdout
@@ -208,11 +208,21 @@ if __name__=='__main__':
 	np.savetxt("resultingMatrix1.csv",weights,delimiter=",")
 	np.savetxt("finalPrediction.csv",x,delimiter=',')
 	#normalized results"
-	xmax, xmin = x.max(), x.min()
+	xmax, xmin = x.max(), x.min()-0.01*(x.min())
 	normX = (x - xmin)/(xmax - xmin)
 	np.savetxt("normalizedFinalPrediction.csv",normX,delimiter = ',')
-
+	#thresholded normalized results
 	threshX = np.where(normX > 0.5, 1, 0)
 
 	np.savetxt("thresholdedFinalPrediction.csv",threshX,delimiter = ',')
-
+	#normalized weights
+	weightMax, weightMin = weights.max(), weights.min()
+	normWeights = (weights-weightMin)/(weightMax-weightMin)
+	np.savetxt("normalizedFinalWeights.csv",normWeights,delimiter=',')
+	threshIndex = 0
+	#change the threshold for the purpose of ROC
+	while threshIndex <= 1:
+		print(threshIndex)
+		threshX = np.where(normWeights > threshIndex, 1, 0)
+		np.savetxt("./generalizedCOE thresholds/%dweightMatrix.csv" % (threshIndex*100),threshX,delimiter = ',')
+		threshIndex += 0.01

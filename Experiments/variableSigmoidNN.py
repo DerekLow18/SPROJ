@@ -22,8 +22,8 @@ population matrix of the dataset.
 dataset = downsample(dataset,10)
 '''
 #import the dataset
-dataset = np.genfromtxt('./Downsampled Spikes/01downsample.csv', delimiter = ',')
-
+dataset = np.genfromtxt('./Downsampled Spikes/pop10/01downsample.csv', delimiter = ',')
+datasetWeights = np.genfromtxt('./Syn Weights/groundTruth10.csv', delimiter = ',')
 '''
 old_stdout = sys.stdout
 
@@ -36,7 +36,7 @@ sys.stdout = old_stdout
 
 log_file.close()
 '''
-#dataset = dataset[9:11]
+dataset = dataset[14:16]
 #print(dataset)
 
 
@@ -53,11 +53,7 @@ print(spikeRate)
 weights = np.random.rand(dataset.shape[1],dataset.shape[1])
 #weights = np.zeros((dataset.shape[1],dataset.shape[1]))
 learningRate = 0.5
-sigmoidLR = 0.3
-
-#error calculation between the predicted step and the actual step, euclidean distance
-def error(prediction, actual):
-	return scipy.spatial.distance.euclidean(prediction, actual)
+sigmoidLR = 0.2
 
 def squaredError(prediction,actual):
 	squaredErrorVector = []
@@ -151,7 +147,7 @@ def sigmoidChangeOutput(predicted,actual,index):
 	j = round(pdSigmoidWRTShift(predicted,index),9)
 	k = round(pdSigmoidWRTSteepness(predicted,index),9)
 	return i*j, i*k
-
+#store the errors 
 #main network training function
 def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 	i=0
@@ -195,29 +191,48 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 	sigmoidSteepness = updatedSteep
 	sigmoidCenter = updatedCenter
 
-def trainNetwork(Max_iters = 30):
+
+def trainNetwork(Max_iters = 100):
 	global weights
 	priorMSE = 100
 	j = 0
+	old_stdout = sys.stdout
+
+	log_file = open("message.log","w")
+	sys.stdout = log_file
 	while (j<Max_iters):
 		predictedMatrix = []
 		#training step, change the weights
+		'''
+		old_stdout = sys.stdout
+
+		log_file = open("message.log","w")
+		sys.stdout = log_file
+		'''
 		for i in range(0,len(dataset)-1):
 			predictionTimeStep = prediction(dataset[i])
 			#predictedMatrix.append(predictionTimeStep.round())
 			trainNetworkOneStep(i, predictionTimeStep)
-		
+			#print(((dataset[i] - predictionTimeStep) ** 2).mean(axis=None))
+			#print((((datasetWeights - weights) ** 2).mean(axis=None)))
+
+		#sys.stdout = old_stdout
+		#log_file.close()
+
 		#create a new predicted matrix, from the weights of the previous iteration
 		for i in range(len(dataset)-1):
 			predictedMatrix.append(prediction(dataset[i]))
 		
 		#calculate the mean squared error
 		mse = ((dataset[:len(dataset)-1] - predictedMatrix) ** 2).mean(axis=None)
-		print("Curr diff: ", abs(priorMSE - mse))
-		print("target diff:", 0.0005*priorMSE)
-		print("Prior MSE: ",priorMSE,"\n")
-		print("MSE: ",mse,"\n")
-		
+		#print("Curr diff: ", abs(priorMSE - mse))
+		#print("target diff:", 0.0005*priorMSE)
+		#print("Prior MSE: ",priorMSE,"\n")
+		#print("MSE: ",mse,"\n")
+		print(mse)
+		#calculate the mean squared error weights
+		#weightMse = ((datasetWeights - weights) ** 2).mean(axis=None)
+		#print("weightMSE:",weightMse)
 		if mse == 0:
 			break
 			'''
@@ -228,12 +243,15 @@ def trainNetwork(Max_iters = 30):
 		#print("After:\n",weights,"\n")
 
 		#check to compare previous error to current error. If close enough, break
+		'''
 		if j%10 == 0:
 			print(weights)
 			print(j)
+		'''
 		priorMSE = mse
 		j += 1
-
+	sys.stdout = old_stdout
+	log_file.close()
 	return predictedMatrix
 
 

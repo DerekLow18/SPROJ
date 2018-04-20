@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  18 APR 2018 15:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  19 APR 2018 22:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -692,7 +692,7 @@ No file main.bbl.
 Here is how much of TeX's memory you used:
  5372 strings out of 494910
  77977 string characters out of 6179836
- 158715 words of memory out of 5000000
+ 159713 words of memory out of 5000000
  8587 multiletter control sequences out of 15000+600000
  11848 words of font info for 42 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
@@ -712,7 +712,7 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmti8.pfb>
-Output written on main.pdf (30 pages, 327872 bytes).
+Output written on main.pdf (30 pages, 328513 bytes).
 PDF statistics:
  179 PDF objects out of 1000 (max. 8388607)
  122 compressed objects within 2 object streams

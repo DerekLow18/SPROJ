@@ -22,10 +22,10 @@ def spikeTimeToArrays(dataset):
 	return idMatrix
 
 
-dataset = spikeTimeToArrays('../Downsampled Spikes/01downsample.csv')
+dataset = spikeTimeToArrays('../Downsampled Spikes/pop10/01downsample.csv')
 #dataset = dataset.transpose()
 #print(dataset)
-dataSpikeTimes = np.genfromtxt('../Downsampled Spikes/01downsample.csv', delimiter = ',')
+dataSpikeTimes = np.genfromtxt('../Downsampled Spikes/pop10/01downsample.csv', delimiter = ',')
 dataSpikeTimes = dataSpikeTimes.transpose()
 #print(dataset)
 neoDataset = []
@@ -110,13 +110,13 @@ Average the cross-correlation values by the number of datasets observed
 if __name__ == "__main__":
 
 	#initalize the correlation matrix
-	data = np.genfromtxt('../Downsampled Spikes/01downsample.csv', delimiter = ',')
+	data = np.genfromtxt('../Downsampled Spikes/pop10/01downsample.csv', delimiter = ',')
 	correlationMatrix = np.zeros((len(data.transpose()),len(data.transpose())))
 	numFiles = 0
-	for file in os.listdir("../Downsampled Spikes/"):
+	for file in os.listdir("../Downsampled Spikes/pop10/"):
 		if fnmatch.fnmatch(file,'*downsample.csv'):
 			numFiles += 1
-			dataset = spikeTimeToArrays("../Downsampled Spikes/"+file)
+			dataset = spikeTimeToArrays("../Downsampled Spikes/pop10/"+file)
 			neoDataset = []
 			[neoDataset.append(neo.SpikeTrain(i,units = 'ms',t_start = 0,t_stop = 1000.0)) for i in dataset]
 			print("calculating for:",file)
@@ -128,6 +128,7 @@ if __name__ == "__main__":
 
 	#find the minimum and maximum values, for normalization
 	minvalue = np.min(avgMatrix[np.nonzero(avgMatrix)])
+	minvalue = minvalue - 0.01*(minvalue)
 	maxvalue = avgMatrix.max()
 	#normalize the matrix via non-zero min and max
 	normX = (avgMatrix - minvalue)/(maxvalue - minvalue)

@@ -252,6 +252,7 @@ def trainNetwork(Max_iters = 10):
 		j += 1
 	sys.stdout = old_stdout
 	log_file.close()
+	print(j)
 	return predictedMatrix
 
 
@@ -272,7 +273,7 @@ np.savetxt("./Final Results/pop10/normalizedFinalPrediction.csv",normX,delimiter
 threshX = np.where(normX > 0.8, 1, 0)
 np.savetxt("./Final Results/pop10/thresholdedFinalPrediction.csv",threshX,delimiter = ',')
 #normalized weights
-weightMax, weightMin = weights.max(), weights.min() - 0.01*weights.min()
+weightMax, weightMin = weights.max(), weights.min() - abs(0.001*weights.min())
 normWeights = (weights-weightMin)/(weightMax-weightMin)
 np.savetxt("./Final Results/pop10normalizedFinalWeights.csv",normWeights,delimiter=',')
 threshIndex=0

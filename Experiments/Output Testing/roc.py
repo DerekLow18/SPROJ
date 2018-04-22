@@ -75,15 +75,16 @@ if __name__=='__main__':
 	#calculate the ROC plot
 	defaultX = np.arange(0,1,0.01)
 	defaultY = np.arange(0,1,0.01)
+	#cross correlation ROC
 	tprxc,fprxc = calculateROC("../Syn Weights/groundTruth10.csv","../Other Methods/xcThresholds/","*xcMatrix.csv")
 	tprxc,fprxc = reSort(tprxc,fprxc)
-	#tprxc,fprxc = calculateROCxc()
+	#generalized model ROC
 	tprCOE, fprCOE = calculateROC("../Syn Weights/groundTruth10.csv","../generalizedCOE thresholds/","*weightMatrix.csv")
 	tprCOE, fprCOE = reSort(tprCOE,fprCOE)
-	#tprCOE,fprCOE = calculateROCgCOE()
+	#variable logistical activation function ROC
 	tprVar, fprVar = calculateROC("../Syn Weights/groundTruth10.csv","../varSig thresholds/","*weightMatrix.csv")
 	tprVar, fprVar = reSort(tprVar, fprVar)
-	#tprVar, fprVar = calculateROCvarSig()
+
 	fig = plt.figure()
 	ax1 = fig.add_subplot(111)
 

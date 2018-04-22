@@ -73,11 +73,14 @@ def generateCorrelationMatrix(neoDataset,connectionDict):
 	return connectionDictionary
 
 #This code will produce a single cross correlogram
+binned_st1 = BinnedSpikeTrain(neoDataset[0],binsize=1*ms)
+binned_st2 = BinnedSpikeTrain(neoDataset[5],binsize=1*ms)
 
-cch = cross_correlation_histogram((BinnedSpikeTrain(neoDataset[0],binsize=1*ms)),
-	(BinnedSpikeTrain(neoDataset[0],binsize=1*ms)),window=[-50,50],border_correction = True,
-	binary = False, kernel = None)
-cchArray =  cch[0][:,0].magnitude
+cch = cross_correlation_histogram(binned_st1,
+	binned_st2,window=[-100,100],border_correction = True,
+	binary = True, kernel = None)
+print(cch)
+cchArray =  cch[0][:,0].magnitude.round()
 cchArrayTime = cch[0].times.magnitude
 cchArrayNP = np.array(cchArray)
 print("argmax is:",cchArrayNP.max())
@@ -90,15 +93,30 @@ print(calcCCH(8,9,neoDataset))
 correlationArray = generateCorrelationMatrix(neoDataset)
 print(correlationArray)
 '''
+x1 = binned_st1.to_array()
+x2 = binned_st2.to_array()
+x11 = x1[0]
+x21 = x2[0]
+y1 = [timestep for timestep in range(len(x11))]
+y2 = [timestep for timestep in range(len(x21))]
+fig, (ax1,ax2) = plt.subplots(2,1)
+ax1.plot(y1,x11)
+ax2.plot(y2,x21)
+plt.xlabel("Time Step")
+plt.savefig("../../Main Writing/Figures/05Corr.svg",format = 'svg')
+plt.show()
 
-#for i in cchArray:
-	#print(i)
-#print(cchArray)
-'''
+for i in cchArray:
+	print(i)
+print(cchArray)
+
 print(len(cchArray))
 plt.bar(cchArrayTime,cchArray,cch[0].sampling_period.magnitude)
+plt.xlabel("Time Lag")
+plt.ylabel("Bin Count")
+plt.savefig("../../Main Writing/Figures/05CorrGram.svg",format='svg')
 plt.show()
-'''
+
 
 '''
 Can we reconstruct the network purely based on xc?
@@ -106,7 +124,7 @@ Do this cross-correlation procedure, and add for all samples in the dataset
 
 Average the cross-correlation values by the number of datasets observed
 '''
-
+'''
 if __name__ == "__main__":
 
 	#initalize the correlation matrix
@@ -146,4 +164,5 @@ if __name__ == "__main__":
 	print(avgMatrix)
 	print(normX)
 	print(threshX)
+'''
 

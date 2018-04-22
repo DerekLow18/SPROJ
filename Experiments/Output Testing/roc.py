@@ -43,36 +43,16 @@ calculate all tpr and fpr for the given two matrices
 2. order and remove redundant rates
 3. plot each point
 '''
-def calculateROCxc():
-	#gonna hard code the files first to ensure that it works
-	#create a dictionary that will store the tpr and fpr
+def calculateROC(groundTruth, directory, matrixName):
 	tprList = []
 	fprList = []
 	#initialize the groundtruth as a np matrix
-	groundTruth = np.genfromtxt("../Syn Weights/groundTruth10.csv", delimiter = ',')
+	groundTruth = np.genfromtxt(groundTruth, delimiter = ',')
 	#iterate through all files from xcThresholds, calculating the tpr and fpr for each
-	for file in os.listdir("../Other Methods/xcThresholds"):
-		if fnmatch.fnmatch(file,"*xcMatrix.csv"):
+	for file in os.listdir(directory):
+		if fnmatch.fnmatch(file,matrixName):
 			#generate np matrix reflecting xc
-			hypoMatrix = np.genfromtxt("../Other Methods/xcThresholds/"+file,delimiter = ',')
-			tpr, fpr = calculatePositives(groundTruth,hypoMatrix)
-			tprList.append(tpr)
-			fprList.append(fpr)
-			print(tpr,fpr)
-	#return the sorted dictionary
-	return np.array(tprList), np.array(fprList)
-
-def calculateROCgCOE():
-	print("calculating COE")
-	tprList = []
-	fprList = []
-	#initialize the groundtruth as a np matrix
-	groundTruth = np.genfromtxt("../Syn Weights/groundTruth10.csv", delimiter = ',')
-	#iterate through all files from xcThresholds, calculating the tpr and fpr for each
-	for file in os.listdir("../generalizedCOE thresholds"):
-		if fnmatch.fnmatch(file,"*weightMatrix.csv"):
-			#generate np matrix reflecting xc
-			hypoMatrix = np.genfromtxt("../generalizedCOE thresholds/"+file,delimiter = ',')
+			hypoMatrix = np.genfromtxt(directory+file,delimiter = ',')
 			np.fill_diagonal(hypoMatrix,0)
 			tpr, fpr = calculatePositives(groundTruth,hypoMatrix)
 			tprList.append(tpr)
@@ -80,31 +60,30 @@ def calculateROCgCOE():
 	#return the sorted dictionary
 	return np.array(tprList), np.array(fprList)
 
-def calculateROCvarSig():
-	print("calculating varSig")
-	tprList = []
-	fprList = []
-	#initialize the groundtruth as a np matrix
-	groundTruth = np.genfromtxt("../Syn Weights/groundTruth10.csv", delimiter = ',')
-	#iterate through all files from xcThresholds, calculating the tpr and fpr for each
-	for file in os.listdir("../varSig thresholds"):
-		if fnmatch.fnmatch(file,"*weightMatrix.csv"):
-			#generate np matrix reflecting xc
-			hypoMatrix = np.genfromtxt("../varSig thresholds/"+file,delimiter = ',')
-			np.fill_diagonal(hypoMatrix,0)
-			tpr, fpr = calculatePositives(groundTruth,hypoMatrix)
-			tprList.append(tpr)
-			fprList.append(fpr)
-	#return the sorted dictionary
-	return np.array(tprList), np.array(fprList)
+def reSort(tpr,fpr):
+	combined = np.column_stack((tpr,fpr))
+	uniqueCombined = np.unique(combined,axis = 0)
+	print(uniqueCombined)
+	uniques = np.hsplit(uniqueCombined,1)
+	print("after hsplit:",uniques)
+	uniqueTPRs = np.squeeze(uniqueCombined[:,[0]])
+	uniqueFPRs = np.squeeze(uniqueCombined[:,[1]])
+	print(uniqueTPRs,uniqueFPRs)
+	return uniqueTPRs, uniqueFPRs
 
 if __name__=='__main__':
 	#calculate the ROC plot
 	defaultX = np.arange(0,1,0.01)
 	defaultY = np.arange(0,1,0.01)
-	tprxc,fprxc = calculateROCxc()
-	tprCOE,fprCOE = calculateROCgCOE()
-	tprVar, fprVar = calculateROCvarSig()
+	tprxc,fprxc = calculateROC("../Syn Weights/groundTruth10.csv","../Other Methods/xcThresholds/","*xcMatrix.csv")
+	tprxc,fprxc = reSort(tprxc,fprxc)
+	#tprxc,fprxc = calculateROCxc()
+	tprCOE, fprCOE = calculateROC("../Syn Weights/groundTruth10.csv","../generalizedCOE thresholds/","*weightMatrix.csv")
+	tprCOE, fprCOE = reSort(tprCOE,fprCOE)
+	#tprCOE,fprCOE = calculateROCgCOE()
+	tprVar, fprVar = calculateROC("../Syn Weights/groundTruth10.csv","../varSig thresholds/","*weightMatrix.csv")
+	tprVar, fprVar = reSort(tprVar, fprVar)
+	#tprVar, fprVar = calculateROCvarSig()
 	fig = plt.figure()
 	ax1 = fig.add_subplot(111)
 
@@ -117,4 +96,5 @@ if __name__=='__main__':
 	plt.show()
 	print("xc:",np.trapz(fprxc,tprxc))
 	print("norm:",np.trapz(defaultY,defaultX))
+	print("var:",np.trapz(fprVar,tprVar))
 	#plot them using pyplot

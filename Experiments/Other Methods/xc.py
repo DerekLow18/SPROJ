@@ -129,7 +129,7 @@ if __name__ == "__main__":
 	#find the minimum and maximum values, for normalization
 	minvalue = np.min(avgMatrix[np.nonzero(avgMatrix)])
 	minvalue = minvalue - 0.01*(minvalue)
-	maxvalue = avgMatrix.max()
+	maxvalue = avgMatrix.max() + 0.01*(minvalue)
 	#normalize the matrix via non-zero min and max
 	normX = (avgMatrix - minvalue)/(maxvalue - minvalue)
 	#replace the diagonals with 0s again

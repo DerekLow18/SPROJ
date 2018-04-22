@@ -173,11 +173,12 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 				actual = data[timestep+1][weightValueIndex]
 				priorStep = data[timestep][weightArrayIndex]
 
-
+				'''#4/21/18
 				#calculate the sigmoid change
 				sigmoidShift, sigmoidSteep = sigmoidChangeOutput(predicted,actual,weightValueIndex)
 				updatedSteep[weightValueIndex] = round(sigmoidSteepness[weightValueIndex] - learningRate*sigmoidSteep,9)
 				updatedCenter[weightValueIndex] = round(sigmoidCenter[weightValueIndex] - sigmoidLR*sigmoidShift,9)
+				'''
 				'''
 				sigmoidSteepness = updatedSteep
 				sigmoidCenter = updatedCenter
@@ -185,6 +186,15 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 				#calculate weight change for each weight, where first param is outputArray, second is the actual array, and third is the output from the prior step
 				weightDelta=weightChangeOutput(predicted,actual,priorStep,weightValueIndex)
 				updatedWeights[weightArrayIndex][weightValueIndex] = round(weightValue - learningRate*weightDelta,9)
+
+		#4/21/18
+		for weightValueIndex in range(len(sigmoidSteepness)):
+			predicted = predictionMatrix[weightValueIndex]
+			actual = data[timestep+1][weightValueIndex]
+
+			sigmoidShift, sigmoidSteep = sigmoidChangeOutput(predicted,actual,weightValueIndex)
+			updatedSteep[weightValueIndex] = round(sigmoidSteepness[weightValueIndex] - learningRate*sigmoidSteep,9)
+			updatedCenter[weightValueIndex] = round(sigmoidCenter[weightValueIndex] - sigmoidLR*sigmoidShift,9)
 
 		i += 1
 	weights = updatedWeights
@@ -273,9 +283,9 @@ np.savetxt("./Final Results/pop10/normalizedFinalPrediction.csv",normX,delimiter
 threshX = np.where(normX > 0.8, 1, 0)
 np.savetxt("./Final Results/pop10/thresholdedFinalPrediction.csv",threshX,delimiter = ',')
 #normalized weights
-weightMax, weightMin = weights.max(), weights.min() - abs(0.001*weights.min())
+weightMax, weightMin = weights.max()+abs(0.1*weights.max()), weights.min() - abs(0.001*weights.min())
 normWeights = (weights-weightMin)/(weightMax-weightMin)
-np.savetxt("./Final Results/pop10normalizedFinalWeights.csv",normWeights,delimiter=',')
+np.savetxt("./Final Results/pop10/normalizedFinalWeights.csv",normWeights,delimiter=',')
 threshIndex=0
 while threshIndex <= 1:
 	print(threshIndex)

@@ -14,7 +14,23 @@ def produceErrorFigure(fileName, errorArrayInd):
 	plt.show()
 
 #produce a scatter plot from a csv file, depicting error changes
+'''
 if len(sys.argv) < 3:
 	raise Exception("Please provide a csv file of the error, and the array the error is in.")
 	exit()
-produceErrorFigure(sys.argv[1],sys.argv[2])
+'''
+#produceErrorFigure(sys.argv[1],sys.argv[2])
+errorArray = np.genfromtxt("twoTimeVarSigDiffTimes.csv",delimiter = ',').transpose()
+errorArray1 = errorArray[0]
+errorArray2 = errorArray[1]
+errorArray3 = errorArray[2]
+errorArray4 = errorArray[3]
+
+fig = plt.figure()
+ax1 = fig.add_subplot(111)
+xlabels = range(len(errorArray[0]))
+ax1.scatter(xlabels,errorArray1,s=5,c='b',marker='o')
+ax1.scatter(xlabels, errorArray2, s=5,c='r',marker='x')
+ax1.scatter(xlabels,errorArray3,s=5,c='r', marker='^')
+ax1.scatter(xlabels,errorArray4,s=5,c='g',marker = 'o')
+plt.show()

@@ -285,7 +285,7 @@ The variable activation function model contains two additional sets of values in
 \end{algorithm}
 
 \subsection{Cross-Correlation}
-We compare the performance of the model to the cross-correlation method of inferring connectivity. Cross-correlograms here are produced using the \textit{elephant} and \textit{neo} python packages (citation here). The cross-correlogram method of extracting spike-train correlations compares the spike times of a reference train to a target train. Different time steps within a defined window are observed in the target train, using a spike in the reference train as the origin.
+We compare the performance of the model to the cross-correlation method of inferring connectivity. Cross-correlograms here are produced using the \textit{elephant} and \textit{neo} python packages (citation here). The cross-correlogram method of extracting spike-train correlations compares the spike times of a reference train to a target train. Different time steps within a defined window are observed in the target train, using a spike in the reference train as the origin. The final cross-correlation analysis compares over 100 distinct simulated spike trains across a population of 10 neurons, with window size [-10,10], as displayed in Figure \ref{main:f}.
 
 \begin{figure}[H]
 \begin{minipage}{.49\linewidth}
@@ -329,11 +329,14 @@ We first run the model across two time steps, with at least a single observed sp
 \subfloat[]{\label{errorTwoTime:a}\includegraphics[scale=0.55,trim={1cm 0 1cm 0},clip]{./Figures/Errors/twoTimeStepvarSigPOPError.pdf}}
 \end{minipage}
 
-\caption{\textbf{Error Convergence of Model On Two Consecutive Time Steps.} Each scatter plot point represents an average of 10 separate runs of the model, each run lasting 100 iterations. (a)Error Convergence on Variable Activation Function Model. The model was trained on a selected timestep of  (b)}
+\caption{\textbf{Error Convergence of Model On Two Consecutive Time Steps.} Each scatter plot point represents an average of 10 separate runs of the model, each run lasting 100 iterations. (a)Error Convergence on Variable Activation Function Model. The model was trained on a selected timestep, where the first time step contained a single spike in the third neuron, and the following time step contained a single spike in the seventh neuron. (b)}
 \label{fig:errorTwoTime}
 \end{figure}
 
 \section{Discussion}
+
+\subsection{Model Error Convergence}
+prelimiary notes: when the model is training over a train with a single spike to a train with two spikes, the 
 
 \section{Conclusion}
 

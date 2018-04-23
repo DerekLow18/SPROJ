@@ -36,7 +36,12 @@ sys.stdout = old_stdout
 
 log_file.close()
 '''
-dataset = dataset[14:16]
+#dataset = dataset[49:51] #1,2
+#dataset = dataset[15:17] #1,1
+#dataset = dataset[23:25] #0,0
+#dataset = dataset[135:137] #1,2
+#dataset = dataset[231:233] #2,0
+#dataset = dataset[234:236]
 #print(dataset)
 
 
@@ -194,7 +199,7 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 
 			sigmoidShift, sigmoidSteep = sigmoidChangeOutput(predicted,actual,weightValueIndex)
 			updatedSteep[weightValueIndex] = round(sigmoidSteepness[weightValueIndex] - learningRate*sigmoidSteep,9)
-			updatedCenter[weightValueIndex] = round(sigmoidCenter[weightValueIndex] - sigmoidLR*sigmoidShift,9)
+			updatedCenter[weightValueIndex] = round(sigmoidCenter[weightValueIndex] + sigmoidLR*sigmoidShift,9)
 
 		i += 1
 	weights = updatedWeights
@@ -202,7 +207,7 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 	sigmoidCenter = updatedCenter
 
 
-def trainNetwork(Max_iters = 100):
+def trainNetwork(Max_iters = 10):
 	global weights
 	priorMSE = 100
 	j = 0
@@ -269,11 +274,12 @@ def trainNetwork(Max_iters = 100):
 print("Before: \n",weights,"\n")
 x = trainNetwork()
 x = np.array(x)
-'''
+
 print("After:\n",weights,"\n")
 print("final output is ",x)
 print(dataset)
 print("sigmoid params \n",sigmoidSteepness,"\n",sigmoidCenter)
+'''
 np.savetxt("./Final Results/pop10/resultingMatrix1.csv",weights,delimiter=",")
 np.savetxt("./Final Results/pop10/finalPrediction.csv",x,delimiter=',')
 #normalized results"

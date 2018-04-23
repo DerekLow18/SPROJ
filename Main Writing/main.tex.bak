@@ -250,8 +250,8 @@ First, a single time step is provided from an $t$ x $n$ dimensional matrix, wher
 	Calculate the mean squared error between P'[0:length-1] and dataset[1:length]
 \end{algorithm}
 
-\subsubsection{Activation Function Model}
-The activation function model contains two additional sets of values in two separate $n$ x 1 dimensional arrays, where $n$ is the size of the population of observed neurons. Each value in the matrix corresponds to a particular node in the output layer of the same index. Therefore, the activation function is modified to a general logistic function of the form $$ f(x) = \frac{1}{1+e^{-a(x - b)}}$$ where $a_j$ and $b_j$ are the values corresponding to the unique steepness, or shape, and center, defined as the value at which the second derivative of the function changes signs, of the activation function for target output node $y_j$, allowing for a distinct activation function for each output node. The error is backpropagated in a similar fashion to the weights between the input and output layers of the model, and simultaneous to the weight updating step. To update the steepness of the of output $y_j$, we calculate $\Delta a_j$ as
+\subsubsection{Variable Activation Function Model}
+The variable activation function model contains two additional sets of values in two separate $n$ x 1 dimensional arrays, where $n$ is the size of the population of observed neurons. Each value in the matrix corresponds to a particular node in the output layer of the same index. Therefore, the activation function is modified to a general logistic function of the form $$ f(x) = \frac{1}{1+e^{-a(x - b)}}$$ where $a_j$ and $b_j$ are the values corresponding to the unique steepness, or shape, and center, defined as the value at which the second derivative of the function changes signs, of the activation function for target output node $y_j$, allowing for a distinct activation function for each output node. The error is backpropagated in a similar fashion to the weights between the input and output layers of the model, and simultaneous to the weight updating step. To update the steepness of the of output $y_j$, we calculate $\Delta a_j$ as
  $$\Delta a_j = \frac{\partial E}{\partial a_j} = \frac{\partial E}{\partial y_j} * \frac{\partial y_j}{\partial a_j}$$
  where $\frac{\partial E}{\partial y_j}$ is evaluated as in the base model, and the partial derivative of the output $y_j$ w.r.t logistic function steepness $a_j$, $\frac{\partial y_j}{\partial a_j}$, is 
  $$\frac{\partial y_j}{\partial a_j}=\frac{e^{-a_j(x-b_j)}(b_j - x)}{(1+e^{-a_j(x-b_j)})^2}$$, where $x$ is the input to the activation function. The change of the logistic function center at the update step is given by 
@@ -285,7 +285,7 @@ The activation function model contains two additional sets of values in two sepa
 \end{algorithm}
 
 \subsection{Cross-Correlation}
-We compare the performance of the model to the cross-correlation method of inferring connectivity. Cross-correlograms here are produced using the \textit{elephant} and \textit{neo} python packages (citation here). The cross-correlogram method of extracting spike-train correlations compares the spike times of a reference train to a target train. Different time steps within a defined window are observed in the target train, using a spike in the reference train as the origin.
+We compare the performance of the model to the cross-correlation method of inferring connectivity. Cross-correlograms here are produced using the \textit{elephant} and \textit{neo} python packages (citation here). The cross-correlogram method of extracting spike-train correlations compares the spike times of a reference train to a target train. Different time steps within a defined window are observed in the target train, using a spike in the reference train as the origin. The final cross-correlation analysis compares over 100 distinct simulated spike trains across a population of 10 neurons, with window size [-10,10], as displayed in Figure \ref{main:f}.
 
 \begin{figure}[H]
 \begin{minipage}{.49\linewidth}
@@ -313,7 +313,7 @@ We compare the performance of the model to the cross-correlation method of infer
 \subfloat[]{\label{main:f}\includegraphics[height=5cm,scale=0.4,trim={1cm 1cm 2cm 1cm},clip]{./Figures/"XC Figures"/051CorrGram.pdf}}
 \end{minipage}
 
-\caption{\textbf{Cross-Correlation Histogram (Cross correlogram) Procedure and Example.} (a) The cross-correlogram method of relating spike-trains. A spike is selected and designated as the reference point. If a spike appears in the target train at a particular time lag, the value for that bin is incremented.(b)An example autocorrelation spike-train. The top and bottom spike trains are the same spike-train; all spikes align.(c) The autocorrelogram calculated from (b), with a window range of [-100,100]. In an autocorrelation, the highest bin count should be equivalent to the number of spikes in the observed train, and the highest bin is at time lag 0.(d) Two distinct spike-trains. Note the periodic nature of the histogram, identified in (f) (e)Cross-correlogram of (d). (f)Cross-correlogram of (d), window range of [-10,10] }
+\caption{\textbf{Cross-Correlation Histogram (Cross correlogram) Procedure and Example.} (a) The cross-correlogram method of relating spike-trains. A spike is selected and designated as the reference point. If a spike appears in the target train at a particular time lag, the value for that bin is incremented.(b)An example autocorrelation spike-train. The top and bottom spike trains are the same spike-train; all spikes align.(c) The autocorrelogram calculated from (b), with a window range of [-100,100]. In an autocorrelation, the highest bin count should be equivalent to the number of spikes in the observed train, and the highest bin is at time lag 0.(d) Two distinct spike-trains. Note the periodic nature of the histogram, identified in (f) (e)Cross-correlogram of (d). (f)Cross-correlogram of (d), window range of [-10,10].}
 \label{fig:main}
 \end{figure}
 
@@ -329,11 +329,14 @@ We first run the model across two time steps, with at least a single observed sp
 \subfloat[]{\label{errorTwoTime:a}\includegraphics[scale=0.55,trim={1cm 0 1cm 0},clip]{./Figures/Errors/twoTimeStepvarSigPOPError.pdf}}
 \end{minipage}
 
-\caption{}
+\caption{\textbf{Error Convergence of Model On Two Consecutive Time Steps.} Each scatter plot point represents an average of 10 separate runs of the model, each run lasting 100 iterations. (a)Error Convergence on Variable Activation Function Model. The model was trained on a selected timestep, where the first time step contained a single spike in the third neuron, and the following time step contained a single spike in the seventh neuron. (b)}
 \label{fig:errorTwoTime}
 \end{figure}
 
 \section{Discussion}
+
+\subsection{Model Error Convergence}
+prelimiary notes: when the model is training over a train with a single spike to a train with two spikes, the 
 
 \section{Conclusion}
 

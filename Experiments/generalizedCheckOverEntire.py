@@ -36,7 +36,7 @@ sys.stdout = old_stdout
 
 log_file.close()
 '''
-dataset = dataset[9:11]
+dataset = dataset[15:17]
 #print(dataset)
 
 
@@ -157,10 +157,14 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 		i += 1
 	weights = updatedWeights
 
-def trainNetwork(Max_iters = 10):
+def trainNetwork(Max_iters = 100):
 	global weights
 	priorMSE = 100
 	j = 0
+	old_stdout = sys.stdout
+
+	log_file = open("message.log","w")
+	sys.stdout = log_file
 	while (j<Max_iters):
 		predictedMatrix = []
 		#training step, change the weights
@@ -175,11 +179,13 @@ def trainNetwork(Max_iters = 10):
 		
 		#calculate the mean squared error
 		mse = ((1/2)*(dataset[:len(dataset)-1] - predictedMatrix) ** 2).mean(axis=None)
+		print(mse)
+		'''
 		print("Curr diff: ", abs(priorMSE - mse))
 		print("target diff:", 0.0005*priorMSE)
 		print("Prior MSE: ",priorMSE,"\n")
 		print("MSE: ",mse,"\n")
-		
+		'''
 		if mse == 0:
 			break
 			'''
@@ -190,12 +196,15 @@ def trainNetwork(Max_iters = 10):
 		#print("After:\n",weights,"\n")
 
 		#check to compare previous error to current error. If close enough, break
+		'''
 		if j%10 == 0:
 			print(weights)
 			print(j)
+		'''
 		priorMSE = mse
 		j += 1
-
+	sys.stdout = old_stdout
+	log_file.close()
 	return predictedMatrix
 
 if __name__=='__main__':
@@ -205,6 +214,7 @@ if __name__=='__main__':
 	print("After:\n",weights,"\n")
 	print("final output is ",x)
 	print(dataset)
+	'''
 	np.savetxt("resultingMatrix1.csv",weights,delimiter=",")
 	np.savetxt("finalPrediction.csv",x,delimiter=',')
 	#normalized results"
@@ -226,3 +236,4 @@ if __name__=='__main__':
 		threshX = np.where(normWeights > threshIndex, 1, 0)
 		np.savetxt("./generalizedCOE thresholds/%dweightMatrix.csv" % (threshIndex*100),threshX,delimiter = ',')
 		threshIndex += 0.01
+	'''

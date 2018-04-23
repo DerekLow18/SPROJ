@@ -36,12 +36,19 @@ sys.stdout = old_stdout
 
 log_file.close()
 '''
-#dataset = dataset[49:51] #1,2
+#dataset = dataset[90:92] #1,2
 #dataset = dataset[15:17] #1,1
 #dataset = dataset[23:25] #0,0
-#dataset = dataset[135:137] #1,2
+#dataset = dataset[597:599] #2,2
 #dataset = dataset[231:233] #2,0
-#dataset = dataset[234:236]
+#dataset = dataset[234:236] #0,1
+#dataset = dataset[499:501] #0,2
+#dataset = dataset[556:558] #2,1
+#dataset = dataset[980:982] #0,3
+dataset = dataset[981:983] #3,0
+
+
+
 #print(dataset)
 
 
@@ -207,7 +214,7 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 	sigmoidCenter = updatedCenter
 
 
-def trainNetwork(Max_iters = 10):
+def trainNetwork(Max_iters = 100):
 	global weights
 	priorMSE = 100
 	j = 0

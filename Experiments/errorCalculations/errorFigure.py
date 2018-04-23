@@ -20,17 +20,22 @@ if len(sys.argv) < 3:
 	exit()
 '''
 #produceErrorFigure(sys.argv[1],sys.argv[2])
-errorArray = np.genfromtxt("twoTimeVarSigDiffTimes.csv",delimiter = ',').transpose()
+errorArray = np.genfromtxt("twoTimeStepVarSigPOP.csv",delimiter = ',').transpose()
+fileID = os.path.splitext("twoTimeStepVarSigPOP.csv")[0]
 errorArray1 = errorArray[0]
 errorArray2 = errorArray[1]
 errorArray3 = errorArray[2]
 errorArray4 = errorArray[3]
+errorArrayAVG = errorArray[11]
 
 fig = plt.figure()
 ax1 = fig.add_subplot(111)
 xlabels = range(len(errorArray[0]))
-ax1.scatter(xlabels,errorArray1,s=5,c='b',marker='o')
-ax1.scatter(xlabels, errorArray2, s=5,c='r',marker='x')
-ax1.scatter(xlabels,errorArray3,s=5,c='r', marker='^')
-ax1.scatter(xlabels,errorArray4,s=5,c='g',marker = 'o')
+#ax1.scatter(xlabels,errorArray1,s=5,c='b',marker='o')
+#ax1.scatter(xlabels, errorArray2, s=5,c='r',marker='x')
+#ax1.scatter(xlabels,errorArray3,s=5,c='r', marker='^')
+#ax1.scatter(xlabels,errorArray4,s=5,c='g',marker = 'o')
+ax1.scatter(xlabels,errorArrayAVG,s=5)
+ax1.errorbar(xlabels,errorArrayAVG,yerr = errorArray[12],linestyle = 'None')
+plt.savefig("../../Main Writing/Figures/Errors/"+fileID+"Error.svg",format='svg')
 plt.show()

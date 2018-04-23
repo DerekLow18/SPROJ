@@ -326,10 +326,13 @@ We first run the model across two time steps, with at least a single observed sp
 
 \begin{figure}[H]
 \begin{minipage}{0.49\linewidth}
-\subfloat[]{\label{errorTwoTime:a}\includegraphics[scale=0.55,trim={1cm 0 1cm 0},clip]{./Figures/Errors/twoTimeStepvarSigPOPError.pdf}}
+\subfloat[]{\label{errorTwoTime:a}\includegraphics[scale=0.55,trim={1cm 0 1cm 0},clip]{./Figures/Errors/twoTimeStepVarSigPOPError.pdf}}
+\end{minipage}
+\begin{minipage}{0.5\linewidth}
+\subfloat[]{\label{errorTwoTime:b}\includegraphics[scale=0.55,trim={1cm 0 1cm 0},clip]{./Figures/Errors/twoTimeVarSigDiffTimesError.pdf}}
 \end{minipage}
 
-\caption{\textbf{Error Convergence of Model On Two Consecutive Time Steps.} Each scatter plot point represents an average of 10 separate runs of the model, each run lasting 100 iterations. (a)Error Convergence on Variable Activation Function Model. The model was trained on a selected timestep, where the first time step contained a single spike in the third neuron, and the following time step contained a single spike in the seventh neuron. (b)}
+\caption{\textbf{Error Convergence of Model On Two Consecutive Time Steps.} Each scatter plot point represents an average of 10 separate runs of the model, each run lasting 100 iterations. (a)Error Convergence on Variable Activation Function Model. The model was trained on a selected timestep, where the first time step contained a single spike in the third neuron, and the following time step contained a single spike in the seventh neuron. (b)Average error across ten separate runs of differing time steps with distinct firing patterns. While the initial learning is, on average, faster than (a), occuring at around 10 iterations in (b) and around 45 iterationrs in (a), the convergence value is approximately 0.20.}
 \label{fig:errorTwoTime}
 \end{figure}
 

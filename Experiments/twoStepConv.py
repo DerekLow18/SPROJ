@@ -23,7 +23,7 @@ dataset = downsample(dataset,10)
 '''
 #import the dataset
 dataset = np.genfromtxt('./Downsampled Spikes/pop10/01downsample.csv', delimiter = ',')
-
+datasetWeights = np.genfromtxt('./Syn Weights/groundTruth10.csv', delimiter = ',')
 '''
 old_stdout = sys.stdout
 
@@ -36,7 +36,7 @@ sys.stdout = old_stdout
 
 log_file.close()
 '''
-dataset = dataset[9:11]
+dataset = dataset[14:16]
 #print(dataset)
 
 
@@ -52,11 +52,8 @@ print(spikeRate)
 #intilizalize the weight array
 weights = np.random.rand(dataset.shape[1],dataset.shape[1])
 #weights = np.zeros((dataset.shape[1],dataset.shape[1]))
-learningRate = 0.2
-
-#error calculation between the predicted step and the actual step, euclidean distance
-def error(prediction, actual):
-	return scipy.spatial.distance.euclidean(prediction, actual)
+learningRate = 0.5
+sigmoidLR = 0.2
 
 def squaredError(prediction,actual):
 	squaredErrorVector = []
@@ -65,12 +62,14 @@ def squaredError(prediction,actual):
 	return np.sum(squaredErrorVector)
 
 
-sigmoidSteepness = 10
-sigmoidCenter = 0.5
+sigmoidSteepness = np.full(dataset.shape[1],10)
+print(sigmoidSteepness)
+sigmoidCenter = np.full(dataset.shape[1],0.5)
 #formula for the prediction of what the next step will look like.
 #Currently, it's at sigmoid function
-def activation(activity):
-	return round(1 / (1 + math.exp(-sigmoidSteepness * (activity-sigmoidCenter))),9)
+def activation(activity,index):
+	global sigmoidSteepness, sigmoidCenter
+	return round(1 / (1 + math.exp(-sigmoidSteepness[index] * (activity-sigmoidCenter[index]))),9)
 
 def pdSquaredError(predicted, actual):
 	return round(-(actual - predicted),9)
@@ -80,15 +79,29 @@ def pdEuclideanDistance(predicted,actual):
 	return (predicted-actual)/(np.sqrt((predicted-actual)**2))
 
 #partial derivative of the activation function
-def pdSigmoid(x):
-	
+def pdSigmoid(x,index):
 	global sigmoidSteepness,sigmoidCenter
-	numerator = sigmoidSteepness*np.exp(-(sigmoidSteepness)*(x - sigmoidCenter))
-	denominator = (1 + np.exp(-(sigmoidSteepness)*(x-sigmoidCenter)))**2
+	numerator = sigmoidSteepness[index]*np.exp(-(sigmoidSteepness[index])*(x - sigmoidCenter[index]))
+	denominator = (1 + np.exp(-(sigmoidSteepness[index])*(x-sigmoidCenter[index])))**2
 	return numerator/denominator
-	
 	#return round(x*(1-x),9)
 
+'''
+The next to functions are used to update the constants of the sigmoid
+'''
+#partial derivative of the activation function WRT steepness
+def pdSigmoidWRTSteepness(x,index):
+	global sigmoidSteepness, sigmoidCenter
+	numerator = np.exp(-(sigmoidSteepness[index])*(x-sigmoidCenter[index]))*(sigmoidCenter[index]-x)
+	denominator = (1 + np.exp(-(sigmoidSteepness[index])*(x-sigmoidCenter[index])))**2
+	return numerator/denominator
+
+#partial derivative of the activation funcion WRT shift
+def pdSigmoidWRTShift(x,index):
+	global sigmoidSteepness, sigmoidCenter
+	numerator = np.exp(-(sigmoidSteepness[index])*(x-sigmoidCenter[index]))*(sigmoidSteepness[index])
+	denominator = (1 + np.exp(-(sigmoidSteepness[index])*(x-sigmoidCenter[index])))**2
+	return numerator/denominator
 #turns out we don't want this, because we want to keep probability of spiking
 #separate for each neuron
 def softmax(x):
@@ -105,7 +118,7 @@ def prediction(timeStep):
 	#go through all values of the adjusted step matrix,
 	#and multiply them by the activation function
 	for value in range(len(adjustedStep)):
-		adjustedStep[value] = activation(adjustedStep[value])
+		adjustedStep[value] = activation(adjustedStep[value],value)
 		#multiplication with spike rate
 		#adjustedStep[value] = adjustedStep[value]*spikeRate[value]
 	#return the resulting and final adjusted step
@@ -120,27 +133,38 @@ def twoTimeInputPrediction(timeStep,timeStep1):
 change the weight between one source neuron and the target neuron
 
 '''
-def weightChangeOutput(predicted,actual,priorStep):
+def weightChangeOutput(predicted,actual,priorStep,index):
 	i = round(pdSquaredError(predicted,actual),9)
-	j = round(pdSigmoid(predicted),9)
+	j = round(pdSigmoid(predicted,index),9)
+	#print(j)
 	#partial derivative of activation function with respect to the activity
 	totalChange = round(i*j*priorStep,9)
 	#totalChange = predicted - actual
 	return totalChange
 
+def sigmoidChangeOutput(predicted,actual,index):
+	i = round(pdSquaredError(predicted,actual),9)
+	j = round(pdSigmoidWRTShift(predicted,index),9)
+	k = round(pdSigmoidWRTSteepness(predicted,index),9)
+	return i*j, i*k
+#store the errors 
 #main network training function
 def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 	i=0
-	global weights
+	global weights, sigmoidSteepness, sigmoidCenter
 	while (i <Max_iters):
-		predictionMatrix = predictionSet;#sstore the predictions for the array into a matrix
+		predictionMatrix = predictionSet;#store the predictions for the array into a matrix
 		'''
 		now that we have the predictions, we need to calculate the weight change for each weight in the
 		weight matrix. Start with the output layer's weights from the hidden layer
 		'''
 		#updatedWeights = copy.deepcopy(weights)
 		updatedWeights = np.zeros((dataset.shape[1],dataset.shape[1]))
+		updatedSteep = np.zeros(sigmoidSteepness.shape[0])
+		updatedCenter = np.zeros(sigmoidCenter.shape[0])
+		#weightArrayIndex is the index of the source
 		for weightArrayIndex in range(len(weights)):
+			#weightValue Index is the index of the sink
 			for weightValueIndex in range(len(weights[weightArrayIndex])):
 
 				#defining some variables here
@@ -149,37 +173,76 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 				actual = data[timestep+1][weightValueIndex]
 				priorStep = data[timestep][weightArrayIndex]
 
+				'''#4/21/18
+				#calculate the sigmoid change
+				sigmoidShift, sigmoidSteep = sigmoidChangeOutput(predicted,actual,weightValueIndex)
+				updatedSteep[weightValueIndex] = round(sigmoidSteepness[weightValueIndex] - learningRate*sigmoidSteep,9)
+				updatedCenter[weightValueIndex] = round(sigmoidCenter[weightValueIndex] - sigmoidLR*sigmoidShift,9)
+				'''
+				'''
+				sigmoidSteepness = updatedSteep
+				sigmoidCenter = updatedCenter
+				'''
 				#calculate weight change for each weight, where first param is outputArray, second is the actual array, and third is the output from the prior step
-				weightDelta=weightChangeOutput(predicted,actual,priorStep)
-
+				weightDelta=weightChangeOutput(predicted,actual,priorStep,weightValueIndex)
 				updatedWeights[weightArrayIndex][weightValueIndex] = round(weightValue - learningRate*weightDelta,9)
+
+		#4/21/18
+		for weightValueIndex in range(len(sigmoidSteepness)):
+			predicted = predictionMatrix[weightValueIndex]
+			actual = data[timestep+1][weightValueIndex]
+
+			sigmoidShift, sigmoidSteep = sigmoidChangeOutput(predicted,actual,weightValueIndex)
+			updatedSteep[weightValueIndex] = round(sigmoidSteepness[weightValueIndex] - learningRate*sigmoidSteep,9)
+			updatedCenter[weightValueIndex] = round(sigmoidCenter[weightValueIndex] - sigmoidLR*sigmoidShift,9)
 
 		i += 1
 	weights = updatedWeights
+	sigmoidSteepness = updatedSteep
+	sigmoidCenter = updatedCenter
 
-def trainNetwork(Max_iters = 10):
+
+def trainNetwork(Max_iters = 100):
 	global weights
 	priorMSE = 100
 	j = 0
+	old_stdout = sys.stdout
+
+	log_file = open("message.log","w")
+	sys.stdout = log_file
 	while (j<Max_iters):
 		predictedMatrix = []
 		#training step, change the weights
+		'''
+		old_stdout = sys.stdout
+
+		log_file = open("message.log","w")
+		sys.stdout = log_file
+		'''
 		for i in range(0,len(dataset)-1):
 			predictionTimeStep = prediction(dataset[i])
 			#predictedMatrix.append(predictionTimeStep.round())
 			trainNetworkOneStep(i, predictionTimeStep)
-		
+			#print(((dataset[i] - predictionTimeStep) ** 2).mean(axis=None))
+			#print((((datasetWeights - weights) ** 2).mean(axis=None)))
+
+		#sys.stdout = old_stdout
+		#log_file.close()
+
 		#create a new predicted matrix, from the weights of the previous iteration
 		for i in range(len(dataset)-1):
 			predictedMatrix.append(prediction(dataset[i]))
 		
 		#calculate the mean squared error
-		mse = ((1/2)*(dataset[:len(dataset)-1] - predictedMatrix) ** 2).mean(axis=None)
-		print("Curr diff: ", abs(priorMSE - mse))
-		print("target diff:", 0.0005*priorMSE)
-		print("Prior MSE: ",priorMSE,"\n")
-		print("MSE: ",mse,"\n")
-		
+		mse = ((dataset[:len(dataset)-1] - predictedMatrix) ** 2).mean(axis=None)
+		#print("Curr diff: ", abs(priorMSE - mse))
+		#print("target diff:", 0.0005*priorMSE)
+		#print("Prior MSE: ",priorMSE,"\n")
+		#print("MSE: ",mse,"\n")
+		print(mse)
+		#calculate the mean squared error weights
+		#weightMse = ((datasetWeights - weights) ** 2).mean(axis=None)
+		#print("weightMSE:",weightMse)
 		if mse == 0:
 			break
 			'''
@@ -190,39 +253,44 @@ def trainNetwork(Max_iters = 10):
 		#print("After:\n",weights,"\n")
 
 		#check to compare previous error to current error. If close enough, break
+		'''
 		if j%10 == 0:
 			print(weights)
 			print(j)
+		'''
 		priorMSE = mse
 		j += 1
-
+	sys.stdout = old_stdout
+	log_file.close()
+	print(j)
 	return predictedMatrix
 
-if __name__=='__main__':
-	print("Before: \n",weights,"\n")
-	x = trainNetwork()
-	x = np.array(x)
-	print("After:\n",weights,"\n")
-	print("final output is ",x)
-	print(dataset)
-	np.savetxt("resultingMatrix1.csv",weights,delimiter=",")
-	np.savetxt("finalPrediction.csv",x,delimiter=',')
-	#normalized results"
-	xmax, xmin = x.max(), x.min()-0.01*(x.min())
-	normX = (x - xmin)/(xmax - xmin)
-	np.savetxt("normalizedFinalPrediction.csv",normX,delimiter = ',')
-	#thresholded normalized results
-	threshX = np.where(normX > 0.5, 1, 0)
 
-	np.savetxt("thresholdedFinalPrediction.csv",threshX,delimiter = ',')
-	#normalized weights
-	weightMax, weightMin = weights.max(), weights.min()
-	normWeights = (weights-weightMin)/(weightMax-weightMin)
-	np.savetxt("normalizedFinalWeights.csv",normWeights,delimiter=',')
-	threshIndex = 0
-	#change the threshold for the purpose of ROC
-	while threshIndex <= 1:
-		print(threshIndex)
-		threshX = np.where(normWeights > threshIndex, 1, 0)
-		np.savetxt("./generalizedCOE thresholds/%dweightMatrix.csv" % (threshIndex*100),threshX,delimiter = ',')
-		threshIndex += 0.01
+print("Before: \n",weights,"\n")
+x = trainNetwork()
+x = np.array(x)
+'''
+print("After:\n",weights,"\n")
+print("final output is ",x)
+print(dataset)
+print("sigmoid params \n",sigmoidSteepness,"\n",sigmoidCenter)
+np.savetxt("./Final Results/pop10/resultingMatrix1.csv",weights,delimiter=",")
+np.savetxt("./Final Results/pop10/finalPrediction.csv",x,delimiter=',')
+#normalized results"
+xmax, xmin = x.max(), x.min()
+normX = (x - xmin)/(xmax - xmin)
+np.savetxt("./Final Results/pop10/normalizedFinalPrediction.csv",normX,delimiter = ',')
+
+threshX = np.where(normX > 0.8, 1, 0)
+np.savetxt("./Final Results/pop10/thresholdedFinalPrediction.csv",threshX,delimiter = ',')
+#normalized weights
+weightMax, weightMin = weights.max()+abs(0.1*weights.max()), weights.min() - abs(0.001*weights.min())
+normWeights = (weights-weightMin)/(weightMax-weightMin)
+np.savetxt("./Final Results/pop10/normalizedFinalWeights.csv",normWeights,delimiter=',')
+threshIndex=0
+while threshIndex <= 1:
+	print(threshIndex)
+	threshX = np.where(normWeights > threshIndex, 1, 0)
+	np.savetxt("./varSig thresholds/%dweightMatrix.csv" % (threshIndex*100),threshX,delimiter = ',')
+	threshIndex += 0.01
+'''

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  22 APR 2018 18:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  22 APR 2018 23:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -710,7 +710,7 @@ File: ./Figures/demonstratingConnectivity.pdf Graphic file (type pdf)
 
 <use ./Figures/demonstratingConnectivity.pdf>
 Package pdftex.def Info: ./Figures/demonstratingConnectivity.pdf used on input 
-line 113.
+line 112.
 (pdftex.def)             Requested size: 308.34654pt x 231.2599pt.
  [9] [10 <./Figures/demonstratingConnectivity.pdf>] [11] [12] [13] [14] [15] [1
 6]
@@ -718,14 +718,14 @@ line 113.
 File: ./Figures/smallNN.pdf Graphic file (type pdf)
 
 <use ./Figures/smallNN.pdf>
-Package pdftex.def Info: ./Figures/smallNN.pdf used on input line 168.
+Package pdftex.def Info: ./Figures/smallNN.pdf used on input line 167.
 (pdftex.def)             Requested size: 385.43906pt x 203.72124pt.
  [17 <./Figures/smallNN.pdf>] [18] [19]
 <./Figures/SPROJModel.jpg, id=92, 776.9025pt x 477.785pt>
 File: ./Figures/SPROJModel.jpg Graphic file (type jpg)
 
 <use ./Figures/SPROJModel.jpg>
-Package pdftex.def Info: ./Figures/SPROJModel.jpg used on input line 194.
+Package pdftex.def Info: ./Figures/SPROJModel.jpg used on input line 193.
 (pdftex.def)             Requested size: 310.7555pt x 191.11061pt.
  [20 <./Figures/SPROJModel.jpg>]
 <./Figures/figure_1.png, id=96, 578.16pt x 433.62pt>
@@ -735,81 +735,95 @@ File: ./Figures/figure_1.png Graphic file (type png)
 Package pdftex.def Info: ./Figures/figure_1.png used on input line 216.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
  [21] [22 <./Figures/figure_1.png>] [23] [24]
-<./Figures/xcEx.pdf, id=111, 770.88pt x 578.16pt>
-File: ./Figures/xcEx.pdf Graphic file (type pdf)
- <use ./Figures/xcEx.pdf>
-Package pdftex.def Info: ./Figures/xcEx.pdf used on input line 293.
+<./Figures/"XC Figures"/xcEx.pdf, id=111, 770.88pt x 578.16pt>
+File: ./Figures/"XC Figures"/xcEx.pdf Graphic file (type pdf)
+
+<use ./Figures/"XC Figures"/xcEx.pdf>
+Package pdftex.def Info: ./Figures/"XC Figures"/xcEx.pdf used on input line 293
+.
 (pdftex.def)             Requested size: 214.72295pt x 182.38173pt.
 
-<./Figures/AutoCorr.pdf, id=113, 578.16pt x 433.62pt>
-File: ./Figures/AutoCorr.pdf Graphic file (type pdf)
+<./Figures/"XC Figures"/AutoCorr.pdf, id=113, 578.16pt x 433.62pt>
+File: ./Figures/"XC Figures"/AutoCorr.pdf Graphic file (type pdf)
 
-<use ./Figures/AutoCorr.pdf>
-Package pdftex.def Info: ./Figures/AutoCorr.pdf used on input line 297.
+<use ./Figures/"XC Figures"/AutoCorr.pdf>
+Package pdftex.def Info: ./Figures/"XC Figures"/AutoCorr.pdf used on input line
+ 297.
 (pdftex.def)             Requested size: 208.49811pt x 167.75449pt.
 
-<./Figures/AutoCorrGram.pdf, id=115, 578.16pt x 433.62pt>
-File: ./Figures/AutoCorrGram.pdf Graphic file (type pdf)
+<./Figures/"XC Figures"/AutoCorrGram.pdf, id=115, 578.16pt x 433.62pt>
+File: ./Figures/"XC Figures"/AutoCorrGram.pdf Graphic file (type pdf)
 
-<use ./Figures/AutoCorrGram.pdf>
-Package pdftex.def Info: ./Figures/AutoCorrGram.pdf used on input line 301.
+<use ./Figures/"XC Figures"/AutoCorrGram.pdf>
+Package pdftex.def Info: ./Figures/"XC Figures"/AutoCorrGram.pdf used on input 
+line 301.
 (pdftex.def)             Requested size: 208.49811pt x 150.68314pt.
 
-<./Figures/05Corr.pdf, id=117, 578.16pt x 433.62pt>
-File: ./Figures/05Corr.pdf Graphic file (type pdf)
- <use ./Figures/05Corr.pdf>
-Package pdftex.def Info: ./Figures/05Corr.pdf used on input line 305.
+<./Figures/"XC Figures"/05Corr.pdf, id=117, 578.16pt x 433.62pt>
+File: ./Figures/"XC Figures"/05Corr.pdf Graphic file (type pdf)
+
+<use ./Figures/"XC Figures"/05Corr.pdf>
+Package pdftex.def Info: ./Figures/"XC Figures"/05Corr.pdf used on input line 3
+05.
 (pdftex.def)             Requested size: 208.49811pt x 167.75449pt.
 
-<./Figures/05CorrGram.pdf, id=119, 578.16pt x 433.62pt>
-File: ./Figures/05CorrGram.pdf Graphic file (type pdf)
+<./Figures/"XC Figures"/05CorrGram.pdf, id=119, 578.16pt x 433.62pt>
+File: ./Figures/"XC Figures"/05CorrGram.pdf Graphic file (type pdf)
 
-<use ./Figures/05CorrGram.pdf>
-Package pdftex.def Info: ./Figures/05CorrGram.pdf used on input line 309.
+<use ./Figures/"XC Figures"/05CorrGram.pdf>
+Package pdftex.def Info: ./Figures/"XC Figures"/05CorrGram.pdf used on input li
+ne 309.
 (pdftex.def)             Requested size: 208.49811pt x 150.68314pt.
 
-<./Figures/051CorrGram.pdf, id=121, 578.16pt x 433.62pt>
-File: ./Figures/051CorrGram.pdf Graphic file (type pdf)
+<./Figures/"XC Figures"/051CorrGram.pdf, id=121, 578.16pt x 433.62pt>
+File: ./Figures/"XC Figures"/051CorrGram.pdf Graphic file (type pdf)
 
-<use ./Figures/051CorrGram.pdf>
-Package pdftex.def Info: ./Figures/051CorrGram.pdf used on input line 313.
+<use ./Figures/"XC Figures"/051CorrGram.pdf>
+Package pdftex.def Info: ./Figures/"XC Figures"/051CorrGram.pdf used on input l
+ine 313.
 (pdftex.def)             Requested size: 197.1172pt x 150.68314pt.
- [25] [26]
+ [25] [26] [27] [28 <./Figures/XC Figures/xcEx.pdf> <./Figures/XC Figures/AutoC
+orr.pdf> <./Figures/XC Figures/AutoCorrGram.pdf> <./Figures/XC Figures/05Corr.p
+df> <./Figures/XC Figures/05CorrGram.pdf> <./Figures/XC Figures/051CorrGram.pdf
+>]
+<./Figures/Errors/twoTimeStepvarSigPOPError.pdf, id=1448, 461.725pt x 346.29375
+pt>
+File: ./Figures/Errors/twoTimeStepvarSigPOPError.pdf Graphic file (type pdf)
+ <use ./Figures/Errors/twoTimeStepvarSigPOPError.pdf>
+Package pdftex.def Info: ./Figures/Errors/twoTimeStepvarSigPOPError.pdf used on
+ input line 329.
+(pdftex.def)             Requested size: 222.65141pt x 190.46214pt.
+
 No file main.bbl.
-[27 <./Figures/xcEx.pdf> <./Figures/AutoCorr.pdf> <./Figures/AutoCorrGram.pdf> 
-<./Figures/05Corr.pdf> <./Figures/05CorrGram.pdf> <./Figures/051CorrGram.pdf>]
-[28] [29] [30] [31] [32] [33] (./main.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+[29 <./Figures/Errors/twoTimeStepvarSigPOPError.pdf>] [30] [31] [32] [33]
+[34] [35] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 5912 strings out of 494910
- 86043 string characters out of 6179836
- 272076 words of memory out of 5000000
- 9103 multiletter control sequences out of 15000+600000
+ 5922 strings out of 494910
+ 86681 string characters out of 6179836
+ 272221 words of memory out of 5000000
+ 9110 multiletter control sequences out of 15000+600000
  12455 words of font info for 44 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  44i,14n,42p,2241b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on main.pdf (33 pages, 556245 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+msy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
+Output written on main.pdf (35 pages, 591243 bytes).
 PDF statistics:
- 1516 PDF objects out of 1728 (max. 8388607)
- 1006 compressed objects within 11 object streams
+ 1530 PDF objects out of 1728 (max. 8388607)
+ 1015 compressed objects within 11 object streams
  0 named destinations out of 1000 (max. 500000)
- 93 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 104 words of extra memory for PDF output out of 10000 (max. 10000000)
 

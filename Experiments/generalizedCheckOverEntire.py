@@ -4,7 +4,7 @@ import pandas
 import math
 #import scipy.spatial
 import copy
-import sys
+import sys,os,ntpath
 np.set_printoptions(threshold=np.nan)
 '''
 This version of the neural network changes the weights by predicting timestep t+1
@@ -23,7 +23,16 @@ dataset = downsample(dataset,10)
 '''
 #import the dataset
 dataset = np.genfromtxt('./Downsampled Spikes/pop10/01downsample.csv', delimiter = ',')
+def path_leaf(path):
+    head, tail = ntpath.split(path)
+    return tail or ntpath.basename(head)
 
+if len(sys.argv) < 2:
+	raise Exception("Please enter a spike time csv")
+	exit()
+
+dataset = np.genfromtxt(str(sys.argv[1]), delimiter = ',')
+fileID = os.path.splitext(path_leaf(str(sys.argv[1])))[0]
 '''
 old_stdout = sys.stdout
 
@@ -36,7 +45,17 @@ sys.stdout = old_stdout
 
 log_file.close()
 '''
-dataset = dataset[15:17]
+#dataset = dataset[15:17]
+#dataset = dataset[90:92] #1,2
+#dataset = dataset[15:17] #1,1
+#dataset = dataset[23:25] #0,0
+#dataset = dataset[597:599] #2,2
+#dataset = dataset[231:233] #2,0
+#dataset = dataset[234:236] #0,1
+#dataset = dataset[499:501] #0,2
+#dataset = dataset[556:558] #2,1
+#dataset = dataset[980:982] #0,3
+dataset = dataset[981:983] #3,0
 #print(dataset)
 
 
@@ -104,10 +123,7 @@ def prediction(timeStep):
 	adjustedStep = np.matmul(timeStep, weights)
 	#go through all values of the adjusted step matrix,
 	#and multiply them by the activation function
-	for value in range(len(adjustedStep)):
-		adjustedStep[value] = activation(adjustedStep[value])
-		#multiplication with spike rate
-		#adjustedStep[value] = adjustedStep[value]*spikeRate[value]
+	adjustedStep = np.vectorize(activation)(adjustedStep)
 	#return the resulting and final adjusted step
 	#print(adjustedStep)
 	return adjustedStep
@@ -151,7 +167,6 @@ def trainNetworkOneStep(timestep, predictionSet, Max_iters = 1,data = dataset):
 
 				#calculate weight change for each weight, where first param is outputArray, second is the actual array, and third is the output from the prior step
 				weightDelta=weightChangeOutput(predicted,actual,priorStep)
-
 				updatedWeights[weightArrayIndex][weightValueIndex] = round(weightValue - learningRate*weightDelta,9)
 
 		i += 1
@@ -207,33 +222,35 @@ def trainNetwork(Max_iters = 100):
 	log_file.close()
 	return predictedMatrix
 
-if __name__=='__main__':
-	print("Before: \n",weights,"\n")
-	x = trainNetwork()
-	x = np.array(x)
-	print("After:\n",weights,"\n")
-	print("final output is ",x)
-	print(dataset)
-	'''
-	np.savetxt("resultingMatrix1.csv",weights,delimiter=",")
-	np.savetxt("finalPrediction.csv",x,delimiter=',')
-	#normalized results"
-	xmax, xmin = x.max(), x.min()-0.01*(x.min())
-	normX = (x - xmin)/(xmax - xmin)
-	np.savetxt("normalizedFinalPrediction.csv",normX,delimiter = ',')
-	#thresholded normalized results
-	threshX = np.where(normX > 0.5, 1, 0)
+print("Before: \n",weights,"\n")
+x = trainNetwork()
+x = np.array(x)
+print("After:\n",weights,"\n")
+print("final output is ",x)
+print(dataset)
+print("sigmoid params \n",sigmoidSteepness,"\n",sigmoidCenter)
+resultsPath = "./Final Results/"+fileID+"/"
+if not os.path.exists(resultsPath):
+	os.mkdir(resultsPath)
+np.savetxt(resultsPath+fileID+"resultingMatrix1.csv",weights,delimiter=",")
+np.savetxt(resultsPath+fileID+"finalPrediction.csv",x,delimiter=',')
+#normalized results"
+xmax, xmin = x.max(), x.min()
+normX = (x - xmin)/(xmax - xmin)
+np.savetxt(resultsPath+fileID+"normalizedFinalPrediction.csv",normX,delimiter = ',')
 
-	np.savetxt("thresholdedFinalPrediction.csv",threshX,delimiter = ',')
-	#normalized weights
-	weightMax, weightMin = weights.max(), weights.min()
-	normWeights = (weights-weightMin)/(weightMax-weightMin)
-	np.savetxt("normalizedFinalWeights.csv",normWeights,delimiter=',')
-	threshIndex = 0
-	#change the threshold for the purpose of ROC
-	while threshIndex <= 1:
-		print(threshIndex)
-		threshX = np.where(normWeights > threshIndex, 1, 0)
-		np.savetxt("./generalizedCOE thresholds/%dweightMatrix.csv" % (threshIndex*100),threshX,delimiter = ',')
-		threshIndex += 0.01
-	'''
+threshX = np.where(normX > 0.8, 1, 0)
+np.savetxt(resultsPath+fileID+"thresholdedFinalPrediction.csv",threshX,delimiter = ',')
+#normalized weights
+weightMax, weightMin = weights.max()+abs(0.1*weights.max()), weights.min() - abs(0.001*weights.min())
+normWeights = (weights-weightMin)/(weightMax-weightMin)
+np.savetxt(resultsPath+fileID+"normalizedFinalWeights.csv",normWeights,delimiter=',')
+threshIndex=0
+while threshIndex <= 1:
+	print(threshIndex)
+	threshX = np.where(normWeights > threshIndex, 1, 0)
+	path = "./varSig thresholds/"+fileID+"/"
+	if not os.path.exists(path):
+		os.mkdir(path)
+	np.savetxt("./varSig thresholds/"+fileID+"/%dweightMatrix.csv" % (threshIndex*100),threshX,delimiter = ',')
+	threshIndex += 0.01

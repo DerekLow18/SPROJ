@@ -317,24 +317,39 @@ We compare the performance of the model to the cross-correlation method of infer
 \label{fig:main}
 \end{figure}
 
+\subsection{Degree Distribution and Spike Rate}
+The \textit{degree} of a node is the number of edges, or connections, to that node (Costa et al., 2005; . The degree distribution is the distribution of the probability of a node $n$ containing degree $k$ number of connections, and is given by 
+
 \section{Results}
 
 \subsection{Error}
 
 \subsubsection{Two Time Step Convergence}
-We first run the model across two time steps, with at least a single observed spike difference between the two steps, to observe the rate of error convergence and capability of the model to predict from a single time step to the next time step.
+We first run the model across two time steps, with at least a single observed spike difference between the two steps, to observe the rate of error convergence and capability of the model to predict from a single time step to the next time step. Figure \ref{errorTwoTime:a} and Figure \ref{errorTwoTime:c} demonstrate the subcase of the running the model on two time steps and observing the error after each iteration, over 100 iterations, where the two time steps feature a single spike at the input time step and a single spike in the output time step. The other subcases present in the training data were combinations of up to four spikes occurring in any given time step. In the simulated spiking of a $n$ = 10, across 100 distinct simulations, 73,481 time steps had a spike count of zero, 22,499 contained a single spike, 3568 contained two spikes, 427 contained three spikes, and 25 time steps contained four spikes, indicating 16 possible subcases for the number of spikes in the input and output time steps. However, some subcases, such as two consecutive time steps containing four spikes each, did not appear. The two models each behaved differently when training on different subcases, as indicated by the wide standard deviation bars in Figure \ref{errorTwoTime:b} and Figure \ref{errorTwoTime:d}, where each plot contains information concerning 10 of the 16 possible subcases. These subcases all occurred within the same particular spike time dataset.
 
 \begin{figure}[H]
 \begin{minipage}{0.49\linewidth}
-\subfloat[]{\label{errorTwoTime:a}\includegraphics[scale=0.55,trim={1cm 0 1cm 0},clip]{./Figures/Errors/twoTimeStepVarSigPOPError.pdf}}
+\subfloat[]{\label{errorTwoTime:a}\includegraphics[scale=0.50,trim={0 0 1cm 0},clip]{./Figures/Errors/twoTimeStepVarSigPOPError.pdf}}
 \end{minipage}
 \begin{minipage}{0.5\linewidth}
-\subfloat[]{\label{errorTwoTime:b}\includegraphics[scale=0.55,trim={1cm 0 1cm 0},clip]{./Figures/Errors/twoTimeVarSigDiffTimesError.pdf}}
+\subfloat[]{\label{errorTwoTime:b}\includegraphics[scale=0.50,trim={1cm 0 1cm 0},clip]{./Figures/Errors/twoTimeVarSigDiffTimesError.pdf}}
+\end{minipage}
+\begin{minipage}{0.49\linewidth}
+\subfloat[]{\label{errorTwoTime:c}\includegraphics[scale=0.50,trim={0 0 1cm 0},clip]{./Figures/Errors/twoTimeStepCOEPOPError.pdf}}
+\end{minipage}
+\begin{minipage}{0.5\linewidth}
+\subfloat[]{\label{errorTwoTime:d}\includegraphics[scale=0.50,trim={1cm 0 1cm 0},clip]{./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf}}
 \end{minipage}
 
-\caption{\textbf{Error Convergence of Model On Two Consecutive Time Steps.} Each scatter plot point represents an average of 10 separate runs of the model, each run lasting 100 iterations. (a)Error Convergence on Variable Activation Function Model. The model was trained on a selected timestep, where the first time step contained a single spike in the third neuron, and the following time step contained a single spike in the seventh neuron. (b)Average error across ten separate runs of differing time steps with distinct firing patterns. While the initial learning is, on average, faster than (a), occuring at around 10 iterations in (b) and around 45 iterationrs in (a), the convergence value is approximately 0.20.}
+\caption{\textbf{Error Convergence of Model On Two Consecutive Time Steps.} Each scatter plot point represents an average of 10 separate runs of the model, each run lasting 100 iterations. (a)Error Convergence on Variable Activation Function Model. The model was trained on a selected time step, where the first time step contained a single spike in the third neuron, and the following time step contained a single spike in the seventh neuron. (b)Average error across ten separate runs of differing time steps with distinct spiking patterns. While the initial learning is, on average, faster than (a), occurring at around 10 iterations in (b) and around 45 iterations in (a), the convergence value is approximately 0.20. The subcases are as follows: [0,0], [0,1], [0,2], [0,3], [1,1], [1,2], [2,0], [2,1], [2,2], and [3,0], where the first value is the number of spikes in the input time step, followed by the number of spikes in the output time step. These patterns were all patterns appearing in a single spike train. (c) Error calculation using the identical time step to (a), with the base model.(d) Error calculation using the identical distinct time steps to (b), with the base model.}
 \label{fig:errorTwoTime}
 \end{figure}
+
+\subsection{Spike Rate Analysis}
+The spike rates of the original spike time matrix inputs to the models are calculated and compared to the spike rates of the predicted activity resulting from the final calculated weights, and, in the case of the variable activation function model, the calculated sigmoid steepness and center arrays.\par
+In the case of the variable activation function model, the spike rates were calculated inversely, where a 0 designated a spike and a 1 designates no spike for a particular neuron at a particular time step,
+
+\subsection{Degree Distribution}
 
 \section{Discussion}
 
@@ -359,6 +374,7 @@ machine learning. arXiv:1606.04838v3, 2018.
 \item Brette, R. (2015). What Is the Most Realistic Single-Compartment Model of Spike Initiation? PLoS Computational Biology. https://doi.org/10.1371/journal.pcbi.1004114
 \item Brette R, Rudolph M, Carnevale T, et al. Simulation of networks of spiking neurons: A review of tools and strategies. Journal of computational neuroscience. 2007;23(3):349-398. doi:10.1007/s10827-007-0038-6.
 \item Carrillo-Reid, L., Yang, W., Bando, Y., Peterka, D. S., \& Yuste, R. (2016). Imprinting Cortical Ensembles. Science, 353(6300), 691–694. https://doi.org/10.1126/science.aaf7560
+\item Costa, L. da F., Rodrigues, F. A., Travieso, G., & Boas, P. R. V. (2005). Characterization of complex networks: A survey of measurements. Advances in Physics, 56(1), 167–242. https://doi.org/10.1080/00018730601170527
 \item Denk, W., Strickler, J. H., \& Webb, W. W. (1990). Two-Photon Laser Scanning Fluorescence Microscopy. Science, 248(4951), 73–76.
 \item Dong, W., Lee, R. H., Xu, H., Yang, S., Pratt, K. G., Cao, V., … Aizenman, C. D. (2008). Visual Avoidance in Xenopus Tadpoles Is Correlated With the Maturation of Visual Responses in the Optic Tectum. Journal of Neurophysiology, 101(2), 803–815.\\https://doi.org/10.1152/jn.90848.2008
 \item Garofalo, M., Nieus, T., Massobrio, P., \& Martinoia, S. (2009). Evaluation of the Performance of Information Theory- Based Methods and Cross-Correlation to Estimate the Functional Connectivity in Cortical Networks. PLoS ONE, 4(8).\\https://doi.org/10.1371/journal.pone.0006482

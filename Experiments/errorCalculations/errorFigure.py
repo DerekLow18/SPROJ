@@ -20,8 +20,9 @@ if len(sys.argv) < 3:
 	exit()
 '''
 #produceErrorFigure(sys.argv[1],sys.argv[2])
-errorArray = np.genfromtxt("twoTimeStepVarSigPOP.csv",delimiter = ',').transpose()
-fileID = os.path.splitext("twoTimeStepVarSigPOP.csv")[0]
+filename = "twoTimeStepVarSigPOP.csv"
+errorArray = np.genfromtxt(filename,delimiter = ',').transpose()
+fileID = os.path.splitext(filename)[0]
 errorArray1 = errorArray[0]
 errorArray2 = errorArray[1]
 errorArray3 = errorArray[2]
@@ -37,5 +38,7 @@ xlabels = range(len(errorArray[0]))
 #ax1.scatter(xlabels,errorArray4,s=5,c='g',marker = 'o')
 ax1.scatter(xlabels,errorArrayAVG,s=5)
 ax1.errorbar(xlabels,errorArrayAVG,yerr = errorArray[12],linestyle = 'None')
+#plt.xlabel("Iteration")
+plt.ylabel("MSE")
 plt.savefig("../../Main Writing/Figures/Errors/"+fileID+"Error.svg",format='svg')
 plt.show()

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  23 APR 2018 12:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  24 APR 2018 14:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -791,7 +791,7 @@ File: ./Figures/Errors/twoTimeStepVarSigPOPError.pdf Graphic file (type pdf)
  <use ./Figures/Errors/twoTimeStepVarSigPOPError.pdf>
 Package pdftex.def Info: ./Figures/Errors/twoTimeStepVarSigPOPError.pdf used on
  input line 329.
-(pdftex.def)             Requested size: 222.65141pt x 190.46214pt.
+(pdftex.def)             Requested size: 216.63559pt x 173.14644pt.
 
 <./Figures/Errors/twoTimeVarSigDiffTimesError.pdf, id=1450, 461.725pt x 346.293
 75pt>
@@ -799,39 +799,56 @@ File: ./Figures/Errors/twoTimeVarSigDiffTimesError.pdf Graphic file (type pdf)
  <use ./Figures/Errors/twoTimeVarSigDiffTimesError.pdf>
 Package pdftex.def Info: ./Figures/Errors/twoTimeVarSigDiffTimesError.pdf used 
 on input line 332.
-(pdftex.def)             Requested size: 222.65141pt x 190.46214pt.
+(pdftex.def)             Requested size: 202.40926pt x 173.14644pt.
 
+<./Figures/Errors/twoTimeStepCOEPOPError.pdf, id=1452, 461.725pt x 346.29375pt>
+File: ./Figures/Errors/twoTimeStepCOEPOPError.pdf Graphic file (type pdf)
+<use ./Figures/Errors/twoTimeStepCOEPOPError.pdf>
+Package pdftex.def Info: ./Figures/Errors/twoTimeStepCOEPOPError.pdf used on in
+put line 335.
+(pdftex.def)             Requested size: 216.63559pt x 173.14644pt.
+
+<./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf, id=1454, 461.725pt x 346.29
+375pt>
+File: ./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf Graphic file (type pdf)
+
+ <use ./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf>
+Package pdftex.def Info: ./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf used
+ on input line 338.
+(pdftex.def)             Requested size: 202.40926pt x 173.14644pt.
+ [29] [30 <./Figures/Errors/twoTimeStepVarSigPOPError.pdf> <./Figures/Errors/tw
+oTimeVarSigDiffTimesError.pdf> <./Figures/Errors/twoTimeStepCOEPOPError.pdf> <.
+/Figures/Errors/twoTimeStepCOEDiffTimesError.pdf>]
 No file main.bbl.
-[29 <./Figures/Errors/twoTimeStepVarSigPOPError.pdf> <./Figures/Errors/twoTimeV
-arSigDiffTimesError.pdf>] [30] [31] [32] [33] [34] [35] (./main.aux) ) 
+[31] [32] [33] [34] [35] [36] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 5929 strings out of 494910
- 86959 string characters out of 6179836
- 269241 words of memory out of 5000000
- 9116 multiletter control sequences out of 15000+600000
+ 5943 strings out of 494910
+ 87495 string characters out of 6179836
+ 269281 words of memory out of 5000000
+ 9128 multiletter control sequences out of 15000+600000
  12455 words of font info for 44 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  44i,14n,42p,2241b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on main.pdf (35 pages, 661590 bytes).
+</usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmbx9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmti8.pfb>
+Output written on main.pdf (36 pages, 771367 bytes).
 PDF statistics:
- 2142 PDF objects out of 2487 (max. 8388607)
- 1420 compressed objects within 15 object streams
+ 2765 PDF objects out of 2984 (max. 8388607)
+ 1832 compressed objects within 19 object streams
  0 named destinations out of 1000 (max. 500000)
- 115 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 137 words of extra memory for PDF output out of 10000 (max. 10000000)
 

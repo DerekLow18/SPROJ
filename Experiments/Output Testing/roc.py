@@ -63,13 +63,23 @@ def calculateROC(groundTruth, directory, matrixName):
 def reSort(tpr,fpr):
 	combined = np.column_stack((tpr,fpr))
 	uniqueCombined = np.unique(combined,axis = 0)
-	print(uniqueCombined)
+	#print(uniqueCombined)
 	uniques = np.hsplit(uniqueCombined,1)
-	print("after hsplit:",uniques)
+	#print("after hsplit:",uniques)
 	uniqueTPRs = np.squeeze(uniqueCombined[:,[0]])
 	uniqueFPRs = np.squeeze(uniqueCombined[:,[1]])
-	print(uniqueTPRs,uniqueFPRs)
+	#print(uniqueTPRs,uniqueFPRs)
 	return uniqueTPRs, uniqueFPRs
+
+def locateIdealThreshold(tpr,fpr):
+	currentMax = 0
+	currentMaxID = 0
+	for i in range(len(tpr)):
+		ratio = tpr[i]/fpr[i]
+		if ratio > currentMax:
+			currentMax = ratio
+			currentMaxID = i
+	return currentMax, currentMaxID, tpr[currentMaxID], fpr[currentMaxID]
 
 if __name__=='__main__':
 	#calculate the ROC plot
@@ -80,10 +90,13 @@ if __name__=='__main__':
 	tprxc,fprxc = reSort(tprxc,fprxc)
 	#generalized model ROC
 	tprCOE, fprCOE = calculateROC("../Syn Weights/groundTruth10.csv","../generalizedCOE thresholds/","*weightMatrix.csv")
+	print(locateIdealThreshold(tprCOE,fprCOE))
 	tprCOE, fprCOE = reSort(tprCOE,fprCOE)
 	#variable logistical activation function ROC
 	tprVar, fprVar = calculateROC("../Syn Weights/groundTruth10.csv","../varSig thresholds/","*weightMatrix.csv")
+	print(locateIdealThreshold(tprVar,fprVar))
 	tprVar, fprVar = reSort(tprVar, fprVar)
+
 
 	fig = plt.figure()
 	ax1 = fig.add_subplot(111)

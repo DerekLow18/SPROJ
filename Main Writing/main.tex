@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[11pt,titlepage]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper, total={6.5in, 9in}]{geometry}
 
@@ -23,7 +23,11 @@
 
 \begin{document}
 \maketitle
-
+\clearpage
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
 \subsection{Brief Description}
 Activity of neuronal networks can be recorded via Calcium Imaging. In this study, we develop a machine learning approach to reconstructing network connectivity from calcium imaging data.
 
@@ -111,7 +115,7 @@ The organization of neurons can be represented as a matrix, typically referred t
 \end{tabular}
 \includegraphics[scale=0.4]{./Figures/demonstratingConnectivity.pdf}
 \end{center}
-\caption{Sample Adjacency Matrix of a Population, Size 3. Diagonal indices represent self-connections. Labels along the columns represent the target, and labels along the rows represent the source e.g. the connection at Row 3, Column 2 (value of 1) is a connection from the pre-synaptic Neuron 3 to the post-synaptic Neuron 2. Note the lack of the inverse connection from Neuron 2 to Neuron 3 (value of 0).}
+\caption[Sample Adjacency Matrix of Population Size 3]{Sample Adjacency Matrix of Population Size 3. Diagonal indices represent self-connections. Labels along the columns represent the target, and labels along the rows represent the source e.g. the connection at Row 3, Column 2 (value of 1) is a connection from the pre-synaptic Neuron 3 to the post-synaptic Neuron 2. Note the lack of the inverse connection from Neuron 2 to Neuron 3 (value of 0).}
 \end{figure}
 
 Matrices such as the one above describe the connections between different neurons in an observed population, with observed being an important keyword; these neurons could have incoming connections from sources outside of the observed population, depending on the context of the observations. One standard feature of network matrices is the zero value along the diagonal, representative of a lack of a connection from a neuron to itself. In the example above, there is a directional connection between the outward axonal connection of Neuron 3 and the incoming dendritic connection of Neuron 1; therefore, assuming a positive value to represent an excitatory connection, spikes in Neuron 3 result in a voltage increase of Neuron 1. By this method of representation, the matrix can describe the relative strength and nature of all connections between neurons in the observed population.\par
@@ -166,7 +170,7 @@ Backpropagation is one of the most recognized techniques in the study of neural 
 \begin{center}
 \includegraphics[scale=0.5,trim={0 3cm 0 3cm},clip]{./Figures/smallNN.pdf}
 \end{center}
-\caption{Simple, Feedforward Neural Network. \textit{x} denotes an input layer node, \textit{h} a hidden layer node and \textit{y} an output layer node. \textit{w} denotes a connection from a node to the node in the next layer, from left to right.}
+\caption[Simple, Feedforward Neural Network]{Simple, Feedforward Neural Network. \textit{x} denotes an input layer node, \textit{h} a hidden layer node and \textit{y} an output layer node. \textit{w} denotes a connection from a node to the node in the next layer, from left to right.}
 \end{figure}
 
 In the simple, feedforward neural network (Figure 2), there is a single input layer, hidden layer, and output layer. Each layer is composed of several nodes with some activation function; in the simplest models, where threshold linear units (TLU) are used as the nodes, the activation is a threshold. To predict the output $y_1$, we first propagate the $x_1$ and $x_2$ input values forward, via the connections from the input layer to the output later, and multiply by the corresponding weight. Therefore, the value incoming to $h_1$ can be represented as $\alpha = x_1*w_1 + x_2*w_2$. In the TLU, the value is then thresholded via an arbitrary threshold $\theta$, such that 
@@ -191,7 +195,7 @@ The simulations presented here are performed in NEST simulator, a tool maintaine
 \begin{figure}[H]
 \centering
 	\includegraphics[scale=0.4]{./Figures/SPROJModel.jpg}
-	\caption{Experimental Pipeline. We start with a pre-generated adjacency matrix detailing the connections of a population of neurons, and pass it to the NEST simulator program. The NEST simulator reconstructs the network defined by the matrix; at this stage, Poisson noise is added to the population via a connection from a 'noise generator' NEST object to all neurons in the population. The simulation is then run for 10000 time steps (milliseconds), and the generated data is output as a spike time matrix of n x t dimensionality, n = population size and t = time steps. The output is then downsampled to reflect realistic calcium imaging frame duration of 10 ms, reducing the data set to t = time steps/10.}
+	\caption[Experimental Pipeline]{Experimental Pipeline. We start with a pre-generated adjacency matrix detailing the connections of a population of neurons, and pass it to the NEST simulator program. The NEST simulator reconstructs the network defined by the matrix; at this stage, Poisson noise is added to the population via a connection from a 'noise generator' NEST object to all neurons in the population. The simulation is then run for 10000 time steps (milliseconds), and the generated data is output as a spike time matrix of n x t dimensionality, n = population size and t = time steps. The output is then downsampled to reflect realistic calcium imaging frame duration of 10 ms, reducing the data set to t = time steps/10.}
 \end{figure}
 
 \subsection{Simulation of Neurons for Spike Train Generation}
@@ -214,7 +218,7 @@ Post-simulation, all data is downsampled from 10,000 ms to 1,000 ms, correspondi
 \begin{figure}[H]
 \centering
 	\includegraphics[scale=0.5]{./Figures/figure_1.png} 
-	\caption{Raster Plot via NEST Simulator. The plot is generated by simulating a population of 50 neurons over 10000 time steps (ms), and graphically represents two distinct arrays output by the simulation: one array consisting of neuron IDs in the population, and another array with the corresponding spike times of the spiking neurons stored in the indices of the former array. The NEST simulator connects each neuron based on the input adjacency matrix and attaches additional noise and spike detection objects to every neuron in the population. Device 52 is the NEST spike detection object; all neurons are connected by the NEST simulation program for the purposes of spike detection. Device 51 is the noise generator object, and Devices 1-50 are the neurons in the population. }
+	\caption[Raster Plot via NEST Simulator.]{Raster Plot via NEST Simulator. The plot is generated by simulating a population of 50 neurons over 10000 time steps (ms), and graphically represents two distinct arrays output by the simulation: one array consisting of neuron IDs in the population, and another array with the corresponding spike times of the spiking neurons stored in the indices of the former array. The NEST simulator connects each neuron based on the input adjacency matrix and attaches additional noise and spike detection objects to every neuron in the population. Device 52 is the NEST spike detection object; all neurons are connected by the NEST simulation program for the purposes of spike detection. Device 51 is the noise generator object, and Devices 1-50 are the neurons in the population. }
 \end{figure}
 
 \subsection{Page Rank}
@@ -306,19 +310,20 @@ We compare the performance of the model to the cross-correlation method of infer
 \end{minipage}
 \begin{minipage}{.49\linewidth}
 \centering
-\subfloat[]{\label{main:e}\includegraphics[height=5cm,scale=0.4,trim={1cm 1cm 1cm 1cm},clip]{./Figures/"XC Figures"/05CorrGram.pdf}}
+\subfloat[]{\label{main:e}\includegraphics[height=5cm,scale=0.4,trim={1cm 0.4cm 1cm 1cm},clip]{./Figures/"XC Figures"/05CorrGram.pdf}}
 \end{minipage}
 \begin{minipage}{.5\linewidth}
 \centering
-\subfloat[]{\label{main:f}\includegraphics[height=5cm,scale=0.4,trim={1cm 1cm 2cm 1cm},clip]{./Figures/"XC Figures"/051CorrGram.pdf}}
+\subfloat[]{\label{main:f}\includegraphics[height=5cm,scale=0.4,trim={1cm 0.4cm 2cm 1cm},clip]{./Figures/"XC Figures"/051CorrGram.pdf}}
 \end{minipage}
 
-\caption{\textbf{Cross-Correlation Histogram (Cross correlogram) Procedure and Example.} (a) The cross-correlogram method of relating spike-trains. A spike is selected and designated as the reference point. If a spike appears in the target train at a particular time lag, the value for that bin is incremented.(b)An example autocorrelation spike-train. The top and bottom spike trains are the same spike-train; all spikes align.(c) The autocorrelogram calculated from (b), with a window range of [-100,100]. In an autocorrelation, the highest bin count should be equivalent to the number of spikes in the observed train, and the highest bin is at time lag 0.(d) Two distinct spike-trains. Note the periodic nature of the histogram, identified in (f) (e)Cross-correlogram of (d). (f)Cross-correlogram of (d), window range of [-10,10].}
+\caption[Cross-Correlation Histogram (Cross-correlogram) Procedure and Example.]{\textbf{Cross-Correlation Histogram (Cross-correlogram) Procedure and Example.} (a) The cross-correlogram method of relating spike-trains. A spike is selected and designated as the reference point. If a spike appears in the target train at a particular time lag, the value for that bin is incremented.(b)An example autocorrelation spike-train. The top and bottom spike trains are the same spike-train; all spikes align.(c) The autocorrelogram calculated from (b), with a window range of [-100,100]. In an autocorrelation, the highest bin count should be equivalent to the number of spikes in the observed train, and the highest bin is at time lag 0.(d) Two distinct spike-trains. Note the periodic nature of the histogram, identified in (f) (e)Cross-correlogram of (d). (f)Cross-correlogram of (d), window range of [-10,10].}
 \label{fig:main}
 \end{figure}
 
-\subsection{Degree Distribution and Spike Rate}
-The \textit{degree} of a node is the number of edges, or connections, to that node (Costa et al., 2005; . The degree distribution is the distribution of the probability of a node $n$ containing degree $k$ number of connections, and is given by 
+\subsection{Degree Distribution, Spike Rate, and Binary Spike Time Data}
+The \textit{degree} of a node is the number of edges, or connections, to that node (Costa et al., 2005; Hernandez and Miegham, 2011). The degree distribution is a distribution of probabilities. The probabilities are of a node $n$ containing degree $k$ number of connections, and is given by $$Pr[D=k] = \frac{d_k}{N}$$ where $d_k$ denotes the number of nodes with degree $k$ and $N$ is the population size (Hernandez and Miegham, 2011). Indegrees, outdegrees, and total degrees for each node are calculated from adjacency matrices of the population, where the rows indicate an outgoing connection and columns indicating incoming connections. The total degree is obtained by adding the indegrees and outdegrees. The total degree distribution, indegree distribution, and outdegree distribution are then calculated for the adjacency matrix.\par
+The spike rate $R$ of neuron $n$ is calculated by $$R_n = \frac{1}{T}\sum_{t=0}^T{s_t} $$where $T$ is the total number of time steps in the spike time matrix, and $s_t$ is the value of time step $t$ for neuron $n$. In practice, the spike rate of a particular neuron $n$ is obtained from the spike time matrix by summing the column, or the activity of neuron $n$ over all time steps in the spike time matrix, and dividing by the total number of time steps in the spike time matrix. Activity is denoted with a 1 the spike time matrix, and no activity denoted with a 0. To obtain binary values from probability value representations present in the \textit{Xenopus Laevis} calcium imaging data, all non-zero values are denoted as spikes. In the case of the resultant spike time matrices produced by the machine learning models, the matrices are normalized between 0 and 1, and thresholded at 0.5, where values greater than or equal to 0.5 indicate a spike, and values below indicate no spiking. Spike rates from the prediction spike time matrices are inversely calculated in the variable activation function model, where a 0 indicates spiking and 1 indicates no spiking.\par
 
 \section{Results}
 
@@ -341,7 +346,7 @@ We first run the model across two time steps, with at least a single observed sp
 \subfloat[]{\label{errorTwoTime:d}\includegraphics[scale=0.50,trim={1cm 0 1cm 0},clip]{./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf}}
 \end{minipage}
 
-\caption{\textbf{Error Convergence of Model On Two Consecutive Time Steps.} Each scatter plot point represents an average of 10 separate runs of the model, each run lasting 100 iterations. (a)Error Convergence on Variable Activation Function Model. The model was trained on a selected time step, where the first time step contained a single spike in the third neuron, and the following time step contained a single spike in the seventh neuron. (b)Average error across ten separate runs of differing time steps with distinct spiking patterns. While the initial learning is, on average, faster than (a), occurring at around 10 iterations in (b) and around 45 iterations in (a), the convergence value is approximately 0.20. The subcases are as follows: [0,0], [0,1], [0,2], [0,3], [1,1], [1,2], [2,0], [2,1], [2,2], and [3,0], where the first value is the number of spikes in the input time step, followed by the number of spikes in the output time step. These patterns were all patterns appearing in a single spike train. (c) Error calculation using the identical time step to (a), with the base model.(d) Error calculation using the identical distinct time steps to (b), with the base model.}
+\caption[Error Convergence of Model On Two Consecutive Time Steps.]{\textbf{Error Convergence of Model On Two Consecutive Time Steps.} Each scatter plot point represents an average of 10 separate runs of the model, each run lasting 100 iterations. (a)Error Convergence on Variable Activation Function Model. The model was trained on a selected time step, where the first time step contained a single spike in the third neuron, and the following time step contained a single spike in the seventh neuron. (b)Average error across ten separate runs of differing time steps with distinct spiking patterns. While the initial learning is, on average, faster than (a), occurring at around 10 iterations in (b) and around 45 iterations in (a), the convergence value is approximately 0.20. The subcases are as follows: [0,0], [0,1], [0,2], [0,3], [1,1], [1,2], [2,0], [2,1], [2,2], and [3,0], where the first value is the number of spikes in the input time step, followed by the number of spikes in the output time step. These patterns were all patterns appearing in a single spike train. (c) Error calculation using the identical time step to (a), with the base model.(d) Error calculation using the identical distinct time steps to (b), with the base model.}
 \label{fig:errorTwoTime}
 \end{figure}
 
@@ -374,7 +379,7 @@ machine learning. arXiv:1606.04838v3, 2018.
 \item Brette, R. (2015). What Is the Most Realistic Single-Compartment Model of Spike Initiation? PLoS Computational Biology. https://doi.org/10.1371/journal.pcbi.1004114
 \item Brette R, Rudolph M, Carnevale T, et al. Simulation of networks of spiking neurons: A review of tools and strategies. Journal of computational neuroscience. 2007;23(3):349-398. doi:10.1007/s10827-007-0038-6.
 \item Carrillo-Reid, L., Yang, W., Bando, Y., Peterka, D. S., \& Yuste, R. (2016). Imprinting Cortical Ensembles. Science, 353(6300), 691–694. https://doi.org/10.1126/science.aaf7560
-\item Costa, L. da F., Rodrigues, F. A., Travieso, G., & Boas, P. R. V. (2005). Characterization of complex networks: A survey of measurements. Advances in Physics, 56(1), 167–242. https://doi.org/10.1080/00018730601170527
+\item Costa, L. da F., Rodrigues, F. A., Travieso, G., \& Boas, P. R. V. (2005). Characterization of complex networks: A survey of measurements. Advances in Physics, 56(1), 167–242. https://doi.org/10.1080/00018730601170527
 \item Denk, W., Strickler, J. H., \& Webb, W. W. (1990). Two-Photon Laser Scanning Fluorescence Microscopy. Science, 248(4951), 73–76.
 \item Dong, W., Lee, R. H., Xu, H., Yang, S., Pratt, K. G., Cao, V., … Aizenman, C. D. (2008). Visual Avoidance in Xenopus Tadpoles Is Correlated With the Maturation of Visual Responses in the Optic Tectum. Journal of Neurophysiology, 101(2), 803–815.\\https://doi.org/10.1152/jn.90848.2008
 \item Garofalo, M., Nieus, T., Massobrio, P., \& Martinoia, S. (2009). Evaluation of the Performance of Information Theory- Based Methods and Cross-Correlation to Estimate the Functional Connectivity in Cortical Networks. PLoS ONE, 4(8).\\https://doi.org/10.1371/journal.pone.0006482
@@ -385,6 +390,7 @@ machine learning. arXiv:1606.04838v3, 2018.
 \item Hastie T., Tibshirani R., Friedman J. (2009) Overview of Supervised Learning. In: The Elements of Statistical Learning. Springer Series in Statistics. Springer, New York, NY
 \item Haydon, P. G. (2001). Glia : Listening and Talking To The Synapse. Nature Reviews Neuroscience, 2(March), 186–193.
 \item Hecht-Nielsen, R. (1989). Theory of the Backpropagation Neural Network. Proceedings Of The International Joint Conference On Neural Networks, 1, 593–605.\\https://doi.org/10.1109/IJCNN.1989.118638
+\item Hernández, J. M., \& Mieghem, P. Van. (2011). Classification of graph metrics. Delft University of Technology.
 \item Hodgkin, A. L., \& Kats, B. (1949). The Effect of Sodium Ions on the Electrical Activity of the Giant Axon of the Squid. The Journal Of Physiology, 108(1), 37–77.
 \item Hoffman, D. A., Magee, J. C., Colbert, C. M., \& Johnston, D. (1997). K + channel regulation of signal propagation in dendrites of hippocampal pyramidal neurons. Nature, 387(June), 869–876.
 \item Izhikevich, E. M. (2004). Which model to use for cortical spiking neurons? IEEE Transactions on Neural Networks. https://doi.org/10.1109/TNN.2004.832719

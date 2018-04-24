@@ -1,5 +1,6 @@
 import numpy as np
 import os, sys
+import matplotlib.pyplot as plt
 
 #calculate the in and outgoing number of connections for each neuron
 def calculateInAndOut(adjMatrix):
@@ -14,7 +15,7 @@ def calculateInAndOut(adjMatrix):
 def calculateDD(indegrees, outdegrees, totaldegrees):
 	#store the different counts
 	indegreesCounts = np.zeros(max(int(indegrees.max()),int(outdegrees.max()))+1)
-	outdegreesCounts = np.zeros(len(indegrees))
+	outdegreesCounts = np.zeros(len(indegreesCounts))
 	totalDegreeCounts = np.zeros(int(totaldegrees.max())+1)
 	for i in indegrees:
 		indegreesCounts[int(i)] += 1
@@ -33,3 +34,7 @@ if __name__=='__main__':
 	print(incoming, outgoing,total)
 	incomingDD, outgoingDD, totalDD = calculateDD(incoming,outgoing,total)
 	print("Icoming DD:",incomingDD,"\n Outgoing DD:",outgoingDD,"\n totalDD:",totalDD)
+	plt.scatter(range(len(totalDD)),totalDD,s=5)
+	#plt.yscale('log')
+	#plt.xscale('log')
+	plt.show()

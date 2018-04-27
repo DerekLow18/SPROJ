@@ -2,6 +2,10 @@ import numpy as np
 import os, sys
 import matplotlib.pyplot as plt
 
+'''
+Calculate the degree distribution of one weight matrix
+'''
+
 #calculate the in and outgoing number of connections for each neuron
 def calculateInAndOut(adjMatrix):
 	matrix = np.genfromtxt(adjMatrix,delimiter = ',')
@@ -26,6 +30,10 @@ def calculateDD(indegrees, outdegrees, totaldegrees):
 	#divide by length because length is equivalent to the population size
 	return indegreesCounts/len(indegrees), outdegreesCounts/len(indegrees), totalDegreeCounts/len(indegrees)
 
+def zero_to_nan(values):
+    """Replace every 0 with 'nan' and return a copy."""
+    return [float('nan') if x==0 else x for x in values]
+
 if __name__=='__main__':
 	if len(sys.argv) < 2:
 		raise Exception("Need a weight matrix in csv format to analyze!")
@@ -34,7 +42,10 @@ if __name__=='__main__':
 	print(incoming, outgoing,total)
 	incomingDD, outgoingDD, totalDD = calculateDD(incoming,outgoing,total)
 	print("Icoming DD:",incomingDD,"\n Outgoing DD:",outgoingDD,"\n totalDD:",totalDD)
-	plt.scatter(range(len(totalDD)),totalDD,s=5)
+	plotIncomingDD = zero_to_nan(incomingDD)
+	plotOutgoingDD = zero_to_nan(outgoingDD)
+	plotTotalDD = zero_to_nan(totalDD)
+	plt.scatter(range(len(plotTotalDD)),plotTotalDD,s=5)
 	#plt.yscale('log')
 	#plt.xscale('log')
 	plt.show()

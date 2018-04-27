@@ -112,12 +112,7 @@ def pdSigmoidWRTShift(x,index):
 	numerator = np.exp(-(sigmoidSteepness[index])*(x-sigmoidCenter[index]))*(sigmoidSteepness[index])
 	denominator = (1 + np.exp(-(sigmoidSteepness[index])*(x-sigmoidCenter[index])))**2
 	return numerator/denominator
-#turns out we don't want this, because we want to keep probability of spiking
-#separate for each neuron
-def softmax(x):
-    """Compute softmax values for each sets of scores in x."""
-    e_x = np.exp(x - np.max(x))
-    return e_x / e_x.sum()
+
 
 #takes a timeStep to predict the next time step
 
@@ -271,7 +266,7 @@ print("After:\n",weights,"\n")
 print("final output is ",x)
 print(dataset)
 print("sigmoid params \n",sigmoidSteepness,"\n",sigmoidCenter)
-resultsPath = "./Final Results/simulation results/"+fileID+"/"
+resultsPath = "./Final Results/simulation results/pop50/"+fileID+"/"
 if not os.path.exists(resultsPath):
 	os.mkdir(resultsPath)
 np.savetxt(resultsPath+fileID+"resultingMatrix1.csv",weights,delimiter=",")
@@ -291,8 +286,8 @@ threshIndex=0
 while threshIndex <= 1:
 	print(threshIndex)
 	threshX = np.where(normWeights > threshIndex, 1, 0)
-	path = "./varSig thresholds/"+fileID+"/"
+	path = "./varSig thresholds/pop50/"+fileID+"/"
 	if not os.path.exists(path):
 		os.mkdir(path)
-	np.savetxt("./varSig thresholds/"+fileID+"/%dweightMatrix.csv" % (threshIndex*100),threshX,delimiter = ',')
+	np.savetxt("./varSig thresholds/pop50/"+fileID+"/%dweightMatrix.csv" % (threshIndex*100),threshX,delimiter = ',')
 	threshIndex += 0.01

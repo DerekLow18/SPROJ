@@ -68,8 +68,8 @@ def generateCorrelationMatrix(neoDataset,connectionDict):
 	connectionDictionary = connectionDict
 	for i in range(len(neoDataset)):
 		for j in range(len(neoDataset)):
-			if i != j:
-				connectionDictionary[i][j] = connectionDictionary[i][j] + calcCCH(i,j,neoDataset)
+			#if i != j:
+			connectionDictionary[i][j] = connectionDictionary[i][j] + calcCCH(i,j,neoDataset)
 	return connectionDictionary
 
 #This code will produce a single cross correlogram
@@ -77,7 +77,7 @@ binned_st1 = BinnedSpikeTrain(neoDataset[0],binsize=1*ms)
 binned_st2 = BinnedSpikeTrain(neoDataset[5],binsize=1*ms)
 
 cch = cross_correlation_histogram(binned_st1,
-	binned_st2,window=[-100,100],border_correction = True,
+	binned_st2,window=[-10,10],border_correction = True,
 	binary = True, kernel = None)
 print(cch)
 cchArray =  cch[0][:,0].magnitude.round()
@@ -93,6 +93,7 @@ print(calcCCH(8,9,neoDataset))
 correlationArray = generateCorrelationMatrix(neoDataset)
 print(correlationArray)
 '''
+'''
 x1 = binned_st1.to_array()
 x2 = binned_st2.to_array()
 x11 = x1[0]
@@ -103,7 +104,7 @@ fig, (ax1,ax2) = plt.subplots(2,1)
 ax1.plot(y1,x11)
 ax2.plot(y2,x21)
 plt.xlabel("Time Step")
-plt.savefig("../../Main Writing/Figures/05Corr.svg",format = 'svg')
+#plt.savefig("../../Main Writing/Figures/05Corr.svg",format = 'svg')
 plt.show()
 
 for i in cchArray:
@@ -111,12 +112,12 @@ for i in cchArray:
 print(cchArray)
 
 print(len(cchArray))
-plt.bar(cchArrayTime,cchArray,cch[0].sampling_period.magnitude)
+plt.bar(cchArrayTime,cchArray,cch[0].sampling_period.magnitude,color='#012f59')
 plt.xlabel("Time Lag")
 plt.ylabel("Bin Count")
 plt.savefig("../../Main Writing/Figures/05CorrGram.svg",format='svg')
 plt.show()
-
+'''
 
 '''
 Can we reconstruct the network purely based on xc?
@@ -124,45 +125,48 @@ Do this cross-correlation procedure, and add for all samples in the dataset
 
 Average the cross-correlation values by the number of datasets observed
 '''
-'''
+
 if __name__ == "__main__":
 
 	#initalize the correlation matrix
-	data = np.genfromtxt('../Downsampled Spikes/pop10/01downsample.csv', delimiter = ',')
+	data = np.genfromtxt('../Downsampled Spikes/pop50/01downsample.csv', delimiter = ',')
 	correlationMatrix = np.zeros((len(data.transpose()),len(data.transpose())))
 	numFiles = 0
-	for file in os.listdir("../Downsampled Spikes/pop10/"):
+	for file in os.listdir("../Downsampled Spikes/pop50/"):
 		if fnmatch.fnmatch(file,'*downsample.csv'):
 			numFiles += 1
-			dataset = spikeTimeToArrays("../Downsampled Spikes/pop10/"+file)
+			dataset = spikeTimeToArrays("../Downsampled Spikes/pop50/"+file)
 			neoDataset = []
 			[neoDataset.append(neo.SpikeTrain(i,units = 'ms',t_start = 0,t_stop = 1000.0)) for i in dataset]
 			print("calculating for:",file)
 			correlationMatrix = generateCorrelationMatrix(neoDataset,correlationMatrix)
 			print(numFiles)
 
-	#divide the values by the number of datasets observed
-	avgMatrix = correlationMatrix/numFiles
+			#divide the values by the number of datasets observed
+			avgMatrix = correlationMatrix
+			print(avgMatrix)
+			np.fill_diagonal(avgMatrix,0)
+			#find the minimum and maximum values, for normalization
+			minvalue = np.min(avgMatrix[np.nonzero(avgMatrix)])
+			minvalue = minvalue - 0.01*(minvalue)
+			maxvalue = avgMatrix.max() + 0.01*(avgMatrix.max())
+			#normalize the matrix via non-zero min and max
+			normX = (avgMatrix - minvalue)/(maxvalue - minvalue)
+			#replace the diagonals with 0s again
+			np.fill_diagonal(normX,0)
+			#threshold to observe
+			threshIndex = 0
+			#change the threshold for the purpose of ROC
+			if not os.path.exists("./xcThresholds/pop50/%dxc" % numFiles):
+				os.mkdir("./xcThresholds/pop50/%dxc" % numFiles)
+			while threshIndex <= 1:
+				print(threshIndex)
+				threshX = np.where(normX > threshIndex, 1, 0)
+				np.savetxt("./xcThresholds/pop50/%dxc/%dxcMatrix.csv" % (numFiles,threshIndex*100),threshX,delimiter = ',')
+				threshIndex += 0.01
+			print(minvalue)
+			print(avgMatrix)
+			print(normX)
+			print(threshX)
 
-	#find the minimum and maximum values, for normalization
-	minvalue = np.min(avgMatrix[np.nonzero(avgMatrix)])
-	minvalue = minvalue - 0.01*(minvalue)
-	maxvalue = avgMatrix.max() + 0.01*(minvalue)
-	#normalize the matrix via non-zero min and max
-	normX = (avgMatrix - minvalue)/(maxvalue - minvalue)
-	#replace the diagonals with 0s again
-	np.fill_diagonal(normX,0)
-	#threshold to observe
-	threshIndex = 0
-	#change the threshold for the purpose of ROC
-	while threshIndex <= 1:
-		print(threshIndex)
-		threshX = np.where(normX > threshIndex, 1, 0)
-		np.savetxt("./xcThresholds/%dxcMatrix.csv" % (threshIndex*100),threshX,delimiter = ',')
-		threshIndex += 0.01
-	print(minvalue)
-	print(avgMatrix)
-	print(normX)
-	print(threshX)
-'''
 

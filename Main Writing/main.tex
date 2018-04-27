@@ -1,11 +1,12 @@
 \documentclass[11pt,titlepage]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[a4paper, total={6.5in, 9in}]{geometry}
+\usepackage[letterpaper, total={6.5in, 9in}]{geometry}
 
 \title{Machine Learning-Based Reconstruction of Neuronal Networks from Calcium Imaging Signals}
 \author{Derek Low}
 \date{2017-2018}
 
+\usepackage{multirow}
 \usepackage{natbib}
 \usepackage{graphicx}
 \usepackage{upgreek}
@@ -22,7 +23,20 @@
 \newcommand{\To}{\mbox{\upshape\bfseries to}}
 
 \begin{document}
-\maketitle
+%\maketitle
+\input{titlepage}
+\clearpage
+\section*{Dedications and Acknowledgements}
+-WIP\\
+-Kerri-Ann\\
+-Arseny Khakhalin\\
+-Maia, Sadie, Patrycja\\
+- Swim Team, Swimming Coaches\\
+-Kevin, Liam, Kabir, Halina, Emma, Mary, Ben\\
+- Eli, Taysa\\
+- Lily, Kara\\
+- Parents\\
+- Myself\\
 \clearpage
 \tableofcontents
 \clearpage
@@ -37,12 +51,12 @@ Activity of neuronal networks can be recorded via Calcium Imaging. In this study
 %missing results section (final sentences)
 %take some of the jargon out and boil it down to the essense in "we develop a model...""we update..."
 %3rd sentence -> use NEST to simulate connectivity, create spiking data, use machine learning to predict our initial connectivity. THEN you can have the "we develop a model"
-One of the current topics in computational neuroscience research is relating the connections within populations of neurons and the activity of these populations. Methods of reconstructing structural neuronal network connectivity are limited and, in some cases, technically infeasible. Methods that [precisely] extract this relationship are applicable at small population sizes, and are not applicable in-vivo. Here, we introduce a machine-learning approach to inferring connectivity from spike-time data extracted from calcium imaging recordings. First, we simulate populations of neurons with the NEST simulator to produce downsampled spike-trains. We develop a model based on the widely-applied machine learning systems, neural networks. The model is updated with gradient descent on the error via backpropagation, and the performance is compared to the widely used cross-correlation method of extracting functional connectivity. We then train the models on simulated data and \textit{in-vivo} calcium imaging data from \textit{Xenopus Laevis} tadpoles.
+One of the major areas of research in computational neuroscience is focused on relating the connections within populations of neurons to the signaling activity of these populations. Methods of reconstructing structural neuronal network connectivity are limited and, in large populations, technically infeasible. Current methods that reconstruct networks of large populations relate connectivity to calcium imaging recordings of these networks. Here, we introduce a machine-learning approach to inferring connectivity from spike-time data extracted from calcium imaging recordings. First, we simulate populations of neurons with the NEST simulator to produce downsampled spike-trains. We develop a model based on neural networks, which is a widely applied machine-learning method. The model is updated with gradient descent on the error via backpropagation, and the performance is compared to the widely used cross-correlation method of extracting functional connectivity. We then train the models on simulated data and \textit{in-vivo} calcium imaging data from \textit{Xenopus Laevis} tadpoles.
 
 %don't write a results section
 %make the first sentence more clear?? relateable?
 %instead of extracting: inferring? reconstructing?
-
+\newpage
 \section{Introduction}
 
 \subsection{The Neuron}
@@ -70,11 +84,12 @@ The study of connectivity in the brain has a wide range of application. For exam
 
 The relationship between functionality and connectivity has been demonstrated in further additional contexts, such as in motor neurons of human patients by relating the movement of fingers on each hand to the fluctuations in signal intensity of the sensorimotor cortex during echo-planar functional magnetic resonance imaging (fMRI)(Biswal et al., 1995). Additionally, between two related, yet distinct, activities, the functional connectivity of neurons can overlap; such is the case in the instance of motor imagery, or the mental performance of certain motor acts not accompanied by physical performance of these acts, and the accompanying physical performance of the same motor acts (Porro et al., 1996). The hippocampus of the human brain demonstrates a similar relationship of functional connectivity with particular activities; young adults display higher levels of activity in the ventral prefrontal and extrastriate regions of the cortex correlated with higher levels of hippocampus activity during  encoding of words and pictures of objects. In contrast, older adults display higher levels of activity in the dorsolateral prefrontal and parietal regions of the cortex with comparable levels of activity in the hippocampus to younger adults during similar trials (Grady et al., 2003). The higher activity in particular regions implies different manners by which adults of differing ages process information concerning similar tasks, where hippocampus and brain activity are related to better recognition in younger adults, and improved memory performance in older adults. These findings indicate a shift in explicit connectivity between portions of the brain, and changes to functional connectivity related to human aging (Grady et al., 2003).\par
 
+
+\subsubsection{Network Metrics}
 Network science provides a framework through which populations of neurons may be analyzed for their structural and functional connectivities by expanding and formalizing the terminologies and definitions for the purposes of neuronal network analysis. For example, cliques, or all-to-all connected networks, of neuronal populations have been studied as a method of relating structural to functional connectivities of neuronal populations. In the context of neuronal networks, cliques are further studied as directed cliques. Where standard cliques are bidirectional, allowing a single connection for both information transfer from a source neuron to a target neuron and information transfer in the inverse direction, directed cliques do not allow for bidirectional information transfer. (Reimann et al., 2017). For a given connection in a directed clique from a source neuron to a target neuron, there is no direct connection from the target neuron to the source neuron, though there may be an intermediary neuron allowing for a connection in the inverse direction. The reconstruction and viewing of networks as compositions of cliques suggests that, in neocortical microcircuits, information is processed by the formation and disintegration of these cliques, depending on the nature of the stimulus (Reimann et al., 2017).\par
+Analysis of these patterns of connectivity, or the microcircuitry, of neurons in regions of the brain indicate the possibility of the scale-free nature of microcircuits. A scale-free network is defined as a network with the degree distribution following a power-law (Massobrio et al., 2015, Tetzlaff et al., 2010). The degree distribution of a network is defined as the probabilities of a node having a particular degree within a network; degree distributions are often displayed relating a specific degree to the rate of occurrence, or the probability (Hernandez and Meighem, 2011; Massobrio et al., 2015, Tetzlaff et al., 2010). The degree distribution of a network is often referred to as a metric of resilience (Rubinov and Sporns, 2010; Hernandez and Meighem, 2011). A network following a power-law distribution indicates a network in which a majority of nodes contain a low number of connections, and a minority containing a high number of connections (Sporns et al., 2004, Tetzlaff et al., 2010, Massobrio et al., 2015). Therefore, these networks are fairly resilient to random removals of nodes, since the removal is likely to occur to nodes with low connections, resulting in low overall impact on the network. However, the removal of a node with a high number of connection could be critical to the function of the network (Rubinov and Sporns, 2010; Hernandez and Meighem, 2011;)
 
-The small world characteristic is another such definition originating from network science and applied in analysis of neuron populations, where the small world network is a network with a short average path length, indicating a large number of paths, and a high degree of local clustering, the tendency of nodes in a graph to cluster together (Sporns et al., 2004).\par
-
-Analysis of these patterns of connectivity, or microcircuitry, of neurons in regions of the brain indicate the possibility of the scale-free nature of microcircuits. In cases of such networks, the degree distribution, defined as the distribution of number of connections to each node in a give network, follows a power-law, where the majority of nodes in the network have a high number of connections, and a fraction of the population with a comparatively low number of connections (Sporns et al., 2004, Tetzlaff et al., 2010, Massobrio et al., 2015). This power-law distribution is also observed in frequency of neuronal avalanches, periodic bursts of activity from a population of neurons, where avalanches falling short of the power-law distribution is subcritical, falling on the power-law distribution is critical, and falling above the power-law distribution is supercritical (Massobrio et al., 2015)\par
+%This power-law distribution is also observed in frequency of neuronal avalanches, periodic bursts of activity from a population of neurons, where avalanches falling short of the power-law distribution is subcritical, falling on the power-law distribution is critical, and falling above the power-law distribution is supercritical (Massobrio et al., 2015)\par
 
 %The configuration of neurons and network properties of these particular networks are significant not only to the function of the network, but to developmental implications as well. The discussion of the development of neurons typically relates to the discussion of network dynamics in networks of neurons during stages of growth, or to the adaptability and learning capabilities of these neurons. Concerning the former case, studies discuss the continuous process of reconfiguration during stages of development.
 
@@ -120,7 +135,7 @@ The organization of neurons can be represented as a matrix, typically referred t
 
 Matrices such as the one above describe the connections between different neurons in an observed population, with observed being an important keyword; these neurons could have incoming connections from sources outside of the observed population, depending on the context of the observations. One standard feature of network matrices is the zero value along the diagonal, representative of a lack of a connection from a neuron to itself. In the example above, there is a directional connection between the outward axonal connection of Neuron 3 and the incoming dendritic connection of Neuron 1; therefore, assuming a positive value to represent an excitatory connection, spikes in Neuron 3 result in a voltage increase of Neuron 1. By this method of representation, the matrix can describe the relative strength and nature of all connections between neurons in the observed population.\par
 
-Currently, our methods of studying neurons and brain activity relies on techniques that observe activity at macroscopic (e.g. fMRI, PET, CAT, calcium imaging) or microscopic scales (e.g. electrodes and membrane potentials, patch clamp). However, there is no method of accurately imaging and representing larger networks of neurons in areas of the brain, or outgoing pathways from the brain. While machine learning algorithms may not provide exact mappings of networks, implementation of these algorithms is an opportunity to generate hypotheses.\par
+Currently, our methods of studying neurons and brain activity relies on techniques that observe activity at macroscopic (e.g. fMRI, PET, CAT, calcium imaging) or microscopic scales (e.g. electrodes and membrane potentials, patch clamp). However, there is no method of accurately imaging and representing larger networks of neurons in areas of the brain, or outgoing pathways from the brain. While machine learning algorithms may not provide exact mappings of networks, implementation of these algorithms is an opportunity to generate hypotheses concerning predicted connections and their relationships to the actual networks.\par
 
 \subsection{Current Approaches to Reconstruction}
 Several different frameworks of reconstruction have been offered to tackle the problem of inferring connectivity of neurons. While these reconstruction methods use different methods for evaluating activity and connectivity, they are typically applied to simulated neuron populations, where the ground truth of the activity is known, allowing evaluation on the accuracy of the model. Knowing the ground truth for comparison allows for the application of different metrics, such as Receiver Operating Character (ROC) curves, Area Under Curve (AUC), and network properties that are common between the predicted and ground truth networks (Garofalo et al., 2009).\par
@@ -189,7 +204,7 @@ Backpropagation between the hidden and input layers of the follow a similar appr
 There are several reasons for generating simulated calcium imaging data for the purposes of network reconstruction. First, generation of simulated calcium imaging data allows for benchmarking of the reconstruction methods employed. In typical calcium imaging data, the ground truth is not known, resulting in a lack of comparison between the reconstructed network and the network targeted for reconstruction. By generating simulated networks and recreating calcium imaging data, we ensure access to the ground truth for comparison with the model. Simulation of training data also permits programming of particular characteristics to the network, and observing the changes of this reconstruction in both the simulated data and the reconstruction of these networks.\par
 Machine learning methods are typically trained on some prior data set. Simulation of calcium imaging data provides an easily accessible method of generating data for training and testing the machine learning based model, due to unconstrained and unrestricted access to data, before allowing the model to analyze recorded data that would be ideally used as testing data. Additionally, including a training set ensures that the algorithm is able to remain generalized; that is, the algorithm does not learn to represent that single data set exceptionally well, and fail when a different pattern is presented to the algorithm.\par
 The simulations presented here are performed in NEST simulator, a tool maintained by the NEST initiative (Kunkel et al., 2017). The NEST simulator was selected for the purpose of simulations that maintain biological realism and complexity, with emphasis on simulation of large neuronal networks. The advantage NEST has over other simulators is the capability to simulate large networks with varying facets, such as synapse and neuron types, while retaining accurate representation of the individual neurons.\par
-
+\newpage
 \section{Methods}
 
 \begin{figure}[H]
@@ -212,8 +227,8 @@ $u = u + d\}$\par
 }
 where $v$ represents the membrane potential of the neuron and $u$ the membrane recovery variable. The membrane recovery variable captures the responses of $K^{+}$ and $Na^{+}$, and is a source of negative feedback to $v$. Coefficients for change in membrane potential, are based on scale, with membrane potential at $mV$ and time as ms, as are $a$ and $b$. $I$ is the input current to the neuron, and $c$ and $d$ are the post-spike reset values of the neuron (Kunkel et al., 2017, Izhikevich et al., 2004). 
 
-To simulate a population of neurons with $n$ population size over $t$ time, a file containing an $n x n$ adjacency matrix is provided to the simulation program, which then creates a NEST neuron population with the exact number of neurons and connections between the neurons in the population, using the corresponding weight of the connection stored in the adjacency matrix. Interactions with neurons in NEST must be achieved through the creation of new node objects, made to represent and achieve the results of physical instruments and devices; therefore, we create a Poisson generator node to add noise to the population, and connect a spike detector node to record all spikes in the population during simulation. The population is then recorded over 10000 simulation steps, or 10000 ms. The corresponding output of the simulation is converted to a matrix of n x t dimensionality. The simulation is repeated to produce 100 spike trains from one adjacency matrix.\par
-Post-simulation, all data is downsampled from 10,000 ms to 1,000 ms, corresponding to the 10 ms frame rate of calcium imaging.
+To simulate a population of neurons with $n$ population size over $t$ time, a file containing an $n$ x $n$ adjacency matrix is provided to the simulation program, which then creates a NEST neuron population with the exact number of neurons and connections between the neurons in the population, using the corresponding weight of the connection stored in the adjacency matrix. Interactions with neurons in NEST must be achieved through the creation of new node objects, made to represent and achieve the results of physical instruments and devices; therefore, we create a Poisson generator node to add noise to the population, and connect a spike detector node to record all spikes in the population during simulation. The population is then recorded over 10000 simulation steps, or 10000 ms. The corresponding output of the simulation is converted to a matrix of n x t dimensionality. The simulation is repeated to produce 100 spike trains from one adjacency matrix.\par
+Post-simulation, all data is downsampled from 10,000 ms to 1,000 ms, corresponding to the 10 ms frame rate of calcium imaging. Downsampling is performed by observing consecutive reading frames of size 10 time steps (ms), and checking for occurrences of spikes within the 10 frames. If one or more spikes occur within the frame for a particular neuron, a single spike is recorded for the neuron; otherwise, no spikes are recorded for the neuron. The downsampling produces a dataset that resembles a similar time step size of 10 ms to the \textit{in-vivo} {Xenopus Laevis} calcium imaging data available.
 
 \begin{figure}[H]
 \centering
@@ -233,7 +248,7 @@ Where PR is the Page Rank of neuron $i$, $d$ is the standard damping factor of 0
 The model presented contains only two layers: an input layer and a hidden layer. We attempt to restrict the number of layers to a single layer, in order to extract a single set of weights that can be understood as the adjacency matrix reflecting the population of neurons from which the spike-train originates. The base model is a two-layer network with the squared error of the form $$E_{total} = \sum{\frac{1}{2}(target-prediction)^2}$$ as the error function, where the target is the $y$ label to a corresponding $x$ input, and prediction is the output of the model after one prediction step (Werbos, 1990; Gurney, 2004, p.86-66; Bohte et al., 2002). The base model has a simple structure of $n$ x 1 dimensionality in each layer, with 2 layers and $n$ x $n$ weights connecting them.\par
 First, a single time step is provided from an $t$ x $n$ dimensional matrix, where $t$ is the number of time steps, as an $1$ x $n$ array, where each $n$ is a neuron id corresponding to a specific neuron in the population. The time step is matrix multiplied by the weight matrix of $n$ x $n$, resulting in the prediction array of $1$ x $n$. Each value in the prediction array is passed to the sigmoid activation function $$ f(x) = \frac{1}{1 + e^{-x}}$$ and updated as the prediction of the active and inactive neurons in the next time step. Therefore, the backpropagation step calculates the weight changes $$\frac{\partial E}{\partial w_{ij}} = \frac{\partial E}{\partial y_j} * \frac{\partial y_j}{\partial I_{j}} * \frac{\partial I_{j}}{\partial w_{ij}}$$ where the partial derivative of the error w.r.t the prediction $y_j$ and target $\hat{y_j}$ expands to $$\frac{\partial E}{\partial y_j} = -(\hat{y_j} - y_j) $$ due to the summation in the error function; all other predictions are held constant, which results in a zero derivative for the remainder of the summation outside of $y_j$. The partial derivative of the output of the activation function $y_j$ w.r.t. the input $I_j$, or the results of the first matrix multiplication, evaluates to $$\frac{\partial y_j}{\partial I_j} = \frac{e^{I_j}}{(1+e^{I_j})^2} = y_j * (1 - y_j)$$ Finally, the partial derivative of the input to the activation function $I_j$ w.r.t. the weight being updated $w_{ij}$ is $$\frac{\partial I_j}{\partial w_{ij}} = 1 * x_i * w_{ij}^{1-1} = x_i$$. Therefore, the full learning rule applied in this model is $$ \frac{\partial E}{\partial w_{ij}} = -(\hat{y_j}-y_j) * (y_j*(1-y_j))*x_i$$. At every time step, the learning rule is applied to the current input and predicted next time step, and each traversal across the entire dataset is an iteration of the learning process.
 
-\begin{algorithm}
+\begin{algorithm}[H]
 	\caption{Base Model}
 	Initialize the weight matrix of $n$ x $n$ size with random values 0-1.\\
 	Initialize dataset as spike-time matrix\\
@@ -263,8 +278,8 @@ The variable activation function model contains two additional sets of values in
  where the partial derivative of the output $y_j$ w.r.t logistic function center $b_j$, $\frac{\partial y_j}{\partial b_j}$ is calculated as 
  $$\frac{\partial y_j}{\partial b_j} = \frac{a_je^{-a_j(x - b_j)}}{(1 + e^{-a_j(x - b_j)})^2} $$
 
-\begin{algorithm}
-	\caption{Base Model}
+\begin{algorithm}[H]
+	\caption{Variable Activation Function Model}
 	Initialize the weight matrix of $n$ x $n$ size with random values 0-1.\\
 	Initialize dataset as spike-time matrix\\
 	i = A time step in the spike-time matrix\\
@@ -289,7 +304,7 @@ The variable activation function model contains two additional sets of values in
 \end{algorithm}
 
 \subsection{Cross-Correlation}
-We compare the performance of the model to the cross-correlation method of inferring connectivity. Cross-correlograms here are produced using the \textit{elephant} and \textit{neo} python packages (citation here). The cross-correlogram method of extracting spike-train correlations compares the spike times of a reference train to a target train. Different time steps within a defined window are observed in the target train, using a spike in the reference train as the origin. The final cross-correlation analysis compares over 100 distinct simulated spike trains across a population of 10 neurons, with window size [-10,10], as displayed in Figure \ref{main:f}.
+We compare the performance of the model to the cross-correlation method of inferring connectivity. Cross-correlograms here are produced using the \textit{elephant} and \textit{neo} python packages (citation here). The cross-correlogram method of extracting spike-train correlations compares the spike times of a reference train to a target train. Different time steps within a defined window are observed in the target train, using a spike in the reference train as the origin. The final cross-correlation analysis compares over 100 distinct simulated spike time datasets across a population of 10 neurons, with window size [-10,10], as displayed in Figure \ref{main:f}. For each spike
 
 \begin{figure}[H]
 \begin{minipage}{.49\linewidth}
@@ -324,13 +339,13 @@ We compare the performance of the model to the cross-correlation method of infer
 \subsection{Degree Distribution, Spike Rate, and Binary Spike Time Data}
 The \textit{degree} of a node is the number of edges, or connections, to that node (Costa et al., 2005; Hernandez and Miegham, 2011). The degree distribution is a distribution of probabilities. The probabilities are of a node $n$ containing degree $k$ number of connections, and is given by $$Pr[D=k] = \frac{d_k}{N}$$ where $d_k$ denotes the number of nodes with degree $k$ and $N$ is the population size (Hernandez and Miegham, 2011). Indegrees, outdegrees, and total degrees for each node are calculated from adjacency matrices of the population, where the rows indicate an outgoing connection and columns indicating incoming connections. The total degree is obtained by adding the indegrees and outdegrees. The total degree distribution, indegree distribution, and outdegree distribution are then calculated for the adjacency matrix.\par
 The spike rate $R$ of neuron $n$ is calculated by $$R_n = \frac{1}{T}\sum_{t=0}^T{s_t} $$where $T$ is the total number of time steps in the spike time matrix, and $s_t$ is the value of time step $t$ for neuron $n$. In practice, the spike rate of a particular neuron $n$ is obtained from the spike time matrix by summing the column, or the activity of neuron $n$ over all time steps in the spike time matrix, and dividing by the total number of time steps in the spike time matrix. Activity is denoted with a 1 the spike time matrix, and no activity denoted with a 0. To obtain binary values from probability value representations present in the \textit{Xenopus Laevis} calcium imaging data, all non-zero values are denoted as spikes. In the case of the resultant spike time matrices produced by the machine learning models, the matrices are normalized between 0 and 1, and thresholded at 0.5, where values greater than or equal to 0.5 indicate a spike, and values below indicate no spiking. Spike rates from the prediction spike time matrices are inversely calculated in the variable activation function model, where a 0 indicates spiking and 1 indicates no spiking.\par
-
+\newpage
 \section{Results}
 
 \subsection{Error}
 
 \subsubsection{Two Time Step Convergence}
-We first run the model across two time steps, with at least a single observed spike difference between the two steps, to observe the rate of error convergence and capability of the model to predict from a single time step to the next time step. Figure \ref{errorTwoTime:a} and Figure \ref{errorTwoTime:c} demonstrate the subcase of the running the model on two time steps and observing the error after each iteration, over 100 iterations, where the two time steps feature a single spike at the input time step and a single spike in the output time step. The other subcases present in the training data were combinations of up to four spikes occurring in any given time step. In the simulated spiking of a $n$ = 10, across 100 distinct simulations, 73,481 time steps had a spike count of zero, 22,499 contained a single spike, 3568 contained two spikes, 427 contained three spikes, and 25 time steps contained four spikes, indicating 16 possible subcases for the number of spikes in the input and output time steps. However, some subcases, such as two consecutive time steps containing four spikes each, did not appear. The two models each behaved differently when training on different subcases, as indicated by the wide standard deviation bars in Figure \ref{errorTwoTime:b} and Figure \ref{errorTwoTime:d}, where each plot contains information concerning 10 of the 16 possible subcases. These subcases all occurred within the same particular spike time dataset.
+We first run the model across two time steps, with at least a single observed spike difference between the two steps, to observe the rate of error convergence and capability of the model to predict from a single time step to the next time step. Figure \ref{errorTwoTime:a} and Figure \ref{errorTwoTime:c} demonstrate the subcase of the running the model on two time steps and observing the error after each iteration, over 100 iterations, where the two time steps feature a single spike at the input time step and a single spike in the output time step. The other subcases present in the training data were combinations of up to four spikes occurring in any given time step. In the simulated spiking of a $n$ = 10, across 100 distinct simulations, 73,481 time steps had a spike count of zero, 22,499 contained a single spike, 3568 contained two spikes, 427 contained three spikes, and 25 time steps contained four spikes, indicating 16 possible subcases for the number of spikes in the input and output time steps. However, some subcases, such as two consecutive time steps containing four spikes each, did not appear. The two models each behaved differently when training on different subcases, as indicated by the wide standard deviation bars in Figure \ref{errorTwoTime:b} and Figure \ref{errorTwoTime:d}, where each plot contains information concerning 10 of the 16 possible subcases. These subcases all occurred within the same spike time dataset. The wide standard deviation bars indicate a high variability in the model training error of Figure \ref{errorTwoTime:b} and Figure \ref{errorTwoTime:d}, where 10 different subcase errors are plotted, indicating that performance of both models vary, depending on which time steps the model was being trained on. 
 
 \begin{figure}[H]
 \begin{minipage}{0.49\linewidth}
@@ -346,20 +361,96 @@ We first run the model across two time steps, with at least a single observed sp
 \subfloat[]{\label{errorTwoTime:d}\includegraphics[scale=0.50,trim={1cm 0 1cm 0},clip]{./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf}}
 \end{minipage}
 
-\caption[Error Convergence of Model On Two Consecutive Time Steps.]{\textbf{Error Convergence of Model On Two Consecutive Time Steps.} Each scatter plot point represents an average of 10 separate runs of the model, each run lasting 100 iterations. (a)Error Convergence on Variable Activation Function Model. The model was trained on a selected time step, where the first time step contained a single spike in the third neuron, and the following time step contained a single spike in the seventh neuron. (b)Average error across ten separate runs of differing time steps with distinct spiking patterns. While the initial learning is, on average, faster than (a), occurring at around 10 iterations in (b) and around 45 iterations in (a), the convergence value is approximately 0.20. The subcases are as follows: [0,0], [0,1], [0,2], [0,3], [1,1], [1,2], [2,0], [2,1], [2,2], and [3,0], where the first value is the number of spikes in the input time step, followed by the number of spikes in the output time step. These patterns were all patterns appearing in a single spike train. (c) Error calculation using the identical time step to (a), with the base model.(d) Error calculation using the identical distinct time steps to (b), with the base model.}
+%make it clear that a is 1,1 and b takes all of the data
+\caption[Error Convergence of Model On Two Consecutive Time Steps.]{\textbf{Error Convergence of Model On Two Consecutive Time Steps.} Each plot point represents an average of 10 separate runs of the model, each run lasting 100 iterations. (a)Error Convergence on Variable Activation Function Model. The model was trained on a selected time step, where the first time step contained a single spike, and the following contained a single spike in a different neuron (subcase [1,1]). (b)Average error across ten separate runs of differing subcases with distinct spiking patterns. The subcases are as follows: [0,0], [0,1], [0,2], [0,3], [1,1], [1,2], [2,0], [2,1], [2,2], and [3,0], where the first value is the number of spikes in the input time step, followed by the number of spikes in the output time step. These patterns were all patterns appearing in a single spike train. (c) Error calculation using the identical time step to (a), with the base model.(d) Error calculation using the identical distinct time steps to (b), with the base model.}
 \label{fig:errorTwoTime}
 \end{figure}
 
 \subsection{Spike Rate Analysis}
 The spike rates of the original spike time matrix inputs to the models are calculated and compared to the spike rates of the predicted activity resulting from the final calculated weights, and, in the case of the variable activation function model, the calculated sigmoid steepness and center arrays.\par
-In the case of the variable activation function model, the spike rates were calculated inversely, where a 0 designated a spike and a 1 designates no spike for a particular neuron at a particular time step,
+In the case of the variable activation function model, the spike rates were calculated inversely, where a 0 designates a spike and a 1 designates no spike for a particular neuron at a particular time step,
 
 \subsection{Degree Distribution}
+Degree distribution analysis was performed on the final weight matrices produced by the models for both simulated and \textit{Xenopus Laevis} calcium imaging recordings, with a threshold of 0.50, with population sizes of 10 and 50 for the simulated data adjacency matrices; in \textit{Xenopus} calcium imaging data, the population size varied, depending on the recording. The average degree distributions of the predicted adjacency matrices from simulated data are calculated by averaging the degree distribution over all predictions. Calculations of the average degree distribution from the calcium imaging data predictions are performed in the same fashion, over 6 predicted adjacency matrices from 6 \textit{in-vivo} calcium imaging recordings from \textit{Xenopus Laevis}.
 
+\begin{figure}[H]
+\begin{minipage}{0.49\linewidth}
+\subfloat[]{\label{DD:a}\includegraphics[height=5cm,scale=0.45,trim = {0 0 1cm 1cm},clip]{./Figures/DD/simulatedvarDDPop10.pdf}}
+\end{minipage}
+\begin{minipage}{0.50\linewidth}
+\subfloat[]{\label{DD:b}\includegraphics[height=5cm,scale=0.45,trim={0 0 1cm 1cm},clip]{./Figures/DD/simulatedCOEDDPop10.pdf}}
+\end{minipage}
+\begin{minipage}{0.49\linewidth}
+\subfloat[]{\label{DD:c}\includegraphics[height=5cm,scale=0.45,trim={0 0 1cm 1cm},clip]{./Figures/DD/simulatedvarDDPop50.pdf}}
+\end{minipage}
+\begin{minipage}{0.50\linewidth}
+\subfloat[]{\label{DD:d}\includegraphics[height=5cm,scale=0.45,trim={0 0 1cm 1cm}, clip]{./Figures/DD/simulatedCOEDDPop50.pdf}}
+\end{minipage}
+\begin{minipage}{0.49\linewidth}
+\subfloat[]{\label{DD:e}\includegraphics[height=5cm,scale=0.45,trim={0 0 1cm 1cm}, clip]{./Figures/DD/gtPop10.pdf}}
+\end{minipage}
+\begin{minipage}{0.50\linewidth}
+\subfloat[]{\label{DD:f}\includegraphics[height=5cm,scale=0.45,trim={0 0 1cm 1cm}, clip]{./Figures/DD/gtPop50.pdf}}
+\end{minipage}
+
+\caption[Average Degree Distribution in Simulated Data Predictions]{\textbf{Average Degree Distribution in Simulated Data Predictions.} (a)Average degree distribution of the simulated data from population size 10, averaged across the resulting adjacency matrices of the variable activation function model across 40 simulated spike time matrices.(b)Average degree distribution from base model. (c) Average degree distribution of the simulated data from population size 50, averaged across the resulting adjacency matrices of the variable activation function model produced from 40 simulated spike time matrices.(d) Average degree distribution of the simulated data from population size 50, averaged across predictions from the base model produced from 40 simulated spike time matrices.(e)(f) Calculated average degree distributions across 40 randomly generated networks of population size 10 and 50, respectively.}
+\label{fig:DD}
+\end{figure}
+
+\begin{figure}[H]
+\begin{minipage}{0.49\linewidth}
+\subfloat[]{\label{DD2:a}\includegraphics[scale=0.50,trim={0 0 1cm 0},clip]{./Figures/DD/caDatavarDDPop50.pdf}}
+\end{minipage}
+\begin{minipage}{0.50\linewidth}
+\subfloat[]{\label{DD2:b}\includegraphics[scale=0.50,trim={0 0 1cm 0},clip]{./Figures/DD/caDataCOEDD.pdf}}
+\end{minipage}
+\caption[Average Degree Distribution in \textit{Xenopus} Calcium Imaging Data Predictions]{\textbf{Average Degree Distribution in \textit{Xenopus} Calcium Imaging Data Predictions.} (a) The average degree distribution of the resulting variable activation model prediction adjacency matrix from 6 \textit{in-vivo} recordings of calcium imaging data from {Xenopus Laevis} (b) Distribution of the adjacency matrices produced from the base model, from the same datasets as (a).}
+\label{fig:DD2}
+\end{figure}
+
+The average degree distributions differed between the simulation predicted adjacencies and the calcium imaging adjacencies; where the simulated data produced an average degree distribution resembling a normal distribution, the average degree distribution calculated at the same threshold value of 0.5 from the calcium imaging data resembles a power-law distribution, in both the base model and the variable activation model.
+
+\subsection{ROC}
+The receiver operating characteristic (ROC) curve is a measure of performance for testing the accuracy of models where the ground truth underlying the data is available for comparison. The receiver operating characteristic plots the true positive rate (TPR) against the false positive rate (FPR) to evaluate the performance of the model on the simulated data sets (Garofalo et al., 2009). The TPR is evaluated according to $$TPR = \frac{TP}{TP + FN}$$ where the FPR is evaluated according to $$FPR = \frac{FP}{FP + TN}$$ where TP, FP, TN and FN are defined in the contingency table (Figure \ref{contingencyTable})
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+                                     & \multicolumn{3}{l|}{True Condition} \\ \hline
+\multirow{3}{*}{Predicted Condition} &            & Positive   & Negative  \\ \cline{2-4} 
+                                     & Positive   & TP         & FP        \\ \cline{2-4} 
+                                     & Negative   & FN         & TN        \\ \hline
+\end{tabular}
+\caption[Contingency Table]{Contingency Table. The designations of true positive (TP), false positive (FP), false negative (FN), and true negative (TN). For example, a positive appearing in the true condition and a positive appearing in the predicted condition is a TP.}
+\label{contingencyTable}
+\end{figure}
+In the adjacency matrices, positives are defined as a value of "1" and negative as "0". When comparing between two matrices, a positive in the predicted matrix at $P_{ij}$ and a positive in the ground truth matrix at $M_{ij}$ indicate a true positive. TPRs and FPRs are calculated for cross-correlation, the base model, and the variable activation function model.\par
+ROC curves are constructed by varying some parameter and observing the resulting TPRs and FPRs. In the ROC curve below, we simply increase the threshold at which a normalized value in the predicted weight matrix is counted as a connection. Starting from a threshold of 0, which allows all possible connections, we increase by 0.01 at every iteration, until 1, at which point there are no longer any connections in the predicted matrix. At every threshold, the TPRs and FPRs are calculated. In the case of the base model and the activation function model, the TPRs and FPRs at every threshold are calculated for 40 distinct datasets on which the models were trained. The TPRs and FPRs for every dataset, at every threshold, is accumulated. Redundant TPR and FPR calculations are removed before plotting and analysis; plotting the redundant points would result in overlapping points and a weighted area under the curve (AUC). ROC curves for models are plotted against random guessing, represented as a linear relationship between TPR and FPR, with an AUC of 0.5. Cross-correlation ROC is calculated across 100 distinct simulated datasets, with TPR and FPR accumulated across all datasets and redundant TPR and FPR calculations removed.\par
+
+\begin{figure}[H]
+\begin{minipage}{0.49\linewidth}
+\subfloat[]{\label{roc:a}\includegraphics[scale=0.5,trim={0 0 1cm 0},clip]{./Figures/roc.pdf}}
+\end{minipage}
+\begin{minipage}{0.50\linewidth}
+\subfloat[]{\label{roc:b}\includegraphics[scale=0.5,trim={0 0 1cm 0},clip]{./Figures/rocPop50.pdf}}
+\end{minipage}
+\caption[Receiver Operating Characteristic]{Receiver Operating Characteristic. The linear function depicted is random guessing, with an AUC of 0.5.(a) ROC on cross-correlations and model results from population size of 10. Activation AUC = 0.54, Base = 0.58, XC = 0.53. (b) ROC on cross-correlations and model results from population size of 50. Activation AUC = 0.49, Base = 0.51, XC = 0.53.}
+\label{fig:roc}
+\end{figure}
+
+To better compare the curves, we calculate the AUC to describe the curve as a single value. The AUC is calculated as the integral of the ROC curve from 0 to 1, using the composite trapezoidal rule. While the accumulated ROC curves depicted above have the calculated AUC as listed in the caption, the average AUCs, calculated for every dataset from which the ROC curves are constructed, are as follows: XC = 0.46 ($\pm$ .07), Activation AUC = 0.45 ($\pm$ .09), Base AUC = 0.47 ($\pm$ .09) for population size 10, and XC = .48 ($\pm$ .01), Activation AUC = 0.44 ($\pm$ .02), Base AUC 0.49 ($\pm$ .01) for population size 50.
+
+\newpage
 \section{Discussion}
+
+\subsection{Differences in Degree Distribution}
+The calculated average degree distributions of the simulated data resemble a normal distribution in the cases of both models, most clearly seen in Figures \ref{DD:c} and \ref{DD:d}. The ground truth degree distributions displayed in Figures \ref{DD:e} and \ref{DD:f} are randomly generated networks, with each network generated in the same fashion as the ground truth matrices for all networok simulations.
 
 \subsection{Model Error Convergence}
 prelimiary notes: when the model is training over a train with a single spike to a train with two spikes, the 
+
+\subsection{Receiver Operating Characteristic and Accuracy of Model}
 
 \section{Conclusion}
 
@@ -413,6 +504,7 @@ machine learning. arXiv:1606.04838v3, 2018.
 \item Purves, D., Augustine, G. J., Fitzpatrick, D., Hall, W. C., LaMantia, A., and White, L. E. (2012). Neuroscience. Sunderland, Massachusetts.: Sinauer Associates, Inc.
 \item Rakic, P. (2006). Evolution of the neocortex. Current Biology, 16(21), 910–914. \\https://doi.org/10.1038/nrn2719.Evolution
 \item Robbins, H., \& Monro, S. (1951). A Stochastic Approximation Method. The Annals of Mathematical Statistics, 22(3), 400–407.
+\item Rubinov, M., \& Sporns, O. (2010). Complex network measures of brain connectivity: Uses and interpretations. NeuroImage, 52, 1059–1069.\\ https://doi.org/10.1016/j.neuroimage.2009.10.003
 \item Ruder, S. (2016). An overview of gradient descent optimization algorithms.\\ arXiv:1609.04747v2, 1–14.
 \item Stetter  O,  Battaglia  D,  Soriano  J,  Geisel  T  (2012)  Model-Free  Reconstruction  of  Excitatory  Neuronal  Connectivity  from  Calcium  Imaging  Signals.  PLo S Comput  Biol  8(8):  e1002653. doi:10.1371/journal.pcbi.1002653
 \item Shimomura, O., Johnson, F. H. and Saiga, Y. (1962), Extraction, Purification and Properties of Aequorin, a Bioluminescent Protein from the Luminous Hydromedusan, Aequorea. J. Cell. Comp. Physiol., 59: 223–239. doi:10.1002/jcp.1030590302

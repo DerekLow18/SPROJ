@@ -1,38 +1,42 @@
-\contentsline {subsection}{\numberline {0.1}Brief Description}{4}
-\contentsline {subsection}{\numberline {0.2}Abstract}{4}
-\contentsline {section}{\numberline {1}Introduction}{4}
-\contentsline {subsection}{\numberline {1.1}The Neuron}{4}
-\contentsline {subsection}{\numberline {1.2}Network Neuroscience}{6}
-\contentsline {subsection}{\numberline {1.3}Calcium Imaging}{9}
-\contentsline {subsubsection}{\numberline {1.3.1}Calcium Indicators}{9}
-\contentsline {subsubsection}{\numberline {1.3.2}Calcium Microscopy}{10}
-\contentsline {subsection}{\numberline {1.4}Xenopus Tadpoles}{11}
-\contentsline {subsection}{\numberline {1.5}Representing Networks of Neurons}{12}
-\contentsline {subsection}{\numberline {1.6}Current Approaches to Reconstruction}{14}
-\contentsline {subsubsection}{\numberline {1.6.1}Cross-Correlation}{14}
-\contentsline {subsubsection}{\numberline {1.6.2}Granger Causality}{15}
-\contentsline {subsubsection}{\numberline {1.6.3}Transfer Entropy}{15}
-\contentsline {subsection}{\numberline {1.7}The Relevance of Advances in Machine Learning}{16}
-\contentsline {subsection}{\numberline {1.8}Supervised and Unsupervised Learning}{16}
-\contentsline {subsection}{\numberline {1.9}Artificial Neural Networks}{17}
-\contentsline {subsubsection}{\numberline {1.9.1}Gradient Descent}{18}
-\contentsline {subsubsection}{\numberline {1.9.2}Gradient Descent: Definition}{19}
-\contentsline {subsubsection}{\numberline {1.9.3}Backpropagation in Neural Networks}{20}
-\contentsline {subsection}{\numberline {1.10}NEST: Generating Training Data}{22}
-\contentsline {section}{\numberline {2}Methods}{23}
-\contentsline {subsection}{\numberline {2.1}Simulation of Neurons for Spike Train Generation}{24}
-\contentsline {subsection}{\numberline {2.2}Page Rank}{25}
-\contentsline {subsection}{\numberline {2.3}Machine Learning Model}{26}
-\contentsline {subsubsection}{\numberline {2.3.1}Base Model}{26}
-\contentsline {subsubsection}{\numberline {2.3.2}Variable Activation Function Model}{28}
-\contentsline {subsection}{\numberline {2.4}Cross-Correlation}{28}
-\contentsline {subsection}{\numberline {2.5}Degree Distribution, Spike Rate, and Binary Spike Time Data}{32}
-\contentsline {section}{\numberline {3}Results}{33}
-\contentsline {subsection}{\numberline {3.1}Error}{33}
-\contentsline {subsubsection}{\numberline {3.1.1}Two Time Step Convergence}{33}
-\contentsline {subsection}{\numberline {3.2}Spike Rate Analysis}{34}
-\contentsline {subsection}{\numberline {3.3}Degree Distribution}{35}
-\contentsline {section}{\numberline {4}Discussion}{35}
-\contentsline {subsection}{\numberline {4.1}Model Error Convergence}{35}
-\contentsline {section}{\numberline {5}Conclusion}{35}
-\contentsline {section}{\numberline {6}Works Cited}{35}
+\contentsline {subsection}{\numberline {0.1}Brief Description}{5}
+\contentsline {subsection}{\numberline {0.2}Abstract}{5}
+\contentsline {section}{\numberline {1}Introduction}{6}
+\contentsline {subsection}{\numberline {1.1}The Neuron}{6}
+\contentsline {subsection}{\numberline {1.2}Network Neuroscience}{7}
+\contentsline {subsubsection}{\numberline {1.2.1}Network Metrics}{9}
+\contentsline {subsection}{\numberline {1.3}Calcium Imaging}{10}
+\contentsline {subsubsection}{\numberline {1.3.1}Calcium Indicators}{11}
+\contentsline {subsubsection}{\numberline {1.3.2}Calcium Microscopy}{12}
+\contentsline {subsection}{\numberline {1.4}Xenopus Tadpoles}{12}
+\contentsline {subsection}{\numberline {1.5}Representing Networks of Neurons}{13}
+\contentsline {subsection}{\numberline {1.6}Current Approaches to Reconstruction}{15}
+\contentsline {subsubsection}{\numberline {1.6.1}Cross-Correlation}{15}
+\contentsline {subsubsection}{\numberline {1.6.2}Granger Causality}{16}
+\contentsline {subsubsection}{\numberline {1.6.3}Transfer Entropy}{16}
+\contentsline {subsection}{\numberline {1.7}The Relevance of Advances in Machine Learning}{17}
+\contentsline {subsection}{\numberline {1.8}Supervised and Unsupervised Learning}{17}
+\contentsline {subsection}{\numberline {1.9}Artificial Neural Networks}{18}
+\contentsline {subsubsection}{\numberline {1.9.1}Gradient Descent}{19}
+\contentsline {subsubsection}{\numberline {1.9.2}Gradient Descent: Definition}{20}
+\contentsline {subsubsection}{\numberline {1.9.3}Backpropagation in Neural Networks}{21}
+\contentsline {subsection}{\numberline {1.10}NEST: Generating Training Data}{23}
+\contentsline {section}{\numberline {2}Methods}{25}
+\contentsline {subsection}{\numberline {2.1}Simulation of Neurons for Spike Train Generation}{25}
+\contentsline {subsection}{\numberline {2.2}Page Rank}{27}
+\contentsline {subsection}{\numberline {2.3}Machine Learning Model}{28}
+\contentsline {subsubsection}{\numberline {2.3.1}Base Model}{28}
+\contentsline {subsubsection}{\numberline {2.3.2}Variable Activation Function Model}{29}
+\contentsline {subsection}{\numberline {2.4}Cross-Correlation}{31}
+\contentsline {subsection}{\numberline {2.5}Degree Distribution, Spike Rate, and Binary Spike Time Data}{33}
+\contentsline {section}{\numberline {3}Results}{34}
+\contentsline {subsection}{\numberline {3.1}Error}{34}
+\contentsline {subsubsection}{\numberline {3.1.1}Two Time Step Convergence}{34}
+\contentsline {subsection}{\numberline {3.2}Spike Rate Analysis}{35}
+\contentsline {subsection}{\numberline {3.3}Degree Distribution}{36}
+\contentsline {subsection}{\numberline {3.4}ROC}{38}
+\contentsline {section}{\numberline {4}Discussion}{41}
+\contentsline {subsection}{\numberline {4.1}Differences in Degree Distribution}{41}
+\contentsline {subsection}{\numberline {4.2}Model Error Convergence}{41}
+\contentsline {subsection}{\numberline {4.3}Receiver Operating Characteristic and Accuracy of Model}{41}
+\contentsline {section}{\numberline {5}Conclusion}{41}
+\contentsline {section}{\numberline {6}Works Cited}{41}

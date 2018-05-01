@@ -32,6 +32,11 @@ if len(sys.argv) < 2:
 
 dataset = np.genfromtxt(str(sys.argv[1]), delimiter = ',')
 fileID = os.path.splitext(path_leaf(str(sys.argv[1])))[0]
+#for i in range(2,8):
+	#datasetappend = np.genfromtxt("./Downsampled Spikes/pop50sf/0%ddownsample.csv" % i, delimiter = ',')
+	#dataset = np.concatenate((dataset,datasetappend),axis=0)
+	#fileID = "compounded"
+print(dataset.shape)
 #datasetWeights = np.genfromtxt('./Syn Weights/gnp.roundTruth10.csv', delimiter = ',')
 '''
 old_stdout = sys.stdout
@@ -266,7 +271,7 @@ print("After:\n",weights,"\n")
 print("final output is ",x)
 print(dataset)
 print("sigmoid params \n",sigmoidSteepness,"\n",sigmoidCenter)
-resultsPath = "./Final Results/simulation results/pop50/"+fileID+"/"
+resultsPath = "./Final Results/simulation results/pop50sf/"+fileID+"/"
 if not os.path.exists(resultsPath):
 	os.mkdir(resultsPath)
 np.savetxt(resultsPath+fileID+"resultingMatrix1.csv",weights,delimiter=",")
@@ -286,8 +291,8 @@ threshIndex=0
 while threshIndex <= 1:
 	print(threshIndex)
 	threshX = np.where(normWeights > threshIndex, 1, 0)
-	path = "./varSig thresholds/pop50/"+fileID+"/"
+	path = "./varSig thresholds/pop50sf/"+fileID+"/"
 	if not os.path.exists(path):
 		os.mkdir(path)
-	np.savetxt("./varSig thresholds/pop50/"+fileID+"/%dweightMatrix.csv" % (threshIndex*100),threshX,delimiter = ',')
+	np.savetxt("./varSig thresholds/pop50sf/"+fileID+"/%dweightMatrix.csv" % (threshIndex*100),threshX,delimiter = ',')
 	threshIndex += 0.01

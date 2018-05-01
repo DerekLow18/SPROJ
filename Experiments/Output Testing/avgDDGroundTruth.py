@@ -2,6 +2,8 @@ import numpy as np
 import os, sys, fnmatch
 import matplotlib.pyplot as plt
 from itertools import zip_longest
+from scipy import stats
+import pylab
 '''
 Across all samples of the same origin, take the resulting matrix at
 threhsold = 0.50 and calculate the degree distribution. Take the average
@@ -68,11 +70,21 @@ if __name__=='__main__':
 	plotOutgoingDD = zero_to_nan(avgOutgoingDD)
 	plotTotalDD = zero_to_nan(avgTotalDD)
 	print("Results from number of files:",numFiles)
-	print(plotTotalDD)
+	print("ks test:",stats.shapiro(avgTotalDD[33:66]))
+	fig = plt.figure()
+	ax0 = fig.add_subplot(111)
+	res = stats.probplot(avgTotalDD[33:66], dist="norm", plot=plt)
+	ax0.get_lines()[0].set_marker('o')
+	ax0.get_lines()[0].set_markersize(5.0)
+	ax0.get_lines()[1].set_linewidth(2.0)
+	ax0.get_lines()[1].set_color('c')
+	plt.savefig("../../Main Writing/Figures/DD/gtQQpop50.svg",format = 'svg')
+	print(res[1])
+	plt.show()
 	plt.scatter(range(len(avgTotalDD)),plotTotalDD,s=5)
 	plt.ylabel("Pr[D=k]")
 	plt.xlabel("Number of Connections")
 	#plt.yscale('log')
 	#plt.xscale('log')
-	plt.savefig("../../Main Writing/Figures/DD/gtPop50.svg",format = 'svg')
+	#plt.savefig("../../Main Writing/Figures/DD/gtPop50.svg",format = 'svg')
 	plt.show()

@@ -12,8 +12,6 @@ def downsample(dataset, binSize):
 		runningSum = np.zeros(len(dataset[0]))
 		for k in range(j*10, (j+1)*10):
 			toSum = np.concatenate(([runningSum],[dataset[k]]))
-			#print(dataset[58])
-			#print("concat is",toSum)
 			runningSum = np.sum(toSum, axis = 0)
 		j = j + 1
 		for l in range(len(runningSum)):
@@ -23,7 +21,7 @@ def downsample(dataset, binSize):
 	downsampleDataset = np.array(downsampleDataset)
 	#print(len(downsampleDataset))
 	#print(downsampleDataset)
-	np.savetxt('downSampledData.csv', downsampleDataset.transpose(), delimiter=",")
+	#np.savetxt('downSampledData.csv', downsampleDataset.transpose(), delimiter=",")
 	return downsampleDataset
 
 #downsample all files in the Spike Results Directory
@@ -39,5 +37,5 @@ if __name__ == "__main__":
 			dataset = np.transpose(dataset)
 			newData = downsample(dataset,10)
 
-			np.savetxt("./Downsampled Spikes/"+str(fileID[0]) + "downsample.csv",newData,delimiter = ',')
+			np.savetxt("./Downsampled Spikes/pop50sf/"+str(fileID[0]) + "downsample.csv",newData,delimiter = ',')
 

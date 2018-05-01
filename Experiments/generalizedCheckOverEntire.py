@@ -222,7 +222,7 @@ print("After:\n",weights,"\n")
 print("final output is ",x)
 print(dataset)
 print("sigmoid params \n",sigmoidSteepness,"\n",sigmoidCenter)
-resultsPath = "./Final Results/generalizedCOE/pop50/"+fileID+"/"
+resultsPath = "./Final Results/generalizedCOE/pop50sf/"+fileID+"/"
 if not os.path.exists(resultsPath):
 	os.mkdir(resultsPath)
 np.savetxt(resultsPath+fileID+"resultingMatrix1.csv",weights,delimiter=",")
@@ -242,8 +242,8 @@ threshIndex=0
 while threshIndex <= 1:
 	print(threshIndex)
 	threshX = np.where(normWeights > threshIndex, 1, 0)
-	path = "./generalizedCOE thresholds/pop50/"+fileID+"/"
+	path = "./generalizedCOE thresholds/pop50sf/"+fileID+"/"
 	if not os.path.exists(path):
 		os.mkdir(path)
-	np.savetxt("./generalizedCOE thresholds/pop50/"+fileID+"/%dweightMatrix.csv" % (threshIndex*100),threshX,delimiter = ',')
+	np.savetxt("./generalizedCOE thresholds/pop50sf/"+fileID+"/%dweightMatrix.csv" % (threshIndex*100),threshX,delimiter = ',')
 	threshIndex += 0.01

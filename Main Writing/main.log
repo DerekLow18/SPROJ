@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  26 APR 2018 22:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  1 MAY 2018 16:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -364,15 +364,79 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen110
 \Gm@dimlist=\toks17
 )
+(/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+(/usr/share/texlive/texmf-dist/tex/latex/floatrow/floatrow.sty
+Package: floatrow 2008/08/02 v0.3b floatrow: float package extension
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen111
+\captionmargin@=\dimen112
+\captionwidth=\dimen113
+\caption@tempdima=\dimen114
+\caption@indent=\dimen115
+\caption@parindent=\dimen116
+\caption@hangindent=\dimen117
+)
+\c@float@type=\count90
+\float@exts=\toks18
+\float@box=\box26
+\@floatcapt=\box27
+Package floatrow Info: Modified float package code loaded on input line 455.
+Package floatrow Info: Modified rotfloat package code loaded on input line 473.
+
+\FR@everyfloat=\toks19
+\flrow@foot=\insert199
+\FB@wd=\dimen118
+\FBo@wd=\dimen119
+\FBc@wd=\dimen120
+\FBo@ht=\skip43
+\FBc@ht=\skip44
+\FBf@ht=\skip45
+\FBo@max=\skip46
+\FBc@max=\skip47
+\FBf@max=\skip48
+\c@FBl@b=\count91
+\floatbox@depth=\count92
+\c@FRobj=\count93
+\c@FRsobj=\count94
+\Xhsize=\skip49
+\sXhsize=\skip50
+\Zhsize=\skip51
+\sZhsize=\skip52
+\flrow@rowbox=\box28
+\FR@Zunitlength=\dimen121
+\c@FBcnt=\count95
+\FPOScnt=\count96
+\LTleft=\skip53
+\LTright=\skip54
+\LTleft=\skip55
+\LTright=\skip56
+\flrow@types=\toks20
+)
+(/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+\fancy@headwidth=\skip57
+\f@ncyO@elh=\skip58
+\f@ncyO@erh=\skip59
+\f@ncyO@olh=\skip60
+\f@ncyO@orh=\skip61
+\f@ncyO@elf=\skip62
+\f@ncyO@erf=\skip63
+\f@ncyO@olf=\skip64
+\f@ncyO@orf=\skip65
+)
 (/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
-\bigstrutjot=\dimen111
+\bigstrutjot=\dimen122
 )
 (/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip43
-\bibsep=\skip44
+\bibhang=\skip66
+\bibsep=\skip67
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count90
+\c@NAT@ctr=\count97
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
@@ -397,10 +461,10 @@ Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
-\Gread@gobject=\count91
+\Gread@gobject=\count98
 ))
-\Gin@req@height=\dimen112
-\Gin@req@width=\dimen113
+\Gin@req@height=\dimen123
+\Gin@req@width=\dimen124
 )
 (/usr/share/texlive/texmf-dist/tex/latex/was/upgreek.sty
 Package: upgreek 2003/02/12 v2.0 (WaS)
@@ -411,7 +475,7 @@ LaTeX Font Info:    Overwriting symbol font `ugrf@m' in version `bold'
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2016/03/03 v2.15a AMS math features
-\@mathmargin=\skip45
+\@mathmargin=\skip68
 
 For additional information on amsmath, use the `?' option.
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
@@ -419,68 +483,60 @@ Package: amstext 2000/06/29 v2.01 AMS text
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks18
-\ex@=\dimen114
+\@emptytoks=\toks21
+\ex@=\dimen125
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen115
+\pmbraise@=\dimen126
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
-\inf@bad=\count92
+\inf@bad=\count99
 LaTeX Info: Redefining \frac on input line 199.
-\uproot@=\count93
-\leftroot@=\count94
+\uproot@=\count100
+\leftroot@=\count101
 LaTeX Info: Redefining \overline on input line 297.
-\classnum@=\count95
-\DOTSCASE@=\count96
+\classnum@=\count102
+\DOTSCASE@=\count103
 LaTeX Info: Redefining \ldots on input line 394.
 LaTeX Info: Redefining \dots on input line 397.
 LaTeX Info: Redefining \cdots on input line 518.
-\Mathstrutbox@=\box26
-\strutbox@=\box27
-\big@size=\dimen116
+\Mathstrutbox@=\box29
+\strutbox@=\box30
+\big@size=\dimen127
 LaTeX Font Info:    Redeclaring font encoding OML on input line 630.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 631.
-\macc@depth=\count97
-\c@MaxMatrixCols=\count98
+\macc@depth=\count104
+\c@MaxMatrixCols=\count105
 \dotsspace@=\muskip10
-\c@parentequation=\count99
-\dspbrk@lvl=\count100
-\tag@help=\toks19
-\row@=\count101
-\column@=\count102
-\maxfields@=\count103
-\andhelp@=\toks20
-\eqnshift@=\dimen117
-\alignsep@=\dimen118
-\tagshift@=\dimen119
-\tagwidth@=\dimen120
-\totwidth@=\dimen121
-\lineht@=\dimen122
-\@envbody=\toks21
-\multlinegap=\skip46
-\multlinetaggap=\skip47
-\mathdisplay@stack=\toks22
+\c@parentequation=\count106
+\dspbrk@lvl=\count107
+\tag@help=\toks22
+\row@=\count108
+\column@=\count109
+\maxfields@=\count110
+\andhelp@=\toks23
+\eqnshift@=\dimen128
+\alignsep@=\dimen129
+\tagshift@=\dimen130
+\tagwidth@=\dimen131
+\totwidth@=\dimen132
+\lineht@=\dimen133
+\@envbody=\toks24
+\multlinegap=\skip69
+\multlinetaggap=\skip70
+\mathdisplay@stack=\toks25
 LaTeX Info: Redefining \[ on input line 2735.
 LaTeX Info: Redefining \] on input line 2736.
-)
-(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
-Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count104
-\float@exts=\toks23
-\float@box=\box28
-\@float@everytoks=\toks24
-\@floatcapt=\box29
 )
 (/usr/share/texlive/texmf-dist/tex/latex/mwe/mwe.sty
 Package: mwe 2012/05/15 v0.3 Package to support minimal working examples (MWE)
 
 (/usr/share/texlive/texmf-dist/tex/latex/lipsum/lipsum.sty
 Package: lipsum 2014/07/27 v1.3 150 paragraphs of Lorem Ipsum dummy text
-\c@lips@count=\count105
+\c@lips@count=\count111
 )
 (/usr/share/texlive/texmf-dist/tex/latex/blindtext/blindtext.sty
 Package: blindtext 2012/01/06 V2.0 blindtext-Package
@@ -488,67 +544,56 @@ Package: blindtext 2012/01/06 V2.0 blindtext-Package
 (/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-\c@blindtext=\count106
-\c@Blindtext=\count107
-\c@blind@countparstart=\count108
-\blind@countxx=\count109
-\blindtext@numBlindtext=\count110
-\blind@countyy=\count111
-\c@blindlist=\count112
-\c@blindlistlevel=\count113
-\c@blindlist@level=\count114
-\blind@listitem=\count115
-\c@blind@listcount=\count116
-\c@blind@levelcount=\count117
-\blind@mathformula=\count118
-\blind@Mathformula=\count119
-\c@blind@randomcount=\count120
-\c@blind@randommax=\count121
-\c@blind@pangramcount=\count122
-\c@blind@pangrammax=\count123
+\c@blindtext=\count112
+\c@Blindtext=\count113
+\c@blind@countparstart=\count114
+\blind@countxx=\count115
+\blindtext@numBlindtext=\count116
+\blind@countyy=\count117
+\c@blindlist=\count118
+\c@blindlistlevel=\count119
+\c@blindlist@level=\count120
+\blind@listitem=\count121
+\c@blind@listcount=\count122
+\c@blind@levelcount=\count123
+\blind@mathformula=\count124
+\blind@Mathformula=\count125
+\c@blind@randomcount=\count126
+\c@blind@randommax=\count127
+\c@blind@pangramcount=\count128
+\c@blind@pangrammax=\count129
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/subfig/subfig.sty
 Package: subfig 2005/06/28 ver: 1.3 subfig package
 
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
-
-(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
-Package caption3 Info: TeX engine: e-TeX on input line 67.
-\captionmargin=\dimen123
-\captionmargin@=\dimen124
-\captionwidth=\dimen125
-\caption@tempdima=\dimen126
-\caption@indent=\dimen127
-\caption@parindent=\dimen128
-\caption@hangindent=\dimen129
-)
-\c@ContinuedFloat=\count124
+\c@ContinuedFloat=\count130
 Package caption Info: float package is loaded.
+Package caption Info: floatrow package is loaded.
 )
-\c@KVtest=\count125
-\sf@farskip=\skip48
-\sf@captopadj=\dimen130
-\sf@capskip=\skip49
-\sf@nearskip=\skip50
-\c@subfigure=\count126
-\c@subfigure@save=\count127
-\c@lofdepth=\count128
-\c@subtable=\count129
-\c@subtable@save=\count130
-\c@lotdepth=\count131
-\sf@top=\skip51
-\sf@bottom=\skip52
+\c@KVtest=\count131
+\sf@farskip=\skip71
+\sf@captopadj=\dimen134
+\sf@capskip=\skip72
+\sf@nearskip=\skip73
+\c@subfigure=\count132
+\c@subfigure@save=\count133
+\c@lofdepth=\count134
+\c@subtable=\count135
+\c@subtable@save=\count136
+\c@lotdepth=\count137
+\sf@top=\skip74
+\sf@bottom=\skip75
 )
 (/usr/share/texlive/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
 Package: algorithm2e 2013/01/06 v5.00 algorithms environments
-\c@AlgoLine=\count132
+\c@AlgoLine=\count138
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
-\algocf@hangindent=\skip53
+\algocf@hangindent=\skip76
 
 (/usr/share/texlive/texmf-dist/tex/latex/relsize/relsize.sty
 Package: relsize 2013/03/29 ver 4.1
@@ -560,55 +605,55 @@ Package `algorithm2e' Release 5.1 -- october 19 2015 --
 subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 - Author: Christophe Fiorio (christophe.fiorio@umontpellier.fr)
 ********************************************************
-\skiptotal=\skip54
-\skiplinenumber=\skip55
-\skiprule=\skip56
-\skiphlne=\skip57
-\skiptext=\skip58
-\skiplength=\skip59
-\algomargin=\skip60
-\skipalgocfslide=\skip61
-\algowidth=\dimen131
-\inoutsize=\dimen132
-\inoutindent=\dimen133
-\interspacetitleruled=\dimen134
-\interspacealgoruled=\dimen135
-\interspacetitleboxruled=\dimen136
-\algocf@ruledwidth=\skip62
-\algocf@inoutbox=\box30
-\algocf@inputbox=\box31
-\AlCapSkip=\skip63
-\AlCapHSkip=\skip64
-\algoskipindent=\skip65
-\algocf@nlbox=\box32
-\algocf@hangingbox=\box33
-\algocf@untilbox=\box34
-\algocf@skipuntil=\skip66
-\algocf@capbox=\box35
-\algoheightruledefault=\skip67
-\algoheightrule=\skip68
-\algotitleheightruledefault=\skip69
-\algotitleheightrule=\skip70
-\c@algocfline=\count133
-\c@algocfproc=\count134
-\c@algocf=\count135
-\algocf@algoframe=\box36
-\algocf@algobox=\box37
+\skiptotal=\skip77
+\skiplinenumber=\skip78
+\skiprule=\skip79
+\skiphlne=\skip80
+\skiptext=\skip81
+\skiplength=\skip82
+\algomargin=\skip83
+\skipalgocfslide=\skip84
+\algowidth=\dimen135
+\inoutsize=\dimen136
+\inoutindent=\dimen137
+\interspacetitleruled=\dimen138
+\interspacealgoruled=\dimen139
+\interspacetitleboxruled=\dimen140
+\algocf@ruledwidth=\skip85
+\algocf@inoutbox=\box31
+\algocf@inputbox=\box32
+\AlCapSkip=\skip86
+\AlCapHSkip=\skip87
+\algoskipindent=\skip88
+\algocf@nlbox=\box33
+\algocf@hangingbox=\box34
+\algocf@untilbox=\box35
+\algocf@skipuntil=\skip89
+\algocf@capbox=\box36
+\algoheightruledefault=\skip90
+\algoheightrule=\skip91
+\algotitleheightruledefault=\skip92
+\algotitleheightrule=\skip93
+\c@algocfline=\count139
+\c@algocfproc=\count140
+\c@algocf=\count141
+\algocf@algoframe=\box37
+\algocf@algobox=\box38
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -627,7 +672,7 @@ LaTeX Font Info:    ... okay on input line 25.
 * \oddsidemargin=0.00002pt
 * \evensidemargin=0.00002pt
 * \topmargin=-51.45401pt
-* \headheight=12.0pt
+* \headheight=40.0pt
 * \headsep=25.0pt
 * \topskip=11.0pt
 * \footskip=30.0pt
@@ -644,19 +689,36 @@ LaTeX Font Info:    ... okay on input line 25.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: floatrow package is loaded.
+Package caption Info: End \AtBeginDocument code.
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/01/03 v1.1b Standard LaTeX Color (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 143.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/floatrow/fr-subfig.sty
+Package: fr-subfig 2007/12/24 v0.1g (beta) floatrow: additions for subfig
+\FBsc@max=\skip94
+\FBso@max=\skip95
+)
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count136
-\scratchdimen=\dimen137
-\scratchbox=\box38
-\nofMPsegments=\count137
-\nofMParguments=\count138
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count139
-\MPscratchDim=\dimen138
-\MPnumerator=\count140
-\makeMPintoPDFobject=\count141
-\everyMPtoPDFconversion=\toks26
+\scratchcounter=\count142
+\scratchdimen=\dimen141
+\scratchbox=\box39
+\nofMPsegments=\count143
+\nofMParguments=\count144
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count145
+\MPscratchDim=\dimen142
+\MPnumerator=\count146
+\makeMPintoPDFobject=\count147
+\everyMPtoPDFconversion=\toks27
 ) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -701,256 +763,265 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: subfig package v1.3 is loaded.
-Package caption Info: End \AtBeginDocument code.
-
 (./titlepage.tex [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
-Underfull \hbox (badness 10000) in paragraph at lines 30--40
-
- []
-
 [1
 
-] (./main.toc [2
+] [2
+
+] (./main.toc [3
 
 ])
 \tf@toc=\write3
 \openout3 = `main.toc'.
 
- [3] (./main.lof)
+ [4] (./main.lof)
 \tf@lof=\write4
 \openout4 = `main.lof'.
 
- [4
+ [5
 
-] [5
+] [1
 
-] [6] [7] [8] [9] [10] [11]
-[12] <./Figures/demonstratingConnectivity.pdf, id=51, 770.88pt x 578.16pt>
+] [2] [3] [4] [5] [6] [7]
+[8] <./Figures/demonstratingConnectivity.pdf, id=54, 770.88pt x 578.16pt>
 File: ./Figures/demonstratingConnectivity.pdf Graphic file (type pdf)
 
 <use ./Figures/demonstratingConnectivity.pdf>
 Package pdftex.def Info: ./Figures/demonstratingConnectivity.pdf used on input 
-line 131.
+line 137.
 (pdftex.def)             Requested size: 308.34654pt x 231.2599pt.
- [13] [14 <./Figures/demonstratingConnectivity.pdf>] [15] [16] [17] [18] [19] [
-20]
-<./Figures/smallNN.pdf, id=88, 770.88pt x 578.16pt>
+ [9] [10 <./Figures/demonstratingConnectivity.pdf>] [11] [12] [13] [14] [15] [1
+6]
+<./Figures/smallNN.pdf, id=91, 770.88pt x 578.16pt>
 File: ./Figures/smallNN.pdf Graphic file (type pdf)
 
 <use ./Figures/smallNN.pdf>
-Package pdftex.def Info: ./Figures/smallNN.pdf used on input line 186.
+Package pdftex.def Info: ./Figures/smallNN.pdf used on input line 195.
 (pdftex.def)             Requested size: 385.43906pt x 203.72124pt.
- [21 <./Figures/smallNN.pdf>] [22] [23] [24]
-<./Figures/SPROJModel.jpg, id=110, 776.9025pt x 477.785pt>
-File: ./Figures/SPROJModel.jpg Graphic file (type jpg)
+ [17] [18 <./Figures/smallNN.pdf>] [19] [20]
+[21] <./Figures/SPROJModel.pdf, id=116, 620.00027pt x 847.96799pt>
+File: ./Figures/SPROJModel.pdf Graphic file (type pdf)
 
-<use ./Figures/SPROJModel.jpg>
-Package pdftex.def Info: ./Figures/SPROJModel.jpg used on input line 212.
-(pdftex.def)             Requested size: 310.7555pt x 191.11061pt.
- [25 <./Figures/SPROJModel.jpg>]
-<./Figures/figure_1.png, id=114, 578.16pt x 433.62pt>
+<use ./Figures/SPROJModel.pdf>
+Package pdftex.def Info: ./Figures/SPROJModel.pdf used on input line 222.
+(pdftex.def)             Requested size: 433.99722pt x 215.15448pt.
+ [22 <./Figures/SPROJModel.pdf>] [23]
+<./Figures/figure_1.png, id=130, 578.16pt x 433.62pt>
 File: ./Figures/figure_1.png Graphic file (type png)
 
 <use ./Figures/figure_1.png>
-Package pdftex.def Info: ./Figures/figure_1.png used on input line 235.
+Package pdftex.def Info: ./Figures/figure_1.png used on input line 249.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
- [26] [27 <./Figures/figure_1.png>] [28] [29]
-[30] <./Figures/"XC Figures"/xcEx.pdf, id=133, 770.88pt x 578.16pt>
+ [24 <./Figures/figure_1.png>] [25] [26] [27
+
+]
+[28] [29] <./Figures/"XC Figures"/xcEx.pdf, id=152, 770.88pt x 578.16pt>
 File: ./Figures/"XC Figures"/xcEx.pdf Graphic file (type pdf)
 
 <use ./Figures/"XC Figures"/xcEx.pdf>
-Package pdftex.def Info: ./Figures/"XC Figures"/xcEx.pdf used on input line 312
+Package pdftex.def Info: ./Figures/"XC Figures"/xcEx.pdf used on input line 334
 .
 (pdftex.def)             Requested size: 214.72295pt x 182.38173pt.
 
-<./Figures/"XC Figures"/AutoCorr.pdf, id=135, 578.16pt x 433.62pt>
+<./Figures/"XC Figures"/AutoCorr.pdf, id=154, 578.16pt x 433.62pt>
 File: ./Figures/"XC Figures"/AutoCorr.pdf Graphic file (type pdf)
 
 <use ./Figures/"XC Figures"/AutoCorr.pdf>
 Package pdftex.def Info: ./Figures/"XC Figures"/AutoCorr.pdf used on input line
- 316.
+ 339.
 (pdftex.def)             Requested size: 208.49811pt x 167.75449pt.
 
-<./Figures/"XC Figures"/AutoCorrGram.pdf, id=137, 578.16pt x 433.62pt>
+<./Figures/"XC Figures"/AutoCorrGram.pdf, id=156, 578.16pt x 433.62pt>
 File: ./Figures/"XC Figures"/AutoCorrGram.pdf Graphic file (type pdf)
 
 <use ./Figures/"XC Figures"/AutoCorrGram.pdf>
 Package pdftex.def Info: ./Figures/"XC Figures"/AutoCorrGram.pdf used on input 
-line 320.
+line 344.
 (pdftex.def)             Requested size: 208.49811pt x 150.68314pt.
 
-<./Figures/"XC Figures"/05Corr.pdf, id=139, 578.16pt x 433.62pt>
+<./Figures/"XC Figures"/05Corr.pdf, id=158, 578.16pt x 433.62pt>
 File: ./Figures/"XC Figures"/05Corr.pdf Graphic file (type pdf)
 
 <use ./Figures/"XC Figures"/05Corr.pdf>
 Package pdftex.def Info: ./Figures/"XC Figures"/05Corr.pdf used on input line 3
-24.
+49.
 (pdftex.def)             Requested size: 208.49811pt x 167.75449pt.
 
-<./Figures/"XC Figures"/05CorrGram.pdf, id=141, 578.16pt x 433.62pt>
+<./Figures/"XC Figures"/05CorrGram.pdf, id=160, 578.16pt x 433.62pt>
 File: ./Figures/"XC Figures"/05CorrGram.pdf Graphic file (type pdf)
 
 <use ./Figures/"XC Figures"/05CorrGram.pdf>
 Package pdftex.def Info: ./Figures/"XC Figures"/05CorrGram.pdf used on input li
-ne 328.
+ne 354.
 (pdftex.def)             Requested size: 208.49811pt x 157.51175pt.
 
-<./Figures/"XC Figures"/051CorrGram.pdf, id=143, 578.16pt x 433.62pt>
+<./Figures/"XC Figures"/051CorrGram.pdf, id=162, 578.16pt x 433.62pt>
 File: ./Figures/"XC Figures"/051CorrGram.pdf Graphic file (type pdf)
 
 <use ./Figures/"XC Figures"/051CorrGram.pdf>
 Package pdftex.def Info: ./Figures/"XC Figures"/051CorrGram.pdf used on input l
-ine 332.
+ine 359.
 (pdftex.def)             Requested size: 197.1172pt x 157.51175pt.
- [31] [32 <./Figures/XC Figures/xcEx.pdf> <./Figures/XC Figures/AutoCorr.pdf> <
-./Figures/XC Figures/AutoCorrGram.pdf> <./Figures/XC Figures/05Corr.pdf> <./Fig
-ures/XC Figures/05CorrGram.pdf> <./Figures/XC Figures/051CorrGram.pdf>] [33]
-<./Figures/Errors/twoTimeStepVarSigPOPError.pdf, id=1466, 461.725pt x 346.29375
+ [30
+
+] [31 <./Figures/XC Figures/xcEx.pdf> <./Figures/XC Figures/AutoCorr.pdf> <./Fi
+gures/XC Figures/AutoCorrGram.pdf> <./Figures/XC Figures/05Corr.pdf> <./Figures
+/XC Figures/05CorrGram.pdf> <./Figures/XC Figures/051CorrGram.pdf>] [32] [33
+
+]
+<./Figures/Errors/twoTimeStepVarSigPOPError.pdf, id=1489, 461.725pt x 346.29375
 pt>
 File: ./Figures/Errors/twoTimeStepVarSigPOPError.pdf Graphic file (type pdf)
  <use ./Figures/Errors/twoTimeStepVarSigPOPError.pdf>
 Package pdftex.def Info: ./Figures/Errors/twoTimeStepVarSigPOPError.pdf used on
- input line 352.
+ input line 389.
 (pdftex.def)             Requested size: 216.63559pt x 173.14644pt.
 
-<./Figures/Errors/twoTimeVarSigDiffTimesError.pdf, id=1468, 461.725pt x 346.293
+<./Figures/Errors/twoTimeVarSigDiffTimesError.pdf, id=1491, 461.725pt x 346.293
 75pt>
 File: ./Figures/Errors/twoTimeVarSigDiffTimesError.pdf Graphic file (type pdf)
  <use ./Figures/Errors/twoTimeVarSigDiffTimesError.pdf>
 Package pdftex.def Info: ./Figures/Errors/twoTimeVarSigDiffTimesError.pdf used 
-on input line 355.
+on input line 393.
 (pdftex.def)             Requested size: 202.40926pt x 173.14644pt.
 
-<./Figures/Errors/twoTimeStepCOEPOPError.pdf, id=1470, 461.725pt x 346.29375pt>
+<./Figures/Errors/twoTimeStepCOEPOPError.pdf, id=1493, 461.725pt x 346.29375pt>
 File: ./Figures/Errors/twoTimeStepCOEPOPError.pdf Graphic file (type pdf)
 <use ./Figures/Errors/twoTimeStepCOEPOPError.pdf>
 Package pdftex.def Info: ./Figures/Errors/twoTimeStepCOEPOPError.pdf used on in
-put line 358.
+put line 397.
 (pdftex.def)             Requested size: 216.63559pt x 173.14644pt.
 
-<./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf, id=1472, 461.725pt x 346.29
+<./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf, id=1495, 461.725pt x 346.29
 375pt>
 File: ./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf Graphic file (type pdf)
 
  <use ./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf>
 Package pdftex.def Info: ./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf used
- on input line 361.
+ on input line 401.
 (pdftex.def)             Requested size: 202.40926pt x 173.14644pt.
  [34] [35 <./Figures/Errors/twoTimeStepVarSigPOPError.pdf> <./Figures/Errors/tw
 oTimeVarSigDiffTimesError.pdf> <./Figures/Errors/twoTimeStepCOEPOPError.pdf> <.
 /Figures/Errors/twoTimeStepCOEDiffTimesError.pdf>]
-<./Figures/DD/simulatedvarDDPop10.pdf, id=2712, 461.725pt x 346.29375pt>
+<./Figures/DD/simulatedvarDDPop10.pdf, id=2735, 461.725pt x 346.29375pt>
 File: ./Figures/DD/simulatedvarDDPop10.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/simulatedvarDDPop10.pdf>
 Package pdftex.def Info: ./Figures/DD/simulatedvarDDPop10.pdf used on input lin
-e 378.
-(pdftex.def)             Requested size: 194.9707pt x 143.02713pt.
+e 420.
+(pdftex.def)             Requested size: 194.9707pt x 136.62534pt.
 
-<./Figures/DD/simulatedCOEDDPop10.pdf, id=2714, 461.725pt x 346.29375pt>
+<./Figures/DD/simulatedCOEDDPop10.pdf, id=2737, 461.725pt x 346.29375pt>
 File: ./Figures/DD/simulatedCOEDDPop10.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/simulatedCOEDDPop10.pdf>
 Package pdftex.def Info: ./Figures/DD/simulatedCOEDDPop10.pdf used on input lin
-e 381.
-(pdftex.def)             Requested size: 194.9707pt x 143.02713pt.
+e 424.
+(pdftex.def)             Requested size: 194.9707pt x 136.62534pt.
 
-<./Figures/DD/simulatedvarDDPop50.pdf, id=2716, 461.725pt x 346.29375pt>
+<./Figures/DD/simulatedvarDDPop50.pdf, id=2739, 461.725pt x 346.29375pt>
 File: ./Figures/DD/simulatedvarDDPop50.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/simulatedvarDDPop50.pdf>
 Package pdftex.def Info: ./Figures/DD/simulatedvarDDPop50.pdf used on input lin
-e 384.
-(pdftex.def)             Requested size: 194.9707pt x 143.02713pt.
+e 429.
+(pdftex.def)             Requested size: 194.9707pt x 136.62534pt.
 
-<./Figures/DD/simulatedCOEDDPop50.pdf, id=2718, 461.725pt x 346.29375pt>
+<./Figures/DD/simulatedCOEDDPop50.pdf, id=2741, 461.725pt x 346.29375pt>
 File: ./Figures/DD/simulatedCOEDDPop50.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/simulatedCOEDDPop50.pdf>
 Package pdftex.def Info: ./Figures/DD/simulatedCOEDDPop50.pdf used on input lin
-e 387.
-(pdftex.def)             Requested size: 194.9707pt x 143.02713pt.
+e 433.
+(pdftex.def)             Requested size: 194.9707pt x 136.62534pt.
 
-<./Figures/DD/gtPop10.pdf, id=2720, 461.725pt x 346.29375pt>
+<./Figures/DD/gtPop10.pdf, id=2743, 461.725pt x 346.29375pt>
 File: ./Figures/DD/gtPop10.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/gtPop10.pdf>
-Package pdftex.def Info: ./Figures/DD/gtPop10.pdf used on input line 390.
-(pdftex.def)             Requested size: 194.9707pt x 143.02713pt.
+Package pdftex.def Info: ./Figures/DD/gtPop10.pdf used on input line 438.
+(pdftex.def)             Requested size: 194.9707pt x 136.62534pt.
 
-<./Figures/DD/gtPop50.pdf, id=2722, 461.725pt x 346.29375pt>
+<./Figures/DD/gtPop50.pdf, id=2745, 461.725pt x 346.29375pt>
 File: ./Figures/DD/gtPop50.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/gtPop50.pdf>
-Package pdftex.def Info: ./Figures/DD/gtPop50.pdf used on input line 393.
-(pdftex.def)             Requested size: 194.9707pt x 143.02713pt.
- [36]
-<./Figures/DD/caDatavarDDPop50.pdf, id=2728, 461.725pt x 346.29375pt>
+Package pdftex.def Info: ./Figures/DD/gtPop50.pdf used on input line 442.
+(pdftex.def)             Requested size: 194.9707pt x 136.62534pt.
+ [36
+
+]
+<./Figures/DD/caDatavarDDPop50.pdf, id=2750, 461.725pt x 346.29375pt>
 File: ./Figures/DD/caDatavarDDPop50.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/caDatavarDDPop50.pdf>
 Package pdftex.def Info: ./Figures/DD/caDatavarDDPop50.pdf used on input line 4
-02.
-(pdftex.def)             Requested size: 216.63559pt x 173.14644pt.
+52.
+(pdftex.def)             Requested size: 216.63559pt x 158.9201pt.
 
-<./Figures/DD/caDataCOEDD.pdf, id=2730, 461.725pt x 346.29375pt>
+<./Figures/DD/caDataCOEDD.pdf, id=2752, 461.725pt x 346.29375pt>
 File: ./Figures/DD/caDataCOEDD.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/caDataCOEDD.pdf>
-Package pdftex.def Info: ./Figures/DD/caDataCOEDD.pdf used on input line 405.
-(pdftex.def)             Requested size: 216.63559pt x 173.14644pt.
+Package pdftex.def Info: ./Figures/DD/caDataCOEDD.pdf used on input line 456.
+(pdftex.def)             Requested size: 216.63559pt x 158.9201pt.
  [37 <./Figures/DD/simulatedvarDDPop10.pdf> <./Figures/DD/simulatedCOEDDPop10.p
 df> <./Figures/DD/simulatedvarDDPop50.pdf> <./Figures/DD/simulatedCOEDDPop50.pd
 f> <./Figures/DD/gtPop10.pdf> <./Figures/DD/gtPop50.pdf>] [38 <./Figures/DD/caD
-atavarDDPop50.pdf> <./Figures/DD/caDataCOEDD.pdf>] <./Figures/roc.pdf, id=2788,
+atavarDDPop50.pdf> <./Figures/DD/caDataCOEDD.pdf>] <./Figures/roc.pdf, id=2811,
  461.725pt x 346.29375pt>
 File: ./Figures/roc.pdf Graphic file (type pdf)
 
 <use ./Figures/roc.pdf>
-Package pdftex.def Info: ./Figures/roc.pdf used on input line 433.
+Package pdftex.def Info: ./Figures/roc.pdf used on input line 483.
 (pdftex.def)             Requested size: 216.63559pt x 173.14644pt.
 
-<./Figures/rocPop50.pdf, id=2790, 461.725pt x 346.29375pt>
+<./Figures/rocPop50.pdf, id=2813, 461.725pt x 346.29375pt>
 File: ./Figures/rocPop50.pdf Graphic file (type pdf)
 
 <use ./Figures/rocPop50.pdf>
-Package pdftex.def Info: ./Figures/rocPop50.pdf used on input line 436.
+Package pdftex.def Info: ./Figures/rocPop50.pdf used on input line 487.
 (pdftex.def)             Requested size: 216.63559pt x 173.14644pt.
- [39] [40 <./Figures/roc.pdf> <./Figures/rocPop50.pdf>]
+ [39] [40 <./Figures/roc.pdf> <./Figures/rocPop50.pdf>] [41] [42] [43
+
+]
 No file main.bbl.
-[41] [42] [43] [44] [45] [46] [47] (./main.aux) ) 
+[44
+
+] [45] [46] [47] [48] (./main.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 6038 strings out of 494910
- 89612 string characters out of 6179836
- 269658 words of memory out of 5000000
- 9200 multiletter control sequences out of 15000+600000
+ 6728 strings out of 494910
+ 99511 string characters out of 6179836
+ 276568 words of memory out of 5000000
+ 9875 multiletter control sequences out of 15000+600000
  12605 words of font info for 44 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 44i,15n,42p,2241b,412s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmbx9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
-10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmti8.pfb>
-Output written on main.pdf (48 pages, 1010114 bytes).
+ 38i,15n,43p,2310b,502s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
+Output written on main.pdf (54 pages, 1031350 bytes).
 PDF statistics:
- 2918 PDF objects out of 2984 (max. 8388607)
- 1930 compressed objects within 20 object streams
+ 2944 PDF objects out of 2984 (max. 8388607)
+ 1948 compressed objects within 20 object streams
  0 named destinations out of 1000 (max. 500000)
- 247 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 253 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -156,7 +156,7 @@ def main(num):
 	#cE = float((.8*numNeurons)/10)
 	poisson_rate = 50.0 #1000.0*((2.0*30.0)/(0.1*20.0*cE))*cE
 	#createRandomNetwork("groundTruth50.csv",10)
-	neuronPop, popMatrix = readAndCreate("./Syn Weights/groundTruth50.csv")
+	neuronPop, popMatrix = readAndCreate("./Syn Weights/sfNetworkPop50.csv")
 	#neuronPop, popMatrix = readAndCreate("./Syn Weights/groundTruth50.csv")
 
 	#CREATE NODES
@@ -193,10 +193,10 @@ def main(num):
 	n = nest.GetStatus(spikes, "events")[0]
 	temp = numpy.array([n['senders'], n['times']])
 	fullMatrix = spikeTimeMatrix(temp, len(neuronPop), int(simTime))
-	numpy.savetxt("./Spike Results/pop50/%02didTimes.csv" % (num),fullMatrix,delimiter=',')
-	numpy.savetxt("./Spike Results/pop50/%02dspikeTrains.csv" % (num),temp,delimiter = ',')
+	numpy.savetxt("./Spike Results/pop50sf/%02didTimes.csv" % (num),fullMatrix,delimiter=',')
+	numpy.savetxt("./Spike Results/pop50sf/%02dspikeTrains.csv" % (num),temp,delimiter = ',')
 	#pylab.figure(2)
-	#plot = nest.raster_plot.from_device(spikes, hist=True)
+	plot = nest.raster_plot.from_device(spikes, hist=True)
 	#for i in range(len(neuronPop)):
 	#	nest.DisconnectOneToOne([i], [52],syn_dict_ex)
 	#drawNetwork(neuronPop)
@@ -206,7 +206,7 @@ def main(num):
 	'''
 	#print nest.GetStatus(spikes, "events")
 	#print nest.GetStatus(nest.GetConnections(neuronPop, synapse_model = 'stdp_synapse'))
-	#plt.show()
+	plt.show()
 if __name__=="__main__":
 	if len(sys.argv) < 2:
 		print("Incorrect number of arguments. Please state number of iterations")

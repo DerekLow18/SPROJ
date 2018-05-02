@@ -154,7 +154,8 @@ where $corr$ is the cross-correlogram bin count for each bin between $-w$ and $w
 
 \subsubsection{Granger Causality}
 Zhou et al., 2014 uses Granger Causality as the primary method of inferring connectivity of conductance-based integrate-and-fire neuron models; the analysis method states that if the variance in prediction error for a particular time series is reduced by incorporating knowledge of another time series, then the second time series has some causal effect on the first time series. In other words, if incorporating information about event X allows prediction of event Y beyond prediction concerning event Y without any additional information, then event X and event Y are causally related. The Granger Causality is given by 
-$$ $$
+$$ GC_{Y \rightarrow X} = \log\frac{(\Gamma^0)_{0,0} + (\Gamma^0)_{1,1}}{(\Gamma^1)_{0,0} + (\Gamma^1)_{1,1}}$$
+where $\Gamma^0$ is the covariance matrix of 
 Zhou et al. demonstrates that using Granger Causality allows the construction of a causality matrix, which can then be mapped to the structural connectivity matrix of the population and be observed for relationships between the activity and structure of the network (Zhou et al., 2014).\par
 
 \subsubsection{Transfer Entropy}

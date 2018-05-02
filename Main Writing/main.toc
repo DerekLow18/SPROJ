@@ -13,7 +13,7 @@
 \contentsline {subsubsection}{\numberline {1.6.1}Cross-Correlation}{11}
 \contentsline {subsubsection}{\numberline {1.6.2}Granger Causality}{11}
 \contentsline {subsubsection}{\numberline {1.6.3}Transfer Entropy}{12}
-\contentsline {subsection}{\numberline {1.7}The Relevance of Advances in Machine Learning}{12}
+\contentsline {subsection}{\numberline {1.7}The Relevance of Advances in Machine Learning}{13}
 \contentsline {subsection}{\numberline {1.8}Supervised and Unsupervised Learning}{13}
 \contentsline {subsection}{\numberline {1.9}Artificial Neural Networks}{14}
 \contentsline {subsubsection}{\numberline {1.9.1}Gradient Descent}{15}

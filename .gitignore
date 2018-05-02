@@ -1,1 +1,1 @@
-find . -size +40G | cat >> .gitignore
+find . -size +50M | cat >> .gitignore

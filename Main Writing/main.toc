@@ -17,7 +17,7 @@
 \contentsline {subsection}{\numberline {1.8}Supervised and Unsupervised Learning}{13}
 \contentsline {subsection}{\numberline {1.9}Artificial Neural Networks}{14}
 \contentsline {subsubsection}{\numberline {1.9.1}Gradient Descent}{14}
-\contentsline {subsubsection}{\numberline {1.9.2}Gradient Descent: Definition}{16}
+\contentsline {subsubsection}{\numberline {1.9.2}Stochastic Gradient Descent}{16}
 \contentsline {subsubsection}{\numberline {1.9.3}Backpropagation in Neural Networks}{17}
 \contentsline {subsection}{\numberline {1.10}NEST: Generating Training Data}{20}
 \contentsline {section}{\numberline {2}Methods}{21}

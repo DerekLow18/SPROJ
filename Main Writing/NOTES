@@ -8,6 +8,8 @@ Research focused in the neocortex refer to cortical circuits,
 a general term for larger neuronal networks located in the cortex and cortical ensembles, referring
 to coactive networks of neurons that possibly comprise cortical circuits -- this is potentially the most interesting thought here, and had I seen it before, I'd advised you to expand it. It's too late now, but at the very least know that that's the most interesting part of the whole story, and also an interesting topic to discuss. (I personally am not going to ask you about it, but it sort of prompts to be asked about; it sounds so interesting, and is not quite covered in the text itself)
 
+-----> Personal Note = Keep this in mind in case you don't write about it, be ready to answer questions about it.
+
 p4
 
 Overall, without details, and based only on your explanation, I'm not quite sure how these studies relate to the question of local network connectivity. Based on your description, they sound like generic fMRI studies; maybe looking at redistribution of activation across different areas in development, but there's nothing in this paragraph to suggest that it relates to the topic of your sproj. Do they use similar math? Or do they actually relate their research to local connectivity? That's another question a board member might ask.
@@ -17,26 +19,11 @@ p5
 The reconstruction
 and viewing of networks as compositions of cliques suggests that -- logically dubious. When you try to describe a network as a series of cliques, this approach may work or not. Yet you are writing that the approach itself (essentially, a method) suggsts something about the nature of networks in the brain. This is confusing. The fact that a method works may tell you something about the nature of the network, but I am not qutie sure whether this is what you are trying to say.
 
-p10
-
-While these reconstruction methods use di erent methods for evaluating
-activity and connectivity, they are typically applied to simulated neuron populations, where the
-ground truth of the activity is known, allowing evaluation on the accuracy of the model -- a very questionable sentence. If a reconstruction method can only be applied to modeling data, this method doesn't exist. If it is only applied to situations where it is not needed, it means that it failed. Another place where a reader would ask a follow-up question.
-
 p11
 
 I'd say you need a formula for granger causality if you're introducing it.
 
 In brief, the researchers demonstrate -- you don't have any citations here. Once you mention "research", the reader would expect the sentence to end with 2-3 references.
-
-p13
-
-Auto-encoders -- you casually mention a new fancy word without introducing it, and without a reference
-
-
-p15
-
-I think you're describing stochastic gradient descent, but you don't seem to be using this term.
 
 p32
 

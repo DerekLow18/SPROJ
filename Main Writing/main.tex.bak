@@ -54,6 +54,7 @@ Activity of neuronal networks can be recorded via Calcium Imaging. In this study
 One of the major areas of research in computational neuroscience is focused on inferring the connections within populations of neurons from the signaling activity of these populations. Methods of reconstructing structural neuronal network connectivity are limited and, in large populations, technically infeasible. Current methods that reconstruct networks of large populations relate connectivity to calcium imaging recordings of these networks. Here, we introduce a machine-learning approach to inferring connectivity from spike-time data extracted from calcium imaging recordings. First, we simulate populations of neurons with the NEST simulator to produce downsampled spike-trains. We develop a model based on neural networks, which is a widely applied machine-learning method. The model is updated with gradient descent on the error via backpropagation, and the performance is compared to the widely used cross-correlation method of extracting functional connectivity. We then train the models on simulated data and \textit{in-vivo} calcium imaging data from \textit{Xenopus Laevis} tadpoles.
 
 \clearpage
+\begin{spacing}{1.5}
 \section*{Dedications and Acknowledgements}
 I thank Professor Arseny Khakhalin of the Bard College Biology Department and Professor Kerri-Ann Norton of the Bard College Computer Science Department for dedicating their time and effort to advising on all aspects of this senior project. Without their constant support and encouragement, there would be no project. Over the course of working on this senior project, I have  encountered many of my own shortcomings, and I truly thank my two senior project advisors in assisting me through overcoming these shortcomings, and, furthermore, through the difficult moments over the year.\par
 I thank my various professors and colleagues throughout the four years of my education at Bard, for encouraging my academic growth in all avenues of learning.\par
@@ -62,7 +63,6 @@ I thank the Bard Swimming Team, as their captain for two years, and as their tea
 I thank my parents and sister, for loving and caring for me, and encouraging me throughout the senior project process, and throughout my education at Bard College. Their support and love, lacking any expectation or condition, is something I can never repay, and can never appreciate enough.\par
 I thank my partner, Mary Grace McNulty, for her constant confidence in me, and for being simultaneously calming and breathtaking. Thank you for being the comforting and jubilant presence in my life.\par
 \clearpage
-\begin{spacing}{1.5}
 \tableofcontents
 \clearpage
 \listoffigures
@@ -537,7 +537,7 @@ All code and and data are available on github at https://github.com/DerekLow18/S
 \captionsetup{position=top}
 \subfloat[]{\label{probPlot:b}\includegraphics[scale=0.5,trim={0 0 1cm 0.5cm},clip]{./Figures/DD/simulatedvarQQpop50.pdf}}
 \end{minipage}
-\caption[(S1) Q-Q Plots of Degree Distributions]{\textbf{Q-Q Plots of Degree Distributions.} Here, we compare the average degree distribution of (a) 40 ground truth adjacency matrices of population size 50 ($R^2$ = 0.9329) depicted in Figure \ref{fig:DD}f, and (b) 40 predicted adjacency matrices of population size 50 ($R^2$ = 0.9299) depicted in Figure \ref{fig:DD}c, to the normal distribution. A normally distributed series falls on the linear function depicted.}
+\caption[(S1) Q-Q Plots of Degree Distributions]{\textbf{Q-Q Plots of Degree Distributions.} Here, we compare the average degree distribution of (a) 40 ground truth adjacency matrices of population size 50 (Coefficient of determination $R^2$ = 0.9329) depicted in Figure \ref{fig:DD}f, and (b) 40 predicted adjacency matrices of population size 50 ($R^2$ = 0.9299) depicted in Figure \ref{fig:DD}c, to the normal distribution. A normally distributed series falls on the linear function depicted.}
 \label{fig:probPlot}
 \end{figure}
 

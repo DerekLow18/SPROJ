@@ -1,30 +1,30 @@
 \contentsline {figure}{\numberline {1}{\ignorespaces Sample Adjacency Matrix of Population Size 3}}{7}
 \contentsline {figure}{\numberline {2}{\ignorespaces Simple, Feedforward Neural Network}}{17}
-\contentsline {figure}{\numberline {3}{\ignorespaces Experimental Pipeline}}{21}
-\contentsline {figure}{\numberline {4}{\ignorespaces Raster Plot via NEST Simulator.}}{23}
-\contentsline {figure}{\numberline {5}{\ignorespaces Cross-Correlation Histogram (Cross-correlogram) Procedure and Example.}}{30}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{30}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{30}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{30}
-\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {}}}{30}
-\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {}}}{30}
-\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {}}}{30}
-\contentsline {figure}{\numberline {6}{\ignorespaces Error Convergence of Model On Two Consecutive Time Steps.}}{34}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{34}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{34}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{34}
-\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {}}}{34}
-\contentsline {figure}{\numberline {7}{\ignorespaces Average Degree Distribution in Simulated Data Predictions}}{36}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{36}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{36}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{36}
-\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {}}}{36}
-\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {}}}{36}
-\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {}}}{36}
-\contentsline {figure}{\numberline {8}{\ignorespaces Average Degree Distribution in \textit {Xenopus} Calcium Imaging Data Predictions}}{37}
+\contentsline {figure}{\numberline {3}{\ignorespaces Experimental Pipeline}}{22}
+\contentsline {figure}{\numberline {4}{\ignorespaces Raster Plot via NEST Simulator.}}{24}
+\contentsline {figure}{\numberline {5}{\ignorespaces Cross-Correlation Histogram (Cross-correlogram) Procedure and Example.}}{31}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{31}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{31}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{31}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {}}}{31}
+\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {}}}{31}
+\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {}}}{31}
+\contentsline {figure}{\numberline {6}{\ignorespaces Error Convergence of Model On Two Consecutive Time Steps.}}{35}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{35}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{35}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{35}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {}}}{35}
+\contentsline {figure}{\numberline {7}{\ignorespaces Average Degree Distribution in Simulated Data Predictions}}{37}
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{37}
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{37}
-\contentsline {figure}{\numberline {9}{\ignorespaces Contingency Table}}{38}
-\contentsline {figure}{\numberline {10}{\ignorespaces Receiver Operating Characteristic}}{39}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{39}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{39}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{37}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {}}}{37}
+\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {}}}{37}
+\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {}}}{37}
+\contentsline {figure}{\numberline {8}{\ignorespaces Average Degree Distribution in \textit {Xenopus} Calcium Imaging Data Predictions}}{38}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{38}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{38}
+\contentsline {figure}{\numberline {9}{\ignorespaces Contingency Table}}{39}
+\contentsline {figure}{\numberline {10}{\ignorespaces Receiver Operating Characteristic}}{40}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{40}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{40}

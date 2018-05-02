@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  1 MAY 2018 22:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  1 MAY 2018 22:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -798,199 +798,199 @@ line 119.
 File: ./Figures/smallNN.pdf Graphic file (type pdf)
 
 <use ./Figures/smallNN.pdf>
-Package pdftex.def Info: ./Figures/smallNN.pdf used on input line 195.
+Package pdftex.def Info: ./Figures/smallNN.pdf used on input line 197.
 (pdftex.def)             Requested size: 385.43906pt x 203.72124pt.
  [17 <./Figures/smallNN.pdf>] [18] [19] [20]
-<./Figures/SPROJModel.pdf, id=115, 620.00027pt x 847.96799pt>
+[21] <./Figures/SPROJModel.pdf, id=118, 620.00027pt x 847.96799pt>
 File: ./Figures/SPROJModel.pdf Graphic file (type pdf)
 
 <use ./Figures/SPROJModel.pdf>
-Package pdftex.def Info: ./Figures/SPROJModel.pdf used on input line 222.
+Package pdftex.def Info: ./Figures/SPROJModel.pdf used on input line 224.
 (pdftex.def)             Requested size: 433.99722pt x 215.15448pt.
- [21 <./Figures/SPROJModel.pdf>] [22]
-<./Figures/figure_1.png, id=129, 578.16pt x 433.62pt>
+ [22 <./Figures/SPROJModel.pdf>] [23]
+<./Figures/figure_1.png, id=132, 578.16pt x 433.62pt>
 File: ./Figures/figure_1.png Graphic file (type png)
 
 <use ./Figures/figure_1.png>
-Package pdftex.def Info: ./Figures/figure_1.png used on input line 249.
+Package pdftex.def Info: ./Figures/figure_1.png used on input line 251.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
- [23 <./Figures/figure_1.png>] [24] [25] [26
+ [24 <./Figures/figure_1.png>] [25] [26] [27
 
 ]
-[27] [28] <./Figures/"XC Figures"/xcEx.pdf, id=151, 770.88pt x 578.16pt>
+[28] [29] <./Figures/"XC Figures"/xcEx.pdf, id=154, 770.88pt x 578.16pt>
 File: ./Figures/"XC Figures"/xcEx.pdf Graphic file (type pdf)
 
 <use ./Figures/"XC Figures"/xcEx.pdf>
-Package pdftex.def Info: ./Figures/"XC Figures"/xcEx.pdf used on input line 334
+Package pdftex.def Info: ./Figures/"XC Figures"/xcEx.pdf used on input line 336
 .
 (pdftex.def)             Requested size: 214.72295pt x 182.38173pt.
 
-<./Figures/"XC Figures"/AutoCorr.pdf, id=153, 578.16pt x 433.62pt>
+<./Figures/"XC Figures"/AutoCorr.pdf, id=156, 578.16pt x 433.62pt>
 File: ./Figures/"XC Figures"/AutoCorr.pdf Graphic file (type pdf)
 
 <use ./Figures/"XC Figures"/AutoCorr.pdf>
 Package pdftex.def Info: ./Figures/"XC Figures"/AutoCorr.pdf used on input line
- 339.
+ 341.
 (pdftex.def)             Requested size: 208.49811pt x 167.75449pt.
 
-<./Figures/"XC Figures"/AutoCorrGram.pdf, id=155, 578.16pt x 433.62pt>
+<./Figures/"XC Figures"/AutoCorrGram.pdf, id=158, 578.16pt x 433.62pt>
 File: ./Figures/"XC Figures"/AutoCorrGram.pdf Graphic file (type pdf)
 
 <use ./Figures/"XC Figures"/AutoCorrGram.pdf>
 Package pdftex.def Info: ./Figures/"XC Figures"/AutoCorrGram.pdf used on input 
-line 344.
+line 346.
 (pdftex.def)             Requested size: 208.49811pt x 150.68314pt.
 
-<./Figures/"XC Figures"/05Corr.pdf, id=157, 578.16pt x 433.62pt>
+<./Figures/"XC Figures"/05Corr.pdf, id=160, 578.16pt x 433.62pt>
 File: ./Figures/"XC Figures"/05Corr.pdf Graphic file (type pdf)
 
 <use ./Figures/"XC Figures"/05Corr.pdf>
 Package pdftex.def Info: ./Figures/"XC Figures"/05Corr.pdf used on input line 3
-49.
+51.
 (pdftex.def)             Requested size: 208.49811pt x 167.75449pt.
 
-<./Figures/"XC Figures"/05CorrGram.pdf, id=159, 578.16pt x 433.62pt>
+<./Figures/"XC Figures"/05CorrGram.pdf, id=162, 578.16pt x 433.62pt>
 File: ./Figures/"XC Figures"/05CorrGram.pdf Graphic file (type pdf)
 
 <use ./Figures/"XC Figures"/05CorrGram.pdf>
 Package pdftex.def Info: ./Figures/"XC Figures"/05CorrGram.pdf used on input li
-ne 354.
+ne 356.
 (pdftex.def)             Requested size: 208.49811pt x 157.51175pt.
 
-<./Figures/"XC Figures"/051CorrGram.pdf, id=161, 578.16pt x 433.62pt>
+<./Figures/"XC Figures"/051CorrGram.pdf, id=164, 578.16pt x 433.62pt>
 File: ./Figures/"XC Figures"/051CorrGram.pdf Graphic file (type pdf)
 
 <use ./Figures/"XC Figures"/051CorrGram.pdf>
 Package pdftex.def Info: ./Figures/"XC Figures"/051CorrGram.pdf used on input l
-ine 359.
+ine 361.
 (pdftex.def)             Requested size: 197.1172pt x 157.51175pt.
- [29
+ [30
 
-] [30 <./Figures/XC Figures/xcEx.pdf> <./Figures/XC Figures/AutoCorr.pdf> <./Fi
+] [31 <./Figures/XC Figures/xcEx.pdf> <./Figures/XC Figures/AutoCorr.pdf> <./Fi
 gures/XC Figures/AutoCorrGram.pdf> <./Figures/XC Figures/05Corr.pdf> <./Figures
-/XC Figures/05CorrGram.pdf> <./Figures/XC Figures/051CorrGram.pdf>] [31] [32
+/XC Figures/05CorrGram.pdf> <./Figures/XC Figures/051CorrGram.pdf>] [32] [33
 
 ]
-<./Figures/Errors/twoTimeStepVarSigPOPError.pdf, id=1488, 461.725pt x 346.29375
+<./Figures/Errors/twoTimeStepVarSigPOPError.pdf, id=1491, 461.725pt x 346.29375
 pt>
 File: ./Figures/Errors/twoTimeStepVarSigPOPError.pdf Graphic file (type pdf)
  <use ./Figures/Errors/twoTimeStepVarSigPOPError.pdf>
 Package pdftex.def Info: ./Figures/Errors/twoTimeStepVarSigPOPError.pdf used on
- input line 389.
+ input line 391.
 (pdftex.def)             Requested size: 216.63559pt x 173.14644pt.
 
-<./Figures/Errors/twoTimeVarSigDiffTimesError.pdf, id=1490, 461.725pt x 346.293
+<./Figures/Errors/twoTimeVarSigDiffTimesError.pdf, id=1493, 461.725pt x 346.293
 75pt>
 File: ./Figures/Errors/twoTimeVarSigDiffTimesError.pdf Graphic file (type pdf)
  <use ./Figures/Errors/twoTimeVarSigDiffTimesError.pdf>
 Package pdftex.def Info: ./Figures/Errors/twoTimeVarSigDiffTimesError.pdf used 
-on input line 393.
+on input line 395.
 (pdftex.def)             Requested size: 202.40926pt x 173.14644pt.
 
-<./Figures/Errors/twoTimeStepCOEPOPError.pdf, id=1492, 461.725pt x 346.29375pt>
+<./Figures/Errors/twoTimeStepCOEPOPError.pdf, id=1495, 461.725pt x 346.29375pt>
 File: ./Figures/Errors/twoTimeStepCOEPOPError.pdf Graphic file (type pdf)
 <use ./Figures/Errors/twoTimeStepCOEPOPError.pdf>
 Package pdftex.def Info: ./Figures/Errors/twoTimeStepCOEPOPError.pdf used on in
-put line 397.
+put line 399.
 (pdftex.def)             Requested size: 216.63559pt x 173.14644pt.
 
-<./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf, id=1494, 461.725pt x 346.29
+<./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf, id=1497, 461.725pt x 346.29
 375pt>
 File: ./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf Graphic file (type pdf)
 
  <use ./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf>
 Package pdftex.def Info: ./Figures/Errors/twoTimeStepCOEDiffTimesError.pdf used
- on input line 401.
+ on input line 403.
 (pdftex.def)             Requested size: 202.40926pt x 173.14644pt.
- [33] [34 <./Figures/Errors/twoTimeStepVarSigPOPError.pdf> <./Figures/Errors/tw
+ [34] [35 <./Figures/Errors/twoTimeStepVarSigPOPError.pdf> <./Figures/Errors/tw
 oTimeVarSigDiffTimesError.pdf> <./Figures/Errors/twoTimeStepCOEPOPError.pdf> <.
 /Figures/Errors/twoTimeStepCOEDiffTimesError.pdf>]
-<./Figures/DD/simulatedvarDDPop10.pdf, id=2734, 461.725pt x 346.29375pt>
+<./Figures/DD/simulatedvarDDPop10.pdf, id=2737, 461.725pt x 346.29375pt>
 File: ./Figures/DD/simulatedvarDDPop10.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/simulatedvarDDPop10.pdf>
 Package pdftex.def Info: ./Figures/DD/simulatedvarDDPop10.pdf used on input lin
-e 420.
+e 422.
 (pdftex.def)             Requested size: 194.9707pt x 136.62534pt.
 
-<./Figures/DD/simulatedCOEDDPop10.pdf, id=2736, 461.725pt x 346.29375pt>
+<./Figures/DD/simulatedCOEDDPop10.pdf, id=2739, 461.725pt x 346.29375pt>
 File: ./Figures/DD/simulatedCOEDDPop10.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/simulatedCOEDDPop10.pdf>
 Package pdftex.def Info: ./Figures/DD/simulatedCOEDDPop10.pdf used on input lin
-e 424.
+e 426.
 (pdftex.def)             Requested size: 194.9707pt x 136.62534pt.
 
-<./Figures/DD/simulatedvarDDPop50.pdf, id=2738, 461.725pt x 346.29375pt>
+<./Figures/DD/simulatedvarDDPop50.pdf, id=2741, 461.725pt x 346.29375pt>
 File: ./Figures/DD/simulatedvarDDPop50.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/simulatedvarDDPop50.pdf>
 Package pdftex.def Info: ./Figures/DD/simulatedvarDDPop50.pdf used on input lin
-e 429.
+e 431.
 (pdftex.def)             Requested size: 194.9707pt x 136.62534pt.
 
-<./Figures/DD/simulatedCOEDDPop50.pdf, id=2740, 461.725pt x 346.29375pt>
+<./Figures/DD/simulatedCOEDDPop50.pdf, id=2743, 461.725pt x 346.29375pt>
 File: ./Figures/DD/simulatedCOEDDPop50.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/simulatedCOEDDPop50.pdf>
 Package pdftex.def Info: ./Figures/DD/simulatedCOEDDPop50.pdf used on input lin
-e 433.
+e 435.
 (pdftex.def)             Requested size: 194.9707pt x 136.62534pt.
 
-<./Figures/DD/gtPop10.pdf, id=2742, 461.725pt x 346.29375pt>
+<./Figures/DD/gtPop10.pdf, id=2745, 461.725pt x 346.29375pt>
 File: ./Figures/DD/gtPop10.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/gtPop10.pdf>
-Package pdftex.def Info: ./Figures/DD/gtPop10.pdf used on input line 438.
+Package pdftex.def Info: ./Figures/DD/gtPop10.pdf used on input line 440.
 (pdftex.def)             Requested size: 194.9707pt x 136.62534pt.
 
-<./Figures/DD/gtPop50.pdf, id=2744, 461.725pt x 346.29375pt>
+<./Figures/DD/gtPop50.pdf, id=2747, 461.725pt x 346.29375pt>
 File: ./Figures/DD/gtPop50.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/gtPop50.pdf>
-Package pdftex.def Info: ./Figures/DD/gtPop50.pdf used on input line 442.
+Package pdftex.def Info: ./Figures/DD/gtPop50.pdf used on input line 444.
 (pdftex.def)             Requested size: 194.9707pt x 136.62534pt.
- [35
+ [36
 
 ]
-<./Figures/DD/caDatavarDDPop50.pdf, id=2749, 461.725pt x 346.29375pt>
+<./Figures/DD/caDatavarDDPop50.pdf, id=2752, 461.725pt x 346.29375pt>
 File: ./Figures/DD/caDatavarDDPop50.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/caDatavarDDPop50.pdf>
 Package pdftex.def Info: ./Figures/DD/caDatavarDDPop50.pdf used on input line 4
-52.
+54.
 (pdftex.def)             Requested size: 216.63559pt x 158.9201pt.
 
-<./Figures/DD/caDataCOEDD.pdf, id=2751, 461.725pt x 346.29375pt>
+<./Figures/DD/caDataCOEDD.pdf, id=2754, 461.725pt x 346.29375pt>
 File: ./Figures/DD/caDataCOEDD.pdf Graphic file (type pdf)
 
 <use ./Figures/DD/caDataCOEDD.pdf>
-Package pdftex.def Info: ./Figures/DD/caDataCOEDD.pdf used on input line 456.
+Package pdftex.def Info: ./Figures/DD/caDataCOEDD.pdf used on input line 458.
 (pdftex.def)             Requested size: 216.63559pt x 158.9201pt.
- [36 <./Figures/DD/simulatedvarDDPop10.pdf> <./Figures/DD/simulatedCOEDDPop10.p
+ [37 <./Figures/DD/simulatedvarDDPop10.pdf> <./Figures/DD/simulatedCOEDDPop10.p
 df> <./Figures/DD/simulatedvarDDPop50.pdf> <./Figures/DD/simulatedCOEDDPop50.pd
-f> <./Figures/DD/gtPop10.pdf> <./Figures/DD/gtPop50.pdf>] [37 <./Figures/DD/caD
-atavarDDPop50.pdf> <./Figures/DD/caDataCOEDD.pdf>] <./Figures/roc.pdf, id=2810,
+f> <./Figures/DD/gtPop10.pdf> <./Figures/DD/gtPop50.pdf>] [38 <./Figures/DD/caD
+atavarDDPop50.pdf> <./Figures/DD/caDataCOEDD.pdf>] <./Figures/roc.pdf, id=2813,
  461.725pt x 346.29375pt>
 File: ./Figures/roc.pdf Graphic file (type pdf)
 
 <use ./Figures/roc.pdf>
-Package pdftex.def Info: ./Figures/roc.pdf used on input line 483.
+Package pdftex.def Info: ./Figures/roc.pdf used on input line 485.
 (pdftex.def)             Requested size: 216.63559pt x 173.14644pt.
 
-<./Figures/rocPop50.pdf, id=2812, 461.725pt x 346.29375pt>
+<./Figures/rocPop50.pdf, id=2815, 461.725pt x 346.29375pt>
 File: ./Figures/rocPop50.pdf Graphic file (type pdf)
 
 <use ./Figures/rocPop50.pdf>
-Package pdftex.def Info: ./Figures/rocPop50.pdf used on input line 487.
+Package pdftex.def Info: ./Figures/rocPop50.pdf used on input line 489.
 (pdftex.def)             Requested size: 216.63559pt x 173.14644pt.
- [38] [39 <./Figures/roc.pdf> <./Figures/rocPop50.pdf>] [40] [41] [42
-
-] [43
+ [39] [40 <./Figures/roc.pdf> <./Figures/rocPop50.pdf>] [41] [42] [43
 
 ] [44
 
-] [45] [46] [47] [48] (./main.aux) ) 
+] [45
+
+] [46] [47] [48] [49] (./main.aux) ) 
 Here is how much of TeX's memory you used:
  6727 strings out of 494910
  99507 string characters out of 6179836
@@ -1015,10 +1015,10 @@ ts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1
 c/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmti8.pfb>
-Output written on main.pdf (54 pages, 1031792 bytes).
+Output written on main.pdf (55 pages, 1032992 bytes).
 PDF statistics:
- 2946 PDF objects out of 2984 (max. 8388607)
- 1949 compressed objects within 20 object streams
+ 2950 PDF objects out of 2984 (max. 8388607)
+ 1952 compressed objects within 20 object streams
  0 named destinations out of 1000 (max. 500000)
  259 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -78,7 +78,7 @@ if __name__=='__main__':
 	ax0.get_lines()[0].set_markersize(5.0)
 	ax0.get_lines()[1].set_linewidth(2.0)
 	ax0.get_lines()[1].set_color('c')
-	plt.savefig("../../Main Writing/Figures/DD/gtQQpop50.svg",format = 'svg')
+	#plt.savefig("../../Main Writing/Figures/DD/gtQQpop50.svg",format = 'svg')
 	print(res[1])
 	plt.show()
 	plt.scatter(range(len(avgTotalDD)),plotTotalDD,s=5)

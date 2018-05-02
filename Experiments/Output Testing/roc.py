@@ -107,7 +107,7 @@ if __name__=='__main__':
 	#calculate the ROC plot
 	defaultX = np.arange(0,1.01,0.01)
 	defaultY = np.arange(0,1.01,0.01)
-	groundTruth = "../Syn Weights/groundTruth50.csv"
+	groundTruth = "../Syn Weights/groundTruth10.csv"
 	sumTprXC = np.array([])
 	sumFprXC = np.array([])
 	sumTprCOE= np.array([])
@@ -116,10 +116,10 @@ if __name__=='__main__':
 	sumFprVar = np.array([])
 	#cross correlation ROC
 	aucXC = []
-	for subdir in os.listdir("../Other Methods/xcThresholds/pop50/"):
+	for subdir in os.listdir("../Other Methods/xcThresholds/"):
 		if fnmatch.fnmatch(subdir,"*xc"):
 			#variable logistical activation function ROC
-			tprXC, fprXC = calculateROC(groundTruth,"../Other Methods/xcThresholds/pop50/"+subdir+"/","*xcMatrix.csv",xc=True)
+			tprXC, fprXC = calculateROC(groundTruth,"../Other Methods/xcThresholds/"+subdir+"/","*xcMatrix.csv",xc=True)
 			if not sumTprXC.all():
 				sumTprXC = tprXC
 				sumFprXC = fprXC
@@ -129,10 +129,10 @@ if __name__=='__main__':
 		aucXC = np.append(aucXC,np.trapz(tprXC, fprXC))
 	print("Finished with xc")
 	aucVAR = []
-	for subdir in os.listdir("../varSig thresholds/pop50/"):
+	for subdir in os.listdir("../varSig thresholds/pop10/"):
 		if fnmatch.fnmatch(subdir,"*downsample"):
 			#variable logistical activation function ROC
-			tprVar, fprVar = calculateROC(groundTruth,"../varSig thresholds/pop50/"+subdir+"/","*weightMatrix.csv")
+			tprVar, fprVar = calculateROC(groundTruth,"../varSig thresholds/pop10/"+subdir+"/","*weightMatrix.csv")
 			if not sumTprVar.all():
 				sumTprVar = tprVar
 				sumFprVar = fprVar
@@ -142,10 +142,10 @@ if __name__=='__main__':
 		aucVAR = np.append(aucVAR,np.trapz(tprVar, fprVar))
 	print("Finished with varsig")
 	aucCOE = []
-	for subdir in os.listdir("../generalizedCOE thresholds/pop50/"):
+	for subdir in os.listdir("../generalizedCOE thresholds/pop10/"):
 		if fnmatch.fnmatch(subdir,"*downsample"):
 			#generalized model ROC
-			tprCOE, fprCOE = calculateROC(groundTruth,"../generalizedCOE thresholds/pop50/"+subdir+"/","*weightMatrix.csv")
+			tprCOE, fprCOE = calculateROC(groundTruth,"../generalizedCOE thresholds/pop10/"+subdir+"/","*weightMatrix.csv")
 			if not sumTprCOE.all():
 				sumTprCOE = tprCOE
 				sumFprCOE = fprCOE
@@ -172,7 +172,9 @@ if __name__=='__main__':
 	ax1.legend((defaultGraph,xcGraph,COEGraph,varGraph),("Linear","XC","Base","Activation"))
 	plt.xlim(0,1)
 	plt.ylim(0,1)
-	#plt.savefig("../../Main Writing/Figures/rocPop50.svg",format='svg')
+	plt.xlabel("FPR")
+	plt.ylabel("TPR")
+	plt.savefig("../../Main Writing/Figures/rocPop10.svg",format='svg')
 	plt.show()
 	#print(tprxc,fprxc)
 	print("xc:",np.mean(aucXC),np.std(aucXC),np.trapz(tprxc,fprxc))

@@ -215,7 +215,7 @@ Backpropagation between the hidden and input layers of the follow a similar appr
 \subsection{NEST: Generating Training Data}
 There are several reasons for generating simulated calcium imaging data for the purposes of network reconstruction. First, generation of simulated calcium imaging data allows for benchmarking of the reconstruction methods employed. In typical calcium imaging data, the ground truth is not known, resulting in a lack of comparison between the reconstructed network and the network targeted for reconstruction. By generating simulated networks and recreating calcium imaging data, we ensure access to the ground truth for comparison with the model. Simulation of training data also permits programming of particular characteristics to the network, and observing the changes of this reconstruction in both the simulated data and the reconstruction of these networks.\par
 Machine learning methods are typically trained on some prior data set. Simulation of calcium imaging data provides an easily accessible method of generating data for training and testing the machine learning based model, due to unconstrained and unrestricted access to data, before allowing the model to analyze recorded data that would be ideally used as testing data. Additionally, including a training set ensures that the algorithm is able to remain generalized; that is, the algorithm does not learn to represent that single data set exceptionally well, and fail when a different pattern is presented to the algorithm.\par
-The simulations presented here are performed in NEST simulator, a tool maintained by the NEST initiative (Kunkel et al., 2017). The NEST simulator was selected for the purpose of simulations that maintain biological realism and complexity, with emphasis on simulation of large neuronal networks. The advantage NEST has over other simulators is the capability to simulate large networks with varying facets, such as synapse and neuron types, while retaining accurate representation of the individual neurons.\par
+The simulations presented here are performed in NEST simulator, a tool maintained by the NEST initiative (Kunkel et al., 2017). The NEST simulator was selected for the purpose of simulations that maintain biological realism and complexity, with emphasis on simulation of large neuronal networks. The advantage NEST has over other simulators is the capability to simulate large networks with varying facets, such as synapse and neuron types, while retaining accurate representation of the individual neurons (Brette et al., 2007).\par
 \newpage
 \section{Methods}
 
@@ -416,6 +416,19 @@ We first test the model on a miniumum working example to ensure the backpropagat
 Degree distribution analysis was performed on the final weight matrices produced by the models for both simulated and \textit{Xenopus Laevis} calcium imaging recordings, with a threshold of 0.50, with population sizes of 10 and 50 for the simulated data adjacency matrices; in \textit{Xenopus} calcium imaging data, the population size varied, depending on the recording. The average degree distributions of the predicted adjacency matrices from simulated data are calculated by averaging the degree distribution over all predictions. Calculations of the average degree distribution from the calcium imaging data predictions are performed in the same fashion, over 6 predicted adjacency matrices from 6 \textit{in-vivo} calcium imaging recordings from \textit{Xenopus Laevis}. The average degree distributions differed between the simulation prediction adjacencies (Figures \ref{DD:c} and \ref{DD:d}) and the calcium imaging prediction adjacencies (Figures \ref{DD2:a} and \ref{DD2:b}); where the simulated data produced an average degree distribution resembling a normal distribution, the average degree distribution calculated at the same threshold value of 0.5 from the calcium imaging data resembles a power-law distribution, in both the base model and the variable activation model.
 
 \begin{figure}[H]
+\begin{minipage}{0.49\linewidth}
+\captionsetup{position=top}
+\subfloat[]{\label{DD2:a}\includegraphics[scale=0.50,trim={0 0 1cm 1cm},clip]{./Figures/DD/caDatavarDDPop50.pdf}}
+\end{minipage}
+\begin{minipage}{0.50\linewidth}
+\captionsetup{position=top}
+\subfloat[]{\label{DD2:b}\includegraphics[scale=0.50,trim={0 0 1cm 1cm},clip]{./Figures/DD/caDataCOEDD.pdf}}
+\end{minipage}
+\caption[Average Degree Distribution in \textit{Xenopus} Calcium Imaging Data Predictions]{\textbf{Average Degree Distribution in \textit{Xenopus} Calcium Imaging Data Predictions.} (a) The average degree distribution of the resulting variable activation model prediction adjacency matrix from 6 \textit{in-vivo} recordings of calcium imaging data from {Xenopus Laevis} (b) Distribution of the adjacency matrices produced from the base model, from the same datasets as (a).}
+\label{fig:DD2}
+\end{figure}
+
+\begin{figure}[H]
 \vspace*{-5mm}
 \begin{minipage}{0.49\linewidth}
 \captionsetup{position=top}
@@ -448,19 +461,6 @@ Degree distribution analysis was performed on the final weight matrices produced
 \label{fig:DD}
 \end{figure}
 
-\begin{figure}[H]
-\begin{minipage}{0.49\linewidth}
-\captionsetup{position=top}
-\subfloat[]{\label{DD2:a}\includegraphics[scale=0.50,trim={0 0 1cm 1cm},clip]{./Figures/DD/caDatavarDDPop50.pdf}}
-\end{minipage}
-\begin{minipage}{0.50\linewidth}
-\captionsetup{position=top}
-\subfloat[]{\label{DD2:b}\includegraphics[scale=0.50,trim={0 0 1cm 1cm},clip]{./Figures/DD/caDataCOEDD.pdf}}
-\end{minipage}
-\caption[Average Degree Distribution in \textit{Xenopus} Calcium Imaging Data Predictions]{\textbf{Average Degree Distribution in \textit{Xenopus} Calcium Imaging Data Predictions.} (a) The average degree distribution of the resulting variable activation model prediction adjacency matrix from 6 \textit{in-vivo} recordings of calcium imaging data from {Xenopus Laevis} (b) Distribution of the adjacency matrices produced from the base model, from the same datasets as (a).}
-\label{fig:DD2}
-\end{figure}
-
 \subsection{ROC}
 The receiver operating characteristic (ROC) curve is a measure of performance for testing the accuracy of models where the ground truth underlying the data is available for comparison. The receiver operating characteristic plots the true positive rate (TPR) against the false positive rate (FPR) to evaluate the performance of the model on the simulated data sets (Garofalo et al., 2009). The TPR is evaluated according to $$TPR = \frac{TP}{TP + FN}$$ where the FPR is evaluated according to $$FPR = \frac{FP}{FP + TN}$$ where TP, FP, TN and FN are defined in the contingency table (Figure \ref{contingencyTable})
 
@@ -482,13 +482,13 @@ ROC curves are constructed by varying some parameter and observing the resulting
 \begin{figure}[H]
 \begin{minipage}{0.49\linewidth}
 \captionsetup{position=top}
-\subfloat[]{\label{roc:a}\includegraphics[scale=0.5,trim={0 0 1cm 0},clip]{./Figures/roc.pdf}}
+\subfloat[]{\label{roc:a}\includegraphics[scale=0.5,trim={0 0 1cm 0},clip]{./Figures/rocPop10.pdf}}
 \end{minipage}
 \begin{minipage}{0.50\linewidth}
 \captionsetup{position=top}
 \subfloat[]{\label{roc:b}\includegraphics[scale=0.5,trim={0 0 1cm 0},clip]{./Figures/rocPop50.pdf}}
 \end{minipage}
-\caption[Receiver Operating Characteristic]{Receiver Operating Characteristic. The linear function depicted is random guessing, with an AUC of 0.5.(a) ROC on cross-correlations and model results from population size of 10. Activation AUC = 0.54, Base = 0.58, XC = 0.53. (b) ROC on cross-correlations and model results from population size of 50. Activation AUC = 0.49, Base = 0.51, XC = 0.53.}
+\caption[Receiver Operating Characteristic]{Receiver Operating Characteristic. The linear function depicted is random guessing, with an AUC of 0.5.(a) ROC on cross-correlations and model results from population size of 10. Activation AUC = 0.54, Base = 0.58, XC = 0.53. (b) ROC on cross-correlations and model results from population size of 50. Activation AUC = 0.49, Base = 0.51, XC = 0.53. Activation is the variable activation function model, while Base is the base model.}
 \label{fig:roc}
 \end{figure}
 
@@ -519,6 +519,18 @@ Due to technical limitations, analysis of calcium imaging data was performed on 
 \subsection{Code and Data}
 All code and and data are available on github at https://github.com/DerekLow18/SPROJ.git.
 \subsection{Supplementary Figure}
+\begin{figure}[H]
+\begin{minipage}{0.49\linewidth}
+\captionsetup{position=top}
+\subfloat[]{\label{QQ:a}\includegraphics[scale=0.5,trim={0 0 1cm 0.5cm},clip]{./Figures/DD/gtQQpop50.pdf}}
+\end{minipage}
+\begin{minipage}{0.50\linewidth}
+\captionsetup{position=top}
+\subfloat[]{\label{QQ:b}\includegraphics[scale=0.5,trim={0 0 1cm 0.5cm},clip]{./Figures/DD/simulatedvarQQpop50.pdf}}
+\end{minipage}
+\caption[(S1) Q-Q Plots of Degree Distributions]{\textbf{Q-Q Plots of Degree Distributions.} Here, we compare the average degree distribution of (a) 40 ground truth adjacency matrices of population size 50 ($R^2$ = 0.9329), and (b) 40 predicted adjacency matrices of population size 50 ($R^2$ = 0.9299), to the normal distribution.}
+\label{fig:QQ}
+\end{figure}
 
 \clearpage
 \section{Works Cited}

@@ -87,7 +87,7 @@ if __name__=='__main__':
 	ax0.get_lines()[0].set_markersize(5.0)
 	ax0.get_lines()[1].set_linewidth(2.0)
 	ax0.get_lines()[1].set_color('c')
-	plt.savefig("../../Main Writing/Figures/DD/simulatedvarQQpop50.svg",format = 'svg')
+	#plt.savefig("../../Main Writing/Figures/DD/simulatedvarQQpop50.svg",format = 'svg')
 	plt.show()
 	print(res[1])
 	fig = plt.figure()

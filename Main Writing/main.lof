@@ -1,33 +1,33 @@
-\contentsline {figure}{\numberline {1}{\ignorespaces Sample Adjacency Matrix of Population Size 3}}{7}
-\contentsline {figure}{\numberline {2}{\ignorespaces Simple, Feedforward Neural Network}}{17}
-\contentsline {figure}{\numberline {3}{\ignorespaces Experimental Pipeline}}{22}
-\contentsline {figure}{\numberline {4}{\ignorespaces Raster Plot via NEST Simulator.}}{24}
-\contentsline {figure}{\numberline {5}{\ignorespaces Cross-Correlation Histogram (Cross-correlogram) Procedure and Example.}}{31}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{31}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{31}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{31}
-\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {}}}{31}
-\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {}}}{31}
-\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {}}}{31}
-\contentsline {figure}{\numberline {6}{\ignorespaces Error Convergence of Model On Two Consecutive Time Steps.}}{35}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{35}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{35}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{35}
-\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {}}}{35}
-\contentsline {figure}{\numberline {7}{\ignorespaces Average Degree Distribution in \textit {Xenopus} Calcium Imaging Data Predictions}}{36}
+\contentsline {figure}{\numberline {1}{\ignorespaces Sample Adjacency Matrix of Population Size 3}}{8}
+\contentsline {figure}{\numberline {2}{\ignorespaces Simple, Feedforward Neural Network}}{21}
+\contentsline {figure}{\numberline {3}{\ignorespaces Experimental Pipeline}}{26}
+\contentsline {figure}{\numberline {4}{\ignorespaces Raster Plot via NEST Simulator.}}{29}
+\contentsline {figure}{\numberline {5}{\ignorespaces Cross-Correlation Histogram (Cross-correlogram) Procedure and Example.}}{36}
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{36}
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{36}
-\contentsline {figure}{\numberline {8}{\ignorespaces Average Degree Distribution in Simulated Data Predictions}}{37}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{37}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{37}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{37}
-\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {}}}{37}
-\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {}}}{37}
-\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {}}}{37}
-\contentsline {figure}{\numberline {9}{\ignorespaces Contingency Table}}{38}
-\contentsline {figure}{\numberline {10}{\ignorespaces Receiver Operating Characteristic}}{39}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{39}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{39}
-\contentsline {figure}{\numberline {11}{\ignorespaces (S1) Q-Q Plots of Degree Distributions}}{44}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{36}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {}}}{36}
+\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {}}}{36}
+\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {}}}{36}
+\contentsline {figure}{\numberline {6}{\ignorespaces Error Convergence of Model On Two Consecutive Time Steps.}}{41}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{41}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{41}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{41}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {}}}{41}
+\contentsline {figure}{\numberline {7}{\ignorespaces Average Degree Distribution in Simulated Data Predictions}}{43}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{43}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{43}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{43}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {}}}{43}
+\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {}}}{43}
+\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {}}}{43}
+\contentsline {figure}{\numberline {8}{\ignorespaces Average Degree Distribution in \textit {Xenopus} Calcium Imaging Data Predictions}}{44}
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{44}
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{44}
+\contentsline {figure}{\numberline {9}{\ignorespaces Contingency Table}}{45}
+\contentsline {figure}{\numberline {10}{\ignorespaces Receiver Operating Characteristic}}{46}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{46}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{46}
+\contentsline {figure}{\numberline {11}{\ignorespaces (S1) Q-Q Plots of Degree Distributions}}{52}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{52}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{52}

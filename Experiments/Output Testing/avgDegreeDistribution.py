@@ -3,7 +3,6 @@ import os, sys, fnmatch
 import matplotlib.pyplot as plt
 from itertools import zip_longest
 from matplotlib.ticker import MaxNLocator
-from scipy import stats
 '''
 Across all samples of the same origin, take the resulting matrix at
 threhsold = 0.50 and calculate the degree distribution. Take the average
@@ -55,7 +54,7 @@ if __name__=='__main__':
 	for subdir in os.listdir(path):
 		if fnmatch.fnmatch(subdir,"*downsample"):
 			for file in os.listdir(path+subdir):
-				if fnmatch.fnmatch(file,"50weightMatrix.csv"):
+				if fnmatch.fnmatch(file,"49weightMatrix.csv"):
 					numFiles += 1
 					#calculate the number of connections along each axis, as well as the total
 					#number of connections
@@ -79,24 +78,13 @@ if __name__=='__main__':
 	print("standard error for total DD:", sumStdDev/numFiles)
 	print("max is:", max(plotTotalDD))
 	print("min is",min(plotTotalDD))
-	print("ks test:",stats.shapiro(avgTotalDD[45:96]))
-	fig = plt.figure()
-	ax0=fig.add_subplot(111)
-	res = stats.probplot(avgTotalDD[45:96], dist="norm", plot=plt)
-	ax0.get_lines()[0].set_marker('o')
-	ax0.get_lines()[0].set_markersize(5.0)
-	ax0.get_lines()[1].set_linewidth(2.0)
-	ax0.get_lines()[1].set_color('c')
-	#plt.savefig("../../Main Writing/Figures/DD/simulatedvarQQpop50.svg",format = 'svg')
-	plt.show()
-	print(res[1])
 	fig = plt.figure()
 	ax1 = fig.add_subplot(111)
 	plt.scatter(range(len(avgTotalDD)),plotTotalDD,s=5)
 	ax1.xaxis.set_major_locator(MaxNLocator(integer=True))
 	plt.ylabel("Pr[D=k]")
 	plt.xlabel("Number of Connections")
-	#plt.ylim(0,0.16)
+	plt.ylim(0,0.16)
 	#plt.yscale('log')
 	#plt.xscale('log')
 	#plt.savefig("../../Main Writing/Figures/DD/simulatedvarDDPop10.svg",format = 'svg')

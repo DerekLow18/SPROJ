@@ -14,11 +14,6 @@ p4
 
 Overall, without details, and based only on your explanation, I'm not quite sure how these studies relate to the question of local network connectivity. Based on your description, they sound like generic fMRI studies; maybe looking at redistribution of activation across different areas in development, but there's nothing in this paragraph to suggest that it relates to the topic of your sproj. Do they use similar math? Or do they actually relate their research to local connectivity? That's another question a board member might ask.
 
-
-p32
-
-I'm not quite sure what is happening in this figure. Are you comparing inferred degree distributions to the ground truth? Or should I compare a to e, and d to f? How to read it? Please try to clarify the caption if you can.
-
 p33
 
 So the figure seems to suggest that some neurons are connected to all other neurons. That's something a random reader would probably have questions about, so even if you aren't discussing it in the text, it could be prudent to be ready to discuss it at the board. (I won't be asking these questions; I'm too invested, but if I were not your advisor, that would totally be my question)

@@ -32,11 +32,6 @@ if len(sys.argv) < 2:
 
 dataset = np.genfromtxt(str(sys.argv[1]), delimiter = ',')
 fileID = os.path.splitext(path_leaf(str(sys.argv[1])))[0]
-#for i in range(2,8):
-	#datasetappend = np.genfromtxt("./Downsampled Spikes/pop50sf/0%ddownsample.csv" % i, delimiter = ',')
-	#dataset = np.concatenate((dataset,datasetappend),axis=0)
-	#fileID = "compounded"
-print(dataset.shape)
 #datasetWeights = np.genfromtxt('./Syn Weights/gnp.roundTruth10.csv', delimiter = ',')
 '''
 old_stdout = sys.stdout

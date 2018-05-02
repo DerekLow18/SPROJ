@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  25 APR 2018 22:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.1.16)  2 MAY 2018 11:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -140,18 +140,32 @@ Overfull \hbox (19.70958pt too wide) in paragraph at lines 6--7
  \OT1/cmr/bx/n/10 nals 
  []
 
+! Undefined control sequence.
+l.11         \LARGE
+                   
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-Overfull \hbox (30.16653pt too wide) in paragraph at lines 11--12
- []\OT1/cmr/bx/n/10 Derek 
+
+Overfull \hbox (12.13882pt too wide) in paragraph at lines 12--13
+ []\OT1/cmr/bx/n/10 by 
  []
 
 
-Overfull \hbox (20.8124pt too wide) in paragraph at lines 11--12
+Overfull \hbox (30.16653pt too wide) in paragraph at lines 12--13
+ \OT1/cmr/bx/n/10 Derek 
+ []
+
+
+Overfull \hbox (20.8124pt too wide) in paragraph at lines 12--13
  \OT1/cmr/bx/n/10 Low 
  []
 
 ! Undefined control sequence.
-l.14         \Large
+l.15         \Large
                    
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -243,7 +257,7 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no g in font nullfont!
 Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
-l.21         \Large
+l.22         \Large
                    
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -294,7 +308,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.26 \end{titlepage}
+l.27 \end{titlepage}
                     
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,

@@ -27,8 +27,6 @@ So the figure seems to suggest that some neurons are connected to all other neur
 
 p35
 
-Mention in the figure caption where these figures came from. Which simulations did you use to produce them? Also the figures are missing axes labels. I also recommend to remind the reader in the caption what words like "Base" and "Activatoin" mean here.
-
 I'm also rather confused why cross-correlation performed as random guessing in your models. It's really cool that you have these curves in your sproj, but that would be another obvious question to ask. Usually x-correlation still gives you a bend above the y=x line; why wan't it a case here?
 
 p36
